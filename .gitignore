@@ -1,0 +1,5 @@
+# ignore all generated files while building
+obj_dir/
+
+# ignore all .vcd files
+*.vcd
