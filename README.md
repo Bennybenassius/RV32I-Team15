@@ -46,7 +46,7 @@ LEGEND :       `x` = full responsibility;  `p` = partial contribution;
 
 ## Repo Organisation
 
-* Migrated all files from Lab4 repository ([Link to Lab4 repo](https://github.com/Bennybenassius/Team15))
+* Migrated all files from Lab4 repository. Please refer to Lab4 repository for complete commit history ([Link to Lab4 repo](https://github.com/Bennybenassius/Team15)). 
 
 ---
 <div id="evidence"/>
