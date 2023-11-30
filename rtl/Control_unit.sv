@@ -15,32 +15,94 @@ logic   [2:0]   funct3  = instr[14:12];
 
 always_comb begin    
     case (op)
+        7'd51   :   begin
+            case (funct3)
+
+                3'b000    :   begin 
+                    case(funct7)
+
+                        7'b0    :   begin   // add
+                            RegWrite = 1'b1; // write to destination reg
+                            ALUctrl = 1'b1; // addition
+                            ALUsrc = 1'b0; // register operand
+                            ImmSrc = 1'b0; // not using imm
+                            PCsrc = 1'b0; // no branching
+                        end
+
+                    endcase
+                end
+
+            endcase
+        end
+
         7'd19   :   begin
             case (funct3)
-                3'b000    :   begin
-                    RegWrite = 1'b1; // if addi then we want to write to destination reg
-                    ALUctrl = 1'b1; // in the ALU we defined 1 for add and 0 for subtract
-                    ALUsrc = 1'b1; // need to add with imm
-                    ImmSrc = 1'b1; // need to sign extend the imm to make it 32 bits
+
+                3'b000    :   begin // addi
+                    RegWrite = 1'b1; // write to destination reg
+                    ALUctrl = 1'b1; // addition
+                    ALUsrc = 1'b1; // add with imm
+                    ImmSrc = 1'b1; // need to sign extend
                     PCsrc = 1'b0; // no branching
+                end
+
+                default: begin // do nothing
+                    RegWrite = 1'b0; 
+                    ALUctrl = 1'b0; 
+                    ALUsrc = 1'b0;
+                    ImmSrc = 1'b0;
+                    PCsrc = 1'b0;
                 end
             endcase
         end
-        7'd99   :   begin
+
+        7'd99   :   begin // B-type instr
             case (funct3)
-                3'b001    :  begin      //bne instruction
+
+                3'b000    :  begin      //beq
                     RegWrite = 1'b0; // not writing to any reg
-                    ALUctrl = 1'b0; // need subtraction to calc branch target addr
-                    ALUsrc = 1'b0; // not using imm, need both operands coming from reg
-                    ImmSrc = 1'b1; // need to sign extend the branch target address
+                    ALUctrl = 1'b0;
+                    ALUsrc = 1'b0; // not using imm
+                    ImmSrc = 1'b1; // need sign extend
+                    case(EQ)
+                        1'b1    :   begin 
+                            PCsrc = 1'b1; // need branching
+                        end
+                        default: PCsrc = 1'b0;
+                    endcase
+                end
+
+                3'b001    :  begin      //bne 
+                    RegWrite = 1'b0; // not writing to any reg
+                    ALUctrl = 1'b0;
+                    ALUsrc = 1'b0; // not using imm
+                    ImmSrc = 1'b1; // need to sign extend
                     case(EQ)
                         1'b0    :   begin 
                             PCsrc = 1'b1; // need branching
                         end
+                        default: PCsrc = 1'b0;
                     endcase
-                end
+                end           
             endcase
         end
+
+        7'd103   :   begin  // jalr
+            RegWrite = 1'b1; // store return address (PC+4) in rd
+            ALUctrl = ; 
+            ALUsrc = ;
+            ImmSrc = 1'b1;
+            PCsrc = 1'b1; // need jumping
+        end
+
+        7'd111   :   begin  // jal
+            RegWrite = 1'b1; // store return address (PC+4) in rd
+            ALUctrl = ; 
+            ALUsrc = ;
+            ImmSrc = 1'b1;
+            PCsrc = 1'b1; // need jumping
+        end
+
     endcase
 end
 
