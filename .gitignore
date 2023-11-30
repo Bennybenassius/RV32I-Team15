@@ -1,5 +1,8 @@
-# ignore all generated files while building
+# ignore all all files in any directory named obj_dir
 obj_dir/
 
 # ignore all .vcd files
 *.vcd
+
+# ignore all all files in any directory named .obsidian
+.obsidian/
