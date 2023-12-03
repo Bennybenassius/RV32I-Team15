@@ -21,23 +21,20 @@
 
 ---
 
-## Workload Division and Contributions 
+## Contribution Table
 
-| File Name    |  Yi Keat   | Benny  | Deniz | Yueming  |
-|:-------------|:----------------:|:----------:|:------------:|:--------------:|
-| ALU.sv |  | x | |
-| control.sv |p | | x |
-| register_file.sv | |x | |
-| memory.sv | | | |x
-| extend.sv |x |x | |
-| fetch_reg_file.sv | |x | |
-| decode_reg_file.sv | |x | |p
-| execute_reg_file.sv | |x | |p
-| mem_reg_file.sv | |x | |
-| top.sv (singlecycle) |x | |p |
-| top.sv (pipeline) |p |x |x |p
-| cpu_tb.cpp |x | |x |
-| F1.s |x | | |x
+| File Name                |  Yi Keat   | Benny  | Deniz | Yueming  |
+|:-------------------------|:----------:|:------:|:-----:|:--------:|
+| ALU.sv                   |            |        |       |          |
+| ALU_RegFile.sv           |            |        |       |          |
+| Control_unit.sv          |            |        |       |          |
+| Instr_mem.sv             |            |        |       |          |
+| ProgramCounter.sv        |            |        |       |          |
+| RegFile.sv               |            |        |       |          |
+| Sign_extend.sv           |            |        |       |          |
+| top_tb.cpp (singlecycle) |            |        |       |          |
+| top.sv (singlecycle)     |            |        |       |          |
+| F1.s                     |            |        |       |          |
 
 LEGEND :       `x` = full responsibility;  `p` = partial contribution; 
 
@@ -46,7 +43,7 @@ LEGEND :       `x` = full responsibility;  `p` = partial contribution;
 
 ## Repo Organisation
 
-* Migrated all files from Lab4 repository. Please refer to Lab4 repository for complete commit history ([Link to Lab4 repo](https://github.com/Bennybenassius/Team15)). 
+* Migrated all base files from Lab4 repository. Please refer to Lab4 repository for complete commit history ([Link to Lab4 repo](https://github.com/Bennybenassius/Team15)). 
 
 ---
 <div id="evidence"/>
