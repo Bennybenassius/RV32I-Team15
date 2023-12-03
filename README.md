@@ -36,7 +36,7 @@
 | top.sv (singlecycle)     |            |        |       |          |
 | F1.s                     |            |        |       |          |
 
-LEGEND :       `x` = full responsibility;  `p` = partial contribution; 
+LEGEND :       `m` = main responsibility;  `c` = collaborated; 
 
 ---
 <div id="structure"/>
