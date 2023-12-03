@@ -13,7 +13,7 @@ module Control_unit #(
     output logic        MemWrite,
     output logic [2:0]  ALUControl,
     output logic        ALUsrc,
-    output logic        ImmSrc,
+    output logic [1:0]  ImmSrc,
     output logic        RegWrite
 );
 
@@ -25,15 +25,37 @@ always_comb begin
                 3'b000    :   begin 
                     case(funct7)
 
-                        7'b0    :   begin   // add
-                            RegWrite = 1'b1; // write to destination reg
-                            ALUctrl = 1'b1; // addition
-                            ALUsrc = 1'b0; // register operand
-                            ImmSrc = 1'b0; // not using imm
-                            PCsrc = 1'b0; // no branching
+                        1'b0    :   begin   // ADD
+                            PCsrc = 1'b0;       // no branching
+                            ResultSrc = ;
+                            MemWrite = ;
+                            ALUControl = 1'b1;  // addition
+                            ALUsrc = 1'b0;      // register operand
+                            ImmSrc = 1'b0;      // not using imm
+                            RegWrite = 1'b1;    // write to destination reg
+                        end
+
+                        default: begin // do nothing
+                            PCsrc = 1'b0;
+                            ResultSrc = 1'b0;
+                            MemWrite = 1'b0;
+                            ALUControl = 1'b0; 
+                            ALUsrc = 1'b0;
+                            ImmSrc = 1'b0;
+                            RegWrite = 1'b0; 
                         end
 
                     endcase
+                end
+
+                default: begin // do nothing
+                    PCsrc = 1'b0;
+                    ResultSrc = 1'b0;
+                    MemWrite = 1'b0;
+                    ALUControl = 1'b0; 
+                    ALUsrc = 1'b0;
+                    ImmSrc = 1'b0;
+                    RegWrite = 1'b0; 
                 end
 
             endcase
@@ -42,32 +64,39 @@ always_comb begin
         7'd19   :   begin
             case (funct3)
 
-                3'b000    :   begin // addi
-                    RegWrite = 1'b1; // write to destination reg
-                    ALUctrl = 1'b1; // addition
-                    ALUsrc = 1'b1; // add with imm
-                    ImmSrc = 1'b1; // need to sign extend
-                    PCsrc = 1'b0; // no branching
+                3'b000    :   begin // ADDI
+                    PCsrc = 1'b0;       // no branching
+                    ResultSrc = ;
+                    MemWrite = ;
+                    ALUControl = 1'b1;  // addition
+                    ALUsrc = 1'b1;      // add with imm
+                    ImmSrc = 1'b1;      // need to sign extend
+                    RegWrite = 1'b1;    // write to destination reg
                 end
 
                 default: begin // do nothing
-                    RegWrite = 1'b0; 
-                    ALUctrl = 1'b0; 
+                    PCsrc = 1'b0;
+                    ResultSrc = 1'b0;
+                    MemWrite = 1'b0;
+                    ALUControl = 1'b0; 
                     ALUsrc = 1'b0;
                     ImmSrc = 1'b0;
-                    PCsrc = 1'b0;
+                    RegWrite = 1'b0; 
                 end
+
             endcase
         end
 
         7'd99   :   begin // B-type instr
             case (funct3)
 
-                3'b000    :  begin      //beq
-                    RegWrite = 1'b0; // not writing to any reg
-                    ALUctrl = 1'b0;
+                3'b000    :  begin  // BEQ
+                    ResultSrc = ;
+                    MemWrite = ;
+                    ALUControl = 1'b0;
                     ALUsrc = 1'b0; // not using imm
                     ImmSrc = 1'b1; // need sign extend
+                    RegWrite = 1'b0; // not writing to any reg
                     case(zero)
                         1'b1    :   begin 
                             PCsrc = 1'b1; // need branching
@@ -76,35 +105,62 @@ always_comb begin
                     endcase
                 end
 
-                3'b001    :  begin      //bne 
-                    RegWrite = 1'b0; // not writing to any reg
-                    ALUctrl = 1'b0;
+                3'b001    :  begin  // BNE 
+                    ResultSrc = ;
+                    MemWrite = ;
+                    ALUControl = 1'b0;
                     ALUsrc = 1'b0; // not using imm
                     ImmSrc = 1'b1; // need to sign extend
+                    RegWrite = 1'b0; // not writing to any reg
                     case(zero)
                         1'b0    :   begin 
                             PCsrc = 1'b1; // need branching
                         end
                         default: PCsrc = 1'b0;
                     endcase
-                end           
+                end      
+
+                default: begin // do nothing
+                    PCsrc = 1'b0;
+                    ResultSrc = 1'b0;
+                    MemWrite = 1'b0;
+                    ALUControl = 1'b0; 
+                    ALUsrc = 1'b0;
+                    ImmSrc = 1'b0;
+                    RegWrite = 1'b0; 
+                end
+
             endcase
         end
 
-        7'd103   :   begin  // jalr
-            RegWrite = 1'b1; // store return address (PC+4) in rd
-            ALUctrl = ; 
+        7'd103   :   begin  // JALR
+            PCsrc = 1'b1;       // need jumping
+            ResultSrc = ;
+            MemWrite = ;
+            ALUControl = ; 
             ALUsrc = ;
             ImmSrc = 1'b1;
-            PCsrc = 1'b1; // need jumping
+            RegWrite = 1'b1;    // store return address (PC+4) in rd
         end
 
-        7'd111   :   begin  // jal
-            RegWrite = 1'b1; // store return address (PC+4) in rd
-            ALUctrl = ; 
+        7'd111   :   begin  // JAL
+            PCsrc = 1'b1;       // need jumping
+            ResultSrc = ;
+            MemWrite = ;
+            ALUControl = ; 
             ALUsrc = ;
             ImmSrc = 1'b1;
-            PCsrc = 1'b1; // need jumping
+            RegWrite = 1'b1;    // store return address (PC+4) in rd
+        end
+
+        default: begin // do nothing
+            PCsrc = 1'b0;
+            ResultSrc = 1'b0;
+            MemWrite = 1'b0;
+            ALUControl = 1'b0; 
+            ALUsrc = 1'b0;
+            ImmSrc = 1'b0;
+            RegWrite = 1'b0; 
         end
 
     endcase
