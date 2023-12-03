@@ -1,17 +1,21 @@
 module Control_unit #(
     parameter D_WIDTH = 32
 )(
-    input logic [D_WIDTH-1:0]   instr, // instruction is 32 bits long
-    input logic                 EQ,
-    output logic                RegWrite,
-    output logic                ALUctrl,
-    output logic                ALUsrc,
-    output logic                ImmSrc,
-    output logic                PCsrc
-);
+    // INPUTS
+    input logic [6:0]   op,
+    input logic [2:0]   funct3,
+    input logic         funct7,
+    input logic         zero,
 
-logic   [6:0]   op      = instr[6:0];
-logic   [2:0]   funct3  = instr[14:12];
+    // OUTPUTS
+    output logic        PCsrc,
+    output logic        ResultSrc,
+    output logic        MemWrite,
+    output logic [2:0]  ALUControl,
+    output logic        ALUsrc,
+    output logic        ImmSrc,
+    output logic        RegWrite
+);
 
 always_comb begin    
     case (op)
@@ -64,7 +68,7 @@ always_comb begin
                     ALUctrl = 1'b0;
                     ALUsrc = 1'b0; // not using imm
                     ImmSrc = 1'b1; // need sign extend
-                    case(EQ)
+                    case(zero)
                         1'b1    :   begin 
                             PCsrc = 1'b1; // need branching
                         end
@@ -77,7 +81,7 @@ always_comb begin
                     ALUctrl = 1'b0;
                     ALUsrc = 1'b0; // not using imm
                     ImmSrc = 1'b1; // need to sign extend
-                    case(EQ)
+                    case(zero)
                         1'b0    :   begin 
                             PCsrc = 1'b1; // need branching
                         end
