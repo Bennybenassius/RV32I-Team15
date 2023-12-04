@@ -18,6 +18,7 @@ always_comb begin
         3'b101: ALUout = ALUop1 >> (ALUop2 & 5'b11111); //srl, shift right logical, masked
         3'b110: ALUout = ALUop1 | AlUop2; // Or operation
         3'b111: ALUout = ALUop1 & ALUop2; //AND
+        default: ALUout = 0; // Handle unexpected ALUctrl values
     endcase
 end
 endmodule
