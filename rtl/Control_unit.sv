@@ -5,7 +5,7 @@ module Control_unit #(
     input logic [6:0]   op,
     input logic [2:0]   funct3,
     input logic         funct7,
-    input logic         zero,
+    input logic         Zero,
 
     // OUTPUTS
     output logic [1:0]  PCSrc,
@@ -97,7 +97,7 @@ always_comb begin
                     ALUsrc = 1'b0;      // not using imm
                     ImmSrc = 2'b1;      // need sign extend
                     RegWrite = 1'b0;    // not writing to any reg
-                    case(zero)
+                    case(Zero)
                         1'b1    :   begin 
                             PCSrc = 2'b1; // need branching
                         end
@@ -112,7 +112,7 @@ always_comb begin
                     ALUsrc = 1'b0;      // not using imm
                     ImmSrc = 2'b1;      // need to sign extend
                     RegWrite = 1'b0;    // not writing to any reg
-                    case(zero)
+                    case(Zero)
                         1'b0    :   begin 
                             PCSrc = 2'b1; // need branching
                         end
