@@ -9,15 +9,19 @@ module top#(
 //                 WIRE
 logic [31:0]    Addr;
 
-logic RegWrite;
-logic ALUctrl;
-logic ALUsrc;
-logic ImmSrc;
-logic PCsrc;
-logic [31: 0]    instr;
-logic [31: 0]    ImmOp;
+logic           RegWrite;
+logic [2: 0]    ALUControl;
+logic           ALUSrc;
+logic           ImmSrc;
+logic [1: 0]    PCsrc;
+logic [31: 0]   instr;
+logic [31: 0]   ImmExt;
 
-logic EQ;
+logic   [6:0]   op      = instr[6:0];
+logic   [2:0]   funct3  = instr[14:12];
+logic           funct7  = instr[30];
+
+logic           Zero;
 
 logic [31: 0]   WriteData;
 logic [31: 0]   ALUResult;
@@ -31,23 +35,26 @@ ProgramCounter ProgramCounter(
     //Input
     .clk(clk),
     .rst(rst),
-    .ImmOp(ImmOp),
-    .PCsrc(PCsrc),
+    .ImmExt(ImmExt),
+    .PCSrc(PCSrc),
+    .PCjalr(PCjalr),
     //Output
-    .PC_out(Addr)
+    .PC(Addr)
 );
 
-Data_control Data_control(
+Control_unit Control_unit(
     //Input
-    .EQ(EQ),
-    .instr(instr),
+    .Zero(Zero),
+    .op(op),
+    .funct3(funct3),
+    .funct7(funct7),
+    
     //Output
     .RegWrite(RegWrite),
-    .ALUctrl(ALUctrl),
-    .ALUsrc(ALUsrc),
+    .ALUControl(ALUControl),
+    .ALUSrc(ALUSrc),
     .ImmSrc(ImmSrc),
-    .PCsrc(PCsrc),
-
+    .PCSrc(PCsrc),
     .MemWrite(MemWrite),
     .ResultSrc(ResultSrc)
 );
@@ -67,18 +74,18 @@ ALU_RegFile ALU_RegFile(
     //Input
     .clk(clk),
     .RegWrite(RegWrite),
-    .ALUsrc(ALUsrc),
-    .ALUcrtl(ALUctrl),
+    .ALUSrc(ALUSrc),
+    .ALUControl(ALUControl),
     .rs1(rs1),
     .rs2(rs2),
     .rd(rd),
-    .ImmOp(ImmOp),
+    .ImmOp(ImmExt),
     .WD3(Result),
     //Output
-    .EQ(EQ),
-    .ALUout(ALUResult),
+    .Zero(Zero),
+    .ALUResult(ALUResult),
     .a0(a0),
-    .RD2(WriteData)
+    .WriteData(WriteData)
 );
 
 Sign_extend Sign_extend(
@@ -86,7 +93,7 @@ Sign_extend Sign_extend(
     .instr(instr),
     .ImmSrc(ImmSrc),
     //Output
-    .ImmOp(ImmOp)
+    .ImmExt(ImmExt)
 );
 
 Data_mem Data_mem(
@@ -103,10 +110,6 @@ always_comb begin
     if (ResultSrc) Result = ReadData;
     else Result = ALUResult;
 end;
-
-// always_ff @(posedge clk) begin
-//     $monitor("%t %m Addr: %h, instr: %h, a0: %h, RegWrite: %b, rs1: %b, rs2: %b, rd: %b, EQ: %b, PCsrc: %b, ImmOp: %h", $time, Addr, instr, a0, RegWrite, rs1, rs2, rd, EQ, PCsrc, ImmOp);
-// end;
 
 //==========================================
 endmodule
