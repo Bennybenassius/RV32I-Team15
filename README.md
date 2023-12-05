@@ -17,7 +17,7 @@
 | Yi Keat Khoo   | 02021759 | **adrianyk**  | akk121@ic.ac.uk  | [Yi Keat's Statement](Personal_Statements/Yi_Keat_Khoo.md)
 | Benny Zong Liu | 02015180 | **Bennybenassius** | bzl21@ic.ac.uk     | [Benny's Statement](Personal_Statements/Benny_Zong_Liu.md)
 | Deniz Goy |  | **DenizzG** |  | [Deniz's Statement](Personal_Statements/Deniz_Goy.md)
-| Yueming Wang  |  | **rrroooyyywang**  |  | [Yueming's Statement](Personal_Statements/Yueming_Wang.md)
+| Yueming Wang  |  | **rrroooyyywang** (commited as root for few time) |  | [Yueming's Statement](Personal_Statements/Yueming_Wang.md)
 
 ---
 
