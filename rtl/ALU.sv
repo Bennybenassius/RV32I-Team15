@@ -11,15 +11,15 @@ assign Zero = (SrcA == SrcB);   //Flag for equals or not
 
 always_comb begin
     case(ALUControl)
-        3'b000: ALUResult = SrcA + SrcB; //add
-        3'b001: ALUResult = SrcA << (SrcB & 5'b11111); //sll, shift left logical, 
-        3'b010: ALUResult = $signed(SrcA) < $signed(SrcB); //set less than signed
-        3'b011: ALUResult = SrcA < SrcB; //set less than unsigned
-        3'b100: ALUResult = SrcA ^ SrcB; //XOR
-        3'b101: ALUResult = SrcA >> (SrcB & 5'b11111); //srl, shift right logical, masked
-        3'b110: ALUResult = SrcA | SrcB; // Or operation
-        3'b111: ALUResult = SrcA & SrcB; //AND
-        default: ALUResult = 0; // Handle unexpected ALUctrl values
+        3'b000: ALUResult = SrcA + SrcB;                                //add
+        3'b001: ALUResult = SrcA << (SrcB & 32'b11111);                 //sll, shift left logical, 
+        3'b010: ALUResult = {{31{1'b0}}, $signed(SrcA) < $signed(SrcB)};//set less than signed
+        3'b011: ALUResult = {{31{1'b0}}, SrcA < SrcB};                  //set less than unsigned
+        3'b100: ALUResult = SrcA ^ SrcB;                                //XOR
+        3'b101: ALUResult = SrcA >> (SrcB & 32'b11111);                 //srl, shift right logical, masked
+        3'b110: ALUResult = SrcA | SrcB;                                // Or operation
+        3'b111: ALUResult = SrcA & SrcB;                                //AND
+        default: ALUResult = 0;                                         // Handle unexpected ALUctrl values
     endcase
 end
 endmodule

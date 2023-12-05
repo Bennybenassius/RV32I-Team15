@@ -21,7 +21,7 @@ end
 always_comb begin
     RD1 = Reg_File[rs1];    //Output the contents of the registers
     RD2 = Reg_File[rs2];
-    a0 <= Reg_File[10];         //a0 is the 10th register, read out should be un-synced
+    a0 = Reg_File[10];         //a0 is the 10th register, read out should be un-synced
 end
 
 endmodule

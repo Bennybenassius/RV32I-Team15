@@ -12,8 +12,8 @@ logic [31:0]    Addr;
 logic           RegWrite;
 logic [2: 0]    ALUControl;
 logic           ALUSrc;
-logic           ImmSrc;
-logic [1: 0]    PCsrc;
+logic [1: 0]    ImmSrc;
+logic [1: 0]    PCSrc;
 logic [31: 0]   instr;
 logic [31: 0]   ImmExt;
 
@@ -29,8 +29,8 @@ logic [31: 0]   ReadData;
 logic [31: 0]   Result;
 
 logic [31: 0]   PCPlus4;
-logic MemWrite;
-logic [1: 0] ResultSrc;
+logic           MemWrite;
+logic [1: 0]    ResultSrc;
 //==========================================
 ProgramCounter ProgramCounter(
     //Input
@@ -56,7 +56,7 @@ Control_unit Control_unit(
     .ALUControl(ALUControl),
     .ALUSrc(ALUSrc),
     .ImmSrc(ImmSrc),
-    .PCSrc(PCsrc),
+    .PCSrc(PCSrc),
     .MemWrite(MemWrite),
     .ResultSrc(ResultSrc)
 );
