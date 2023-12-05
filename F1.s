@@ -7,8 +7,8 @@ start:
 	bne     t0, t1, wait        		/*Branch to continuously loop until trigger is reached*/
 	addi    t0, zero, 0         		/*Reinitialise trigger to low after triggering*/
 mainloop:
+	sll	a0, a0, t1						/*Shift state left by 1 bit*/
 	addi    a0, a0, 1           		/*Increment 1 to the state of the F1 FSM*/
-	sll	a0, a0, t1			/*Shift state left by 1 bit*/
 	beq     t0, a1, lastState   		/*If t0 == a1, then random Countdown*/
 	jalr    ra, 5    			/*Jumps to the secondTimer subroutine to count 1s*/
 	jal     zero, mainloop            	/*Always jumps back to increment to next state*/

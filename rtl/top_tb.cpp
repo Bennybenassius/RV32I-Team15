@@ -29,7 +29,7 @@ int main(int argc, char **argv, char **env) {
     top->rst = 1;
 
 
-    for (i=0; i<200000; i++) {
+    for (i=0; i<100; i++) {
 
         //dump variables into VCD file and toggle clock
         for(clk=0; clk<2; clk++) {
@@ -46,10 +46,10 @@ int main(int argc, char **argv, char **env) {
         vbdHex(3, (top->a0 >> 8) & 0xF);
         vbdHex(4, (top->a0 >> 12) & 0xF);
         */
-        vbdPlot(int(top->a0), 0, 255);
+        vbdBar(top->a0);
         vbdCycle(i);
 
-        // sleep(1);
+        sleep(1);
     
 
         //end vbuddy
