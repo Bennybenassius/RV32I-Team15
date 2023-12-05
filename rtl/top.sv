@@ -28,8 +28,9 @@ logic [31: 0]   ALUResult;
 logic [31: 0]   ReadData;
 logic [31: 0]   Result;
 
+logic [31: 0]   PCPlus4;
 logic MemWrite;
-logic ResultSrc;
+logic [1: 0] ResultSrc;
 //==========================================
 ProgramCounter ProgramCounter(
     //Input
@@ -37,9 +38,10 @@ ProgramCounter ProgramCounter(
     .rst(rst),
     .ImmExt(ImmExt),
     .PCSrc(PCSrc),
-    .PCjalr(PCjalr),
+    .PCjalr(ALUResult),
     //Output
-    .PC(Addr)
+    .PC(Addr),
+    .PCPlus4(PCPlus4)
 );
 
 Control_unit Control_unit(
@@ -48,7 +50,7 @@ Control_unit Control_unit(
     .op(op),
     .funct3(funct3),
     .funct7(funct7),
-    
+
     //Output
     .RegWrite(RegWrite),
     .ALUControl(ALUControl),
@@ -107,8 +109,13 @@ Data_mem Data_mem(
 );
 
 always_comb begin
-    if (ResultSrc) Result = ReadData;
-    else Result = ALUResult;
+    case (ResultSrc)
+        2'b0    :   Result = ALUResult;
+        2'b1    :   Result = ReadData;
+        2'b10   :   Result = PCPlus4;
+        default: Result = ALUResult;
+    endcase  
+    
 end;
 
 //==========================================
