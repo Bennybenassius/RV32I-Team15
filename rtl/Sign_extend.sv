@@ -1,9 +1,11 @@
 module Sign_extend #(
-    parameter D_WIDTH = 32 // each instruction word is 32 bits
+    parameter D_WIDTH = 32
 )(
+    //INPUTS
     input logic [D_WIDTH-1:0]   instr,
     input logic [1:0]           ImmSrc,
 
+    //OUTPUTS
     output logic [D_WIDTH-1:0]  ImmExt // after sign extention we get a 32 bit number
 );
 

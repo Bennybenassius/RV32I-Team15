@@ -4,12 +4,12 @@ module ProgramCounter #(
     // INPUTS
     input logic                 clk,
     input logic                 rst, 
-    input logic  [WIDTH-1: 0]    ImmExt, // is either 12 or 20 bits (I-type, U-type)
+    input logic  [WIDTH-1: 0]   ImmExt, // is either 12 or 20 bits (I-type, U-type)
     input logic  [1:0]          PCSrc,
-    input logic  [WIDTH-1: 0]    PCjalr,
+    input logic  [WIDTH-1: 0]   PCjalr,
 
     // OUTPUTS
-    output logic [WIDTH-1: 0]    PC,
+    output logic [WIDTH-1: 0]   PC,
     output logic [WIDTH-1: 0]   PCPlus4
 );
 

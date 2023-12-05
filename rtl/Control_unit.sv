@@ -6,13 +6,13 @@ module Control_unit (
     input logic          Zero,
 
     //Output
-    output logic                RegWrite,
+    output logic [1: 0]         PCSrc,
+    output logic [1: 0]         ResultSrc,
+    output logic                MemWrite,          //memory write enable
     output logic [2: 0]         ALUControl,
     output logic                ALUSrc,
     output logic [1: 0]         ImmSrc,
-    output logic [1: 0]         PCSrc,
-    output logic                MemWrite,          //memory write enable
-    output logic [1: 0]         ResultSrc
+    output logic                RegWrite
 );
 
 always_comb begin
@@ -215,7 +215,6 @@ always_comb begin
             RegWrite = 1'b0;  
         end
     endcase
-       
 end
 
 endmodule
