@@ -21,7 +21,7 @@ int main(int argc, char **argv, char **env) {
 
     //init vbuddy
     if (vbdOpen()!=1) return(-1);
-    vbdHeader("Lab 4 sg");
+    vbdHeader("Lab 4");
     vbdSetMode(1);
 
     //init simulation inputs
@@ -40,17 +40,14 @@ int main(int argc, char **argv, char **env) {
 
         top -> rst = clk>2 ? 0 : 1;
         //Send values of a0 to vBuddy. Toggle between the 16 bits output
-        /*
+
         vbdHex(1, top->a0 & 0xF); //7-segment display
         vbdHex(2, (top->a0 >> 4) & 0xF);
         vbdHex(3, (top->a0 >> 8) & 0xF);
         vbdHex(4, (top->a0 >> 12) & 0xF);
-        */
-        vbdBar(top->a0);
-        vbdCycle(i);
 
-        sleep(1);
-    
+        //vbdBar(top->a0);
+        vbdCycle(i);
 
         //end vbuddy
         if (Verilated::gotFinish()) exit(0);
