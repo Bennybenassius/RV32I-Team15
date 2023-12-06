@@ -29,7 +29,7 @@ int main(int argc, char **argv, char **env) {
     top->rst = 1;
 
 
-    for (i=0; i<500; i++) {
+    for (i=0; i<50; i++) {
 
         //dump variables into VCD file and toggle clock
         for(clk=0; clk<2; clk++) {
@@ -38,7 +38,7 @@ int main(int argc, char **argv, char **env) {
             top->eval();
         }
 
-        top -> rst = clk>2 ? 0 : 1;
+        top -> rst = i>2 ? 0 : 1;
         //Send values of a0 to vBuddy. Toggle between the 16 bits output
 
         // vbdHex(1, top->a0 & 0xF); //7-segment display
