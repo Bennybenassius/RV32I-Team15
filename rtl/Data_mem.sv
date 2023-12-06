@@ -19,18 +19,20 @@ initial begin
         $display("memary ready.");
 end;
 
+/*synced write*/
 always_ff @( posedge clk ) begin
-    if (!WE) begin //if not write enable -> read data
-        RD <= {mem_array[word_addr], mem_array[word_addr + 1], mem_array[word_addr + 2], mem_array[word_addr + 3]};
+    if (WE) begin
+        mem_array[word_addr] <= WD[31: 24];
+        mem_array[word_addr + 1] <= WD[23: 16];
+        mem_array[word_addr + 2] <= WD[15: 8];
+        mem_array[word_addr + 3] <= WD[7: 0];
     end
 end
 
+/*unsynced read*/
 always_comb begin
-    if (WE) begin
-        mem_array[word_addr] = WD[31: 24];
-        mem_array[word_addr + 1] = WD[23: 16];
-        mem_array[word_addr + 2] = WD[15: 8];
-        mem_array[word_addr + 3] = WD[7: 0];
+    if (!WE) begin
+        RD <= {mem_array[word_addr], mem_array[word_addr + 1], mem_array[word_addr + 2], mem_array[word_addr + 3]};
     end
 end
 endmodule
