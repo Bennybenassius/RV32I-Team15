@@ -1,14 +1,15 @@
 addi    a0, zero, 0        				/*a0 is storing state of F1 FSM. Initialise to 0*/
 addi    t1, zero, 1         			/*t1 is storing 1 to compare with trigger and shift amount*/
-addi    a1, zero, 64         			/*set a 7 to compare state at which to start random countdown*/
-addi    a3, zero, 1234  				/*Some number to initialise LFSR (2^31)*/
+addi	t2, zero, 2						/*t2 is the and mask*/
+addi    a1, zero, 255         			/*set a 7 to compare state at which to start random countdown*/
+addi    a3, zero, 123  				/*Some number to initialise LFSR (2^31)*/
 addi    t0, zero, 1
 
 start: 
 	bne     t0, t1, wait        		/*Branch to continuously loop until trigger is reached*/
 	addi    t0, zero, 0         		/*Reinitialise trigger to low after triggering*/
 mainloop:
-	sll		a0, a0, t1					/*Shift state left by 1 bit*/
+	sll     a0, a0, t1					/*Shift state left by 1 bit*/
 	addi    a0, a0, 1           		/*Increment 1 to the state of the F1 FSM*/
 	beq     a0, a1, lastState   		/*If a0 == a1, then random Countdown*/
 	jal     ra, secondTimer    		    /*Jumps to the secondTimer subroutine to count 1s*/
@@ -32,10 +33,11 @@ secondTimer:
 
 /*random time timer subroutine*/
 randTimer:
-	and     a4, a3, 1           		/*extract the last */
-	and     a5, a3, 2           		/*extract the second last*/
+	and     a4, a3, t1           		/*extract the last */
+	and     a5, a3, t2           		/*extract the second last*/
+	srl		a5, a5, t1					/*shift right by 1 bit so can xor*/
 	xor     a4, a4, a5          		/*XOR the last 2 digits*/
-	sll     a3, a3, t1          		/*Shift the LFSR by 1 bit*/
+	srl     a3, a3, t1          		/*Shift the LFSR by 1 bit to the right*/
 	add    	a2, zero, a3         		/*initialise the counting register to LFSR*/
 minusloop2:
 	addi    a2, a2, -1

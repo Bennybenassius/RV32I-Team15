@@ -47,6 +47,15 @@ always_comb begin
                     ImmSrc = 2'b0;          // don't care
                     RegWrite = 1'b1;        // write to rd
                 end
+                3'b101  :   begin   //shift right logical
+                    PCSrc = 2'b0;
+                    ResultSrc = 2'b0;
+                    MemWrite = 1'b0;
+                    ALUControl = 3'b101;    // XOR
+                    ALUSrc = 1'b0;          // 2 register operands
+                    ImmSrc = 2'b0;          // don't care
+                    RegWrite = 1'b1;        // write to rd
+                end
                 3'b111  :   begin   //AND (&)
                     PCSrc = 2'b0;
                     ResultSrc = 2'b0;

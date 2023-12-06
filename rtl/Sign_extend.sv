@@ -22,7 +22,7 @@ always_comb begin
             case (op)
                 7'd19   :   begin   // if the instruction is addi
                     case (funct3)
-                        3'b0    :   ImmExt = {20'b0, instr[31:20]};
+                        3'b0    :   ImmExt = {{20{instr[31]}}, instr[31:20]};
                         default :   ImmExt = 32'b0;
                     endcase
                 end

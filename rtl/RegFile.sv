@@ -15,7 +15,8 @@ logic [31:0] Reg_File [31:0]; //Register file is made of 32, 32-bit registers
 
 always_ff @(posedge clk) begin
     if (RegWrite)               //If RegWrite is enabled, write to regsiter file
-        Reg_File[rd] <= WD3; 
+        if (rd==5'b0) Reg_File[rd] <= 32'b0;     //If writing to zero, just write 0 since it should be always 0
+        else Reg_File[rd] <= WD3;           //Else if writing to any other registers, business as usual
 end
 
 always_comb begin
