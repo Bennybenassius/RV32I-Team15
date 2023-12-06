@@ -26,9 +26,10 @@ always_comb begin
                         default :   ImmExt = 32'b0;
                     endcase
                 end
-                7'd99   :   begin   // if the instruction is bne
+                7'd99   :   begin   // if the instruction is beq or bne
                     case (funct3)
                         3'b1    :   ImmExt = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0};    // sign extend accordingly
+                        3'b0    :   ImmExt = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0};    // sign extend accordingly
                         default :   ImmExt = 32'b0;
                     endcase
                 end             

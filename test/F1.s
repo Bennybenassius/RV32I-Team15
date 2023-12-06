@@ -2,7 +2,7 @@ addi    a0, zero, 0        				/*a0 is storing state of F1 FSM. Initialise to 0*
 addi    t1, zero, 1         			/*t1 is storing 1 to compare with trigger and shift amount*/
 addi	t2, zero, 2						/*t2 is the and mask*/
 addi    a1, zero, 255         			/*set a 7 to compare state at which to start random countdown*/
-addi    a3, zero, 123  				/*Some number to initialise LFSR (2^31)*/
+addi    a3, zero, 12  				    /*Some number to initialise LFSR (2^31)*/
 addi    t0, zero, 1
 
 start: 
@@ -25,7 +25,7 @@ wait:
 
 /*one second timer subroutine*/
 secondTimer:
-	addi    a2, zero, 5  				/*The immediate is the number of cycles for 1s*/
+	addi    a2, zero, 25  				/*The immediate is the number of cycles for 1s*/
 	minusloop1:
 		addi    a2, a2, -1
 		bne     a2, zero, minusloop1	/*Keep looping back to -1 until 1s is reached*/
