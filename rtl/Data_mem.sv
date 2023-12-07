@@ -3,14 +3,27 @@ module Data_mem #(
               DATA_WIDTH = 8                // each location has 1 byte data
 ) (
     input   logic clk,
-    input   logic             WE,           //memory write enable
+    input   logic   [1:0]     WE,           //memory write enable
     input   logic   [31: 0]   A,            //memory read address
     input   logic   [31:0]    WD,           //memory data in 
     output  logic   [31:0]    RD            //memory data out
 );
 
-logic [ADDRESS_WIDTH - 1:0] word_addr = {A[ADDRESS_WIDTH - 1:2],2'b0};
+logic [ADDRESS_WIDTH - 1:0] addr;
 logic [DATA_WIDTH - 1: 0] mem_array [2**ADDRESS_WIDTH - 1: 0];
+
+always_comb begin
+    case (WE[1])
+        1'b1:   begin   //byte instr
+            addr = A;
+        end
+
+        1'b0:   begin   //word instr
+            addr = {A[ADDRESS_WIDTH - 1:2],2'b0};
+        end
+        default: 
+    endcase
+end
 
 initial begin 
         $display("Lodaing Data_mem.");
@@ -21,18 +34,30 @@ end;
 
 /*synced write*/
 always_ff @( posedge clk ) begin
-    if (WE) begin
-        mem_array[word_addr] <= WD[31: 24];
-        mem_array[word_addr + 1] <= WD[23: 16];
-        mem_array[word_addr + 2] <= WD[15: 8];
-        mem_array[word_addr + 3] <= WD[7: 0];
-    end
+    case (WE)
+        2'b1:   begin   //sw (store word)
+            mem_array[addr] <= WD[31: 24];
+            mem_array[addr + 1] <= WD[23: 16];
+            mem_array[addr + 2] <= WD[15: 8];
+            mem_array[addr + 3] <= WD[7: 0];
+        end
+
+        2'b11:  begin   //sb (store byte)
+            mem_array[addr] <= WD[7: 0];
+        end
+    endcase
 end
 
 /*unsynced read*/
 always_comb begin
-    if (!WE) begin
-        RD <= {mem_array[word_addr], mem_array[word_addr + 1], mem_array[word_addr + 2], mem_array[word_addr + 3]};
-    end
+    case (WE)
+        2'b0:   begin   //lw (load word)
+            RD <= {mem_array[addr], mem_array[addr + 1], mem_array[addr + 2], mem_array[addr + 3]};
+        end 
+
+        2'b10:  begin   //lb (load byte)
+            RD <= {{8{mem_array[addr][DATA_WIDTH- 1]}}, {8{mem_array[addr][DATA_WIDTH- 1]}}, {8{mem_array[addr][DATA_WIDTH- 1]}}, mem_array[addr]}  //sign extend immediately and output
+        end
+    endcase
 end
 endmodule
