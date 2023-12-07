@@ -37,6 +37,7 @@ always_comb begin
                     case (funct3)   
                         3'b10   :   ImmExt = {{20{instr[31]}},instr[31: 20]};   //word
                         3'b0    :   ImmExt = {{20{instr[31]}},instr[31: 20]};   //byte
+                        3'b100  :   ImmExt = {{20{instr[31]}},instr[31: 20]};   //byte unsigned
                         default :   ImmExt = 32'b0;
                     endcase
                 end
