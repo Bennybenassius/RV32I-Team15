@@ -2,49 +2,28 @@ module Pipeline_Regfile_MW(
     input logic             clk,
     input logic             RegWriteM,
     input logic [1:0]       ResultSrcM,
-    input logic             MemWriteM,
 
-    input logic [31:0]            RD1D,
-    input logic [31:0]            RD2D,
-    input logic [31:0]            PCD,
-    input logic [31:0]            RdD,
-    input logic [31:0]            ImmExtD,
-    input logic [31:0]            PCPlus4D,
+    input logic [31:0]            RdM,
+    input logic [31:0]            PCPlus4M,
+    input logic [31:0]            ALUResultM,
+    input logic [31:0]            RDM,
 
-    output logic             RegWriteE,
-    output logic [1:0]       ResultSrcE,
-    output logic             MemWriteE,
-    output logic             JumpE,
-    output logic             BranchE,
-    output logic [2:0]       ALUControlE,
-    output logic             ALUSrcE,
+    output logic             RegWriteW,
+    output logic [1:0]       ResultSrcW,
     
-    output logic [31:0]            RD1E,
-    output logic [31:0]            RD2E,
-    output logic [31:0]            PCE,
-    output logic [31:0]            RdE,
-    output logic [31:0]            ImmExtE,
-    output logic [31:0]            PCPlus4E
-        
+    output logic [31:0]            RdW,
+    output logic [31:0]            PCPlus4W,
+    output logic [31:0]            ALUResultW,
+    output logic [31:0]            RDW
 );
 
 always_ff @(posedge clk) begin 
-    RegWriteD <= RegWriteE;
-    ResultSrcD <= ResultSrcE;
-    MemWriteD <= MemWriteE;
-    JumpD <= JumpE;
-    BranchD <= BranchE;
-    ALUControlD <= ALUControlE;
-    ALUSrcD <= ALUSrcE;
-    RD1D <= RD1E;
-    RD2D <= RD2E;
-    PCD <= PCE;
-    RdD <= RdE;
-    ImmExtD <= ImmExtE;
-    PCPlus4D <= PCPlus4E;
-
+    RegWriteW <= RegWriteM;
+    ResultSrcW <= ResultSrcM;
+    RdW <= RdM;
+    PCPlus4W <= PCPlus4M;
+    ALUResultW <= ALUResultM;
+    RDW <= RDM;
 end
-
-
 
 endmodule
