@@ -30,7 +30,7 @@ logic [31: 0]   ReadData;
 logic [31: 0]   Result;
 
 logic [31: 0]   PCPlus4;
-logic           MemWrite;
+logic [2: 0]    MemWrite;
 logic [1: 0]    ResultSrc;
 //==========================================
 ProgramCounter ProgramCounter(

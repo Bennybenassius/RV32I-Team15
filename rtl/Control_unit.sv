@@ -172,32 +172,32 @@ always_comb begin
             case (funct3)
                 3'b010 : begin  //lw
                     RegWrite = 1'b1;    // allow reg to be loaded
-                    ALUControl = 3'b1;     // alu mode: add
+                    ALUControl = 3'b1;  // alu mode: add
                     ALUSrc = 1'b1;      // use imm
                     ImmSrc = 2'b1;      // use signextend
                     PCSrc = 2'b0;       // no branch
-                    MemWrite = 3'b0;          // not write to memory
-                    ResultSrc = 2'b1;// load word from mem
+                    MemWrite = 3'b0;    // not write to memory
+                    ResultSrc = 2'b1;   // load word from mem
                 end
 
                 3'b000 : begin  //lb
                     RegWrite = 1'b1;    // allow reg to be loaded
-                    ALUControl = 3'b1;     // alu mode: add
+                    ALUControl = 3'b1;  // alu mode: add
                     ALUSrc = 1'b1;      // use imm
                     ImmSrc = 2'b1;      // use signextend
                     PCSrc = 2'b0;       // no branch
-                    MemWrite = 3'b10;          // not write to memory
-                    ResultSrc = 2'b1;// load word from mem
+                    MemWrite = 3'b10;   // not write to memory
+                    ResultSrc = 2'b1;   // load word from mem
                 end
 
                 3'b100 : begin  //lbu
                     RegWrite = 1'b1;    // allow reg to be loaded
-                    ALUControl = 3'b1;     // alu mode: add
+                    ALUControl = 3'b1;  // alu mode: add
                     ALUSrc = 1'b1;      // use imm
                     ImmSrc = 2'b1;      // use signextend
                     PCSrc = 2'b0;       // no branch
-                    MemWrite = 3'b110;          // not write to memory
-                    ResultSrc = 2'b1;// load word from mem
+                    MemWrite = 3'b110;  // not write to memory
+                    ResultSrc = 2'b1;   // load word from mem
                 end
                 default: begin // do nothing
                     PCSrc = 2'b0;
@@ -214,21 +214,21 @@ always_comb begin
             case (funct3)
                 3'b10 :begin    //sw
                     RegWrite = 1'b0;    // not write to reg (but write to mem)
-                    ALUControl = 3'b1;     // alu mode: add
+                    ALUControl = 3'b1;  // alu mode: add
                     ALUSrc = 1'b1;      // use imm
                     ImmSrc = 2'b1;      // use signextend
                     PCSrc = 2'b0;       // no branch
-                    MemWrite = 3'b1;          // write to memory
+                    MemWrite = 3'b1;    // write to memory
                     ResultSrc = 2'b0;
                 end
 
                 3'b00 :begin    //sb
                     RegWrite = 1'b0;    // not write to reg (but write to mem)
-                    ALUControl = 3'b1;     // alu mode: add
+                    ALUControl = 3'b1;  // alu mode: add
                     ALUSrc = 1'b1;      // use imm
                     ImmSrc = 2'b1;      // use signextend
                     PCSrc = 2'b0;       // no branch
-                    MemWrite = 3'b11;          // write to memory
+                    MemWrite = 3'b11;   // write to memory
                     ResultSrc = 2'b0;
                 end
                 

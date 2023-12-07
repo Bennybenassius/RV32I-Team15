@@ -4,7 +4,7 @@ module Data_mem #(
 ) (
     input   logic clk,
     input   logic   [2:0]     WE,           //memory write enable
-    input   logic   [31: 0]   A,            //memory read address
+    input   logic   [31:0]    A,            //memory read/write address
     input   logic   [31:0]    WD,           //memory data in 
     output  logic   [31:0]    RD            //memory data out
 );
@@ -15,7 +15,7 @@ logic [DATA_WIDTH - 1: 0] mem_array [2**ADDRESS_WIDTH - 1: 0];
 always_comb begin
     case (WE[1])
         1'b1:   begin   //byte instr
-            addr = A;
+            addr = A[ADDRESS_WIDTH - 1:0];  //convert A to 10 bit address length
         end
 
         1'b0:   begin   //word instr
@@ -47,19 +47,19 @@ always_ff @( posedge clk ) begin
     endcase
 end
 
-/*unsynced read*/
+/*async read*/
 always_comb begin
     case (WE)
         3'b0:   begin   //lw (load word)
-            RD <= {mem_array[addr], mem_array[addr + 1], mem_array[addr + 2], mem_array[addr + 3]};
+            RD = {mem_array[addr], mem_array[addr + 1], mem_array[addr + 2], mem_array[addr + 3]};
         end 
 
         3'b10:  begin   //lb (load byte)
-            RD <= {{8{mem_array[addr][DATA_WIDTH- 1]}}, {8{mem_array[addr][DATA_WIDTH- 1]}}, {8{mem_array[addr][DATA_WIDTH- 1]}}, mem_array[addr]}  //sign extend immediately and output
+            RD = {{24{mem_array[addr][DATA_WIDTH- 1]}}, mem_array[addr]};  //sign extend immediately and output
         end
 
-        3'b110: begin
-            RD <= {8'b0, 8'b0, 8'b0, mem_array[addr]}  //zero extend immediately and output
+        3'b110: begin   //lbu (load byte unsigned)
+            RD = {24'b0, mem_array[addr]};  //zero extend immediately and output
         end
     endcase
 end
