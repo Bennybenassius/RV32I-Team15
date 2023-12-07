@@ -1,10 +1,11 @@
 module top#(
-
 )(
     input   logic           clk,
     input   logic           rst,
+    input   logic           trigger,
     output  logic[31:0]     a0
 );
+
 //==========================================
 //                 WIRE
 logic [31:0]    Addr;
@@ -83,6 +84,7 @@ ALU_RegFile ALU_RegFile(
     .rd(rd),
     .ImmOp(ImmExt),
     .WD3(Result),
+    .trigger(trigger),
     //Output
     .Zero(Zero),
     .ALUResult(ALUResult),

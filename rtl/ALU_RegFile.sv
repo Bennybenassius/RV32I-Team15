@@ -8,6 +8,7 @@ module ALU_RegFile(
     input   logic   [4:0]     rd,         //register destination
     input   logic   [31: 0]   WD3,        //write data
     input   logic   [31:0]    ImmOp,      //Immediate Operand
+    input   logic             trigger,    //trigger (external input)
 
     output  logic             Zero,         //ALU output if operands are equal
     output  logic   [31:0]    a0,         //Output a0
@@ -27,6 +28,8 @@ RegFile myRegFile (
     .rd(rd),
     .RegWrite(RegWrite),
     .WD3(WD3),
+    .trigger(trigger),
+    //outputs
     .RD1(SrcA),
     .RD2(regOp2),
     .a0(a0)
