@@ -18,6 +18,16 @@ module Control_unit (
 always_comb begin
     case(op)
         //================================================================
+        7'd55   :   begin       //load upper immediate, lui 
+                    PCSrc = 2'b0;       // no branching
+                    ResultSrc = 2'b0;   // bypass data mem
+                    MemWrite = 1'b0;    // not writing to data mem
+                    ALUControl = 3'b0;  // addition
+                    ALUSrc = 1'b1;      // register operand
+                    ImmSrc = 2'b1;      // not using imm
+                    RegWrite = 1'b1;    // write to destination reg
+                end
+
         7'd51   :   begin
             case (funct3)
                 3'b000  :   begin   //ADD

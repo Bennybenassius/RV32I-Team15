@@ -20,6 +20,11 @@ always_comb begin
 
         2'b1 : begin    // 32 bit sign extend
             case (op)
+
+                7'd55   :   begin   //Load upper immediate - normal extend 
+                    ImmExt = {instr[30:12], 12'b0};
+                end
+
                 7'd19   :   begin   // if the instruction is addi
                     case (funct3)
                         3'b0    :   ImmExt = {{20{instr[31]}}, instr[31:20]};
