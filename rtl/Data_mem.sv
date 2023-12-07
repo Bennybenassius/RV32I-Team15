@@ -1,5 +1,5 @@
 module Data_mem #(
-    parameter ADDRESS_WIDTH = 10,           // total 2**5 number of address locations
+    parameter ADDRESS_WIDTH = 20,           // total 2**5 number of address locations
               DATA_WIDTH = 8                // each location has 1 byte data
 ) (
     input   logic clk,
@@ -28,7 +28,7 @@ initial begin
         $display("Lodaing Data_mem.");
         $readmemh("Data.mem", mem_array);
         $display("Load finished.");
-        $display("memary ready.");
+        $display("memory ready.");
 end;
 
 /*synced write*/

@@ -21,7 +21,7 @@ always_comb begin
         7'd55   :   begin       //load upper immediate, lui 
                     PCSrc = 2'b0;       // no branching
                     ResultSrc = 2'b0;   // bypass data mem
-                    MemWrite = 1'b0;    // not writing to data mem
+                    MemWrite = 3'b0;    // not writing to data mem
                     ALUControl = 3'b0;  // addition
                     ALUSrc = 1'b1;      // register operand
                     ImmSrc = 2'b1;      // not using imm
@@ -182,7 +182,7 @@ always_comb begin
             case (funct3)
                 3'b010 : begin  //lw
                     RegWrite = 1'b1;    // allow reg to be loaded
-                    ALUControl = 3'b1;  // alu mode: add
+                    ALUControl = 3'b0;  // alu mode: add
                     ALUSrc = 1'b1;      // use imm
                     ImmSrc = 2'b1;      // use signextend
                     PCSrc = 2'b0;       // no branch
@@ -192,7 +192,7 @@ always_comb begin
 
                 3'b000 : begin  //lb
                     RegWrite = 1'b1;    // allow reg to be loaded
-                    ALUControl = 3'b1;  // alu mode: add
+                    ALUControl = 3'b0;  // alu mode: add
                     ALUSrc = 1'b1;      // use imm
                     ImmSrc = 2'b1;      // use signextend
                     PCSrc = 2'b0;       // no branch
@@ -202,7 +202,7 @@ always_comb begin
 
                 3'b100 : begin  //lbu
                     RegWrite = 1'b1;    // allow reg to be loaded
-                    ALUControl = 3'b1;  // alu mode: add
+                    ALUControl = 3'b0;  // alu mode: add
                     ALUSrc = 1'b1;      // use imm
                     ImmSrc = 2'b1;      // use signextend
                     PCSrc = 2'b0;       // no branch
@@ -224,7 +224,7 @@ always_comb begin
             case (funct3)
                 3'b10 :begin    //sw
                     RegWrite = 1'b0;    // not write to reg (but write to mem)
-                    ALUControl = 3'b1;  // alu mode: add
+                    ALUControl = 3'b0;  // alu mode: add
                     ALUSrc = 1'b1;      // use imm
                     ImmSrc = 2'b1;      // use signextend
                     PCSrc = 2'b0;       // no branch
@@ -232,9 +232,9 @@ always_comb begin
                     ResultSrc = 2'b0;
                 end
 
-                3'b00 :begin    //sb
+                3'b0 :begin    //sb
                     RegWrite = 1'b0;    // not write to reg (but write to mem)
-                    ALUControl = 3'b1;  // alu mode: add
+                    ALUControl = 3'b0;  // alu mode: add
                     ALUSrc = 1'b1;      // use imm
                     ImmSrc = 2'b1;      // use signextend
                     PCSrc = 2'b0;       // no branch
