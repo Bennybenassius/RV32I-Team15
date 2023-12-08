@@ -46,14 +46,14 @@ int main(int argc, char **argv, char **env) {
         // F1 program output
         top->trigger = vbdFlag();
         vbdBar(top->a0 & 0xff);
+        vbdCycle(i);
         
-        // reference program output
+        /* // reference program output
         if (i > 790000) {
             vbdPlot(int (top->a0), 0, 255);
             vbdCycle(i);
-        }
+        } */
 
-        vbdCycle(i);
 
         //end vbuddy
         if (Verilated::gotFinish()) exit(0);

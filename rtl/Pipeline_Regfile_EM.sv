@@ -1,4 +1,5 @@
 module Pipeline_Regfile_EM (
+    //INPUTS
     input logic             RegWriteE,
     input logic [1:0]       ResultSrcE,
     input logic             MemWriteE,
@@ -8,6 +9,7 @@ module Pipeline_Regfile_EM (
     input logic [31:0]      RdE,
     input logic [31:0]      PCPlus4E,
 
+    //OUTPUTS
     output logic            RegWriteM,
     output logic [1:0]      ResultSrcM,
     output logic            MemWriteM,

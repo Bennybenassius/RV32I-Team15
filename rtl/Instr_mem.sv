@@ -1,7 +1,10 @@
 module Instr_mem #(
     parameter   DATA_WIDTH = 8     // byte addressing, each byte contains 8 bits
 )(
+    //INPUTS
     input  logic     [31:0]     A,
+
+    //OUTPUTS
     output logic    [31:0]      RD
 );
 

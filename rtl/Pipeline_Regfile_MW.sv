@@ -1,20 +1,22 @@
 module Pipeline_Regfile_MW(
+    //INPUTS
     input logic             clk,
     input logic             RegWriteM,
     input logic [1:0]       ResultSrcM,
 
-    input logic [31:0]            RdM,
-    input logic [31:0]            PCPlus4M,
-    input logic [31:0]            ALUResultM,
-    input logic [31:0]            RDM,
+    input logic [31:0]      RdM,
+    input logic [31:0]      PCPlus4M,
+    input logic [31:0]      ALUResultM,
+    input logic [31:0]      RDM,
 
+    //OUTPUTS
     output logic             RegWriteW,
     output logic [1:0]       ResultSrcW,
     
-    output logic [31:0]            RdW,
-    output logic [31:0]            PCPlus4W,
-    output logic [31:0]            ALUResultW,
-    output logic [31:0]            RDW
+    output logic [31:0]      RdW,
+    output logic [31:0]      PCPlus4W,
+    output logic [31:0]      ALUResultW,
+    output logic [31:0]      RDW
 );
 
 always_ff @(posedge clk) begin 
