@@ -14,9 +14,10 @@ if os.name == 'nt':  # Windows
     cmd = 'copy ' + src_raw + " " + dst_raw
 else:  # Unix/Linux
     cmd = 'cp ' + src_raw + " " + dst_raw
-
+os.system('echo "==================Copy_.s_file===================="')
 os.system(cmd)
 
+os.system('echo "==================Make_hex_file==================="')
 os.system("cd ./src \n make hexfile")
 
 if len(arg) == 2:
@@ -30,10 +31,9 @@ if os.name == 'nt':  # Windows
     cmd = 'copy ' + src_hex + " " + dst_hex
 else:  # Unix/Linux
     cmd = 'cp ' + src_hex + " " + dst_hex
-
+os.system('echo "==================Copy_hex_2_mem==================="')
 os.system(cmd)
 
-"""
 s = ""
 f = open(dst_hex, 'r')
 for x in f:
@@ -46,7 +46,7 @@ i = 0
 while (i < len(s)):
     for j in range(4):
         instr_tmp += [s[i + j]]
-    instr_tmp.reverse()
+    #instr_tmp.reverse()
     instr += instr_tmp
     instr_tmp = []
     i += 4
@@ -57,5 +57,6 @@ f.close()
 f = open(dst_hex, 'w')
 f.write(instr)
 f.close()
-"""
+
+os.system('echo "==================doit.sh=========================="')
 os.system("source doit.sh")
