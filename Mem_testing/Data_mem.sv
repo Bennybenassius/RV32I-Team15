@@ -35,10 +35,10 @@ end;
 always_ff @( posedge clk ) begin
     case (WE)
         3'b1:   begin   //sw (store word)
-            mem_array[addr] <= WD[31: 24];
-            mem_array[addr + 1] <= WD[23: 16];
-            mem_array[addr + 2] <= WD[15: 8];
-            mem_array[addr + 3] <= WD[7: 0];
+            mem_array[addr + 3] <= WD[31: 24];
+            mem_array[addr + 2] <= WD[23: 16];
+            mem_array[addr + 1] <= WD[15: 8];
+            mem_array[addr] <= WD[7: 0];
         end
 
         3'b11:  begin   //sb (store byte)
