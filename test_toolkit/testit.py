@@ -4,8 +4,10 @@ import string
 
 arg = sys.argv
 
-
-src_raw = f'./{arg[1]}'
+if len(arg) == 2:
+    src_raw = f'./{arg[1]}'
+else:
+    src_raw = 'test.s'
 dst_raw = './src/myprog'
 
 if os.name == 'nt':  # Windows
@@ -17,7 +19,11 @@ os.system(cmd)
 
 os.system("cd ./src \n make hexfile")
 
-src_hex = f'./src/myprog/{arg[1]}.hex'
+if len(arg) == 2:
+    src_hex = f'./src/myprog/{arg[1]}.hex'
+else:
+    src_hex = './src/myprog/test.s.hex'
+
 dst_hex = 'instruction_code.mem'
 
 if os.name == 'nt':  # Windows
