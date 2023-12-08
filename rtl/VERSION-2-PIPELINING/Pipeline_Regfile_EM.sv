@@ -1,5 +1,6 @@
 module Pipeline_Regfile_EM (
     //INPUTS
+    input logic             clk,
     input logic             RegWriteE,
     input logic [1:0]       ResultSrcE,
     input logic             MemWriteE,

@@ -3,7 +3,7 @@ module Data_mem #(
               DATA_WIDTH = 8                // each location has 1 byte data
 )(
     //INPUTS
-    input   logic clk,
+    input   logic             clk,
     input   logic   [2:0]     WE,           //memory write enable
     input   logic   [31:0]    A,            //memory read/write address
     input   logic   [31:0]    WD,           //memory data in 
