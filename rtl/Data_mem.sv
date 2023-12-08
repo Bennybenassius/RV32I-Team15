@@ -29,6 +29,12 @@ initial begin
         $readmemh("Data.mem", mem_array);
         $display("Load finished.");
         $display("memory ready.");
+
+        // for running reference program
+        // $display("Lodaing Data_mem.");
+        // $readmemh("Data.mem", mem_array, 20'h10000, 20'h1FFFF);
+        // $display("Load finished.");
+        // $display("memory ready.");
 end;
 
 /*synced write*/

@@ -48,9 +48,10 @@ int main(int argc, char **argv, char **env) {
         vbdBar(top->a0 & 0xff);
         
         // reference program output
-        /* if (i > 100) {
+        if (i > 790000) {
             vbdPlot(int (top->a0), 0, 255);
-        } */
+            vbdCycle(i);
+        }
 
         vbdCycle(i);
 
