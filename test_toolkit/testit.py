@@ -33,6 +33,7 @@ else:  # Unix/Linux
 
 os.system(cmd)
 
+"""
 s = ""
 f = open(dst_hex, 'r')
 for x in f:
@@ -56,5 +57,5 @@ f.close()
 f = open(dst_hex, 'w')
 f.write(instr)
 f.close()
-
+"""
 os.system("source doit.sh")
