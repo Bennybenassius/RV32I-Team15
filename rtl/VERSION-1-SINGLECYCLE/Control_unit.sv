@@ -3,7 +3,7 @@ module Control_unit (
     input logic [6: 0]   op,
     input logic [2: 0]   funct3,
     input logic          funct7,
-    input logic          Zero,
+    input logic [1: 0]   Zero,
 
     //OUTPUTS
     output logic [1: 0]         PCSrc,
@@ -122,7 +122,7 @@ always_comb begin
                     ImmSrc = 2'b1;           // use sign extend 
                     RegWrite = 1'b0;         // not writing to any reg
                     case(Zero)
-                        1'b1    :   begin 
+                        2'b1    :   begin 
                             PCSrc = 2'b1; // need branching
                         end
                         default: PCSrc = 2'b0;
@@ -137,12 +137,45 @@ always_comb begin
                     ImmSrc = 2'b1;           // use sign extend 
                     RegWrite = 1'b0;         // not writing to any reg
                     case(Zero)
-                        1'b0    :   begin 
-                            PCSrc = 2'b1; // need branching
+                        2'b1    :   begin // equal
+                            PCSrc = 2'b0; // no branching
                         end
-                        default: PCSrc = 2'b0;
+                        default: PCSrc = 2'b1; // otherwise, branch
                     endcase
                 end      
+
+                3'b100    :  begin           // blt 
+                    ResultSrc = 2'b0;        // don't care
+                    MemWrite = 3'b0;         // don't care
+                    ALUControl = 3'b0;       // don't care
+                    ALUSrc = 1'b0;           // use reg
+                    ImmSrc = 2'b1;           // use sign extend 
+                    RegWrite = 1'b0;         // not writing to any reg
+                    case(Zero)
+                        2'b10   :   begin // equal
+                            PCSrc = 2'b1; // branch
+                        end
+                        default: PCSrc = 2'b0; // otherwise, branch
+                    endcase
+                end 
+
+                3'b101    :  begin           // bge 
+                    ResultSrc = 2'b0;        // don't care
+                    MemWrite = 3'b0;         // don't care
+                    ALUControl = 3'b0;       // don't care
+                    ALUSrc = 1'b0;           // use reg
+                    ImmSrc = 2'b1;           // use sign extend 
+                    RegWrite = 1'b0;         // not writing to any reg
+                    case(Zero)
+                        2'b11   :   begin     // >  
+                            PCSrc = 2'b1; // branch
+                        end
+                        2'b01   :   begin     // =  
+                            PCSrc = 2'b1; // branch
+                        end
+                        default: PCSrc = 2'b0; // otherwise, branch
+                    endcase
+                end 
 
                 default: begin // do nothing
                     PCSrc = 2'b0;
