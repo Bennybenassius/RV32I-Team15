@@ -20,18 +20,23 @@ logic   [WIDTH-1:0] PCNext     ;
 assign  PCPlus4 = PC + 32'b100;
 assign  PCTarget = ImmExt + PC;
 
-always_comb begin // 4 input MUX
-    case (PCSrc)
-        2'b00 :  PCNext = PCPlus4;
-        2'b01 :  PCNext = PCTarget;
-        2'b10 :  PCNext = PCjalr;
-        default: PCNext = PCPlus4;
+always_comb begin // 4 input MU
+    case (rst)
+        1'b1:   PCNext = 0; 
+        1'b0:   begin
+            case (PCSrc)
+                2'b00 :  PCNext = PCPlus4;
+                2'b01 :  PCNext = PCTarget;
+                2'b10 :  PCNext = PCjalr;
+                default: PCNext = PCPlus4;
+            endcase
+        end
     endcase
 end
 
-always_ff @ (posedge clk, posedge rst)begin
-    if (rst)    PC <= 32'b0;
-    else PC <= PCNext;
+
+always_ff @ (posedge clk)begin
+    PC <= PCNext;
 end;
 
 endmodule
