@@ -25,7 +25,7 @@ logic   [6:0]   op      = instr[6:0];
 logic   [2:0]   funct3  = instr[14:12];
 logic           funct7  = instr[30];
 
-logic           Zero;
+logic   [1: 0]  Zero;
 
 logic [31: 0]   WriteData;
 logic [31: 0]   ALUResult;

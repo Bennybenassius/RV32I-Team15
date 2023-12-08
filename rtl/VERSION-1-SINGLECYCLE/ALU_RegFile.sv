@@ -12,7 +12,7 @@ module ALU_RegFile(
     input   logic             trigger,          //trigger (external input)
         
     //OUTPUTS       
-    output  logic             Zero,             //ALU output if operands are equal
+    output  logic   [1: 0]    Zero,             //ALU output if operands are equal
     output  logic   [31:0]    a0,               //Output a0
     output  logic   [31: 0]   WriteData,        //Data in for the Data memory module
     output  logic   [31: 0]   ALUResult
