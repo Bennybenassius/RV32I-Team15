@@ -21,23 +21,26 @@ always_comb begin
         2'b1 : begin    // 32 bit sign extend
             case (op)
 
-                7'd55   :   begin   //Load upper immediate - normal extend 
+                7'd55   :   begin   // LUI 
                     ImmExt = {instr[31:12], 12'b0};
                 end
-                7'd19   :   begin   // if the instruction is addi
+
+                7'd19   :   begin   // ADDI
                     case (funct3)
                         3'b0    :   ImmExt = {{20{instr[31]}}, instr[31:20]};
                         default :   ImmExt = 32'b0;
                     endcase
                 end
-                7'd99   :   begin   // if the instruction is beq or bne
+
+                7'd99   :   begin   // BEQ or BNE
                     case (funct3)
-                        3'b1    :   ImmExt = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0};    // sign extend accordingly
-                        3'b0    :   ImmExt = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0};    // sign extend accordingly
+                        3'b1    :   ImmExt = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0}; 
+                        3'b0    :   ImmExt = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0};  
                         default :   ImmExt = 32'b0;
                     endcase
-                end             
-                7'd3    :   begin   //load 
+                end
+
+                7'd3    :   begin   // load 
                     case (funct3)   
                         3'b10   :   ImmExt = {{20{instr[31]}},instr[31: 20]};   //word
                         3'b0    :   ImmExt = {{20{instr[31]}},instr[31: 20]};   //byte
@@ -45,26 +48,32 @@ always_comb begin
                         default :   ImmExt = 32'b0;
                     endcase
                 end
-                7'd35   :   begin   //store
+
+                7'd35   :   begin   // store
                     case (funct3)
                         3'b10   :   ImmExt = {{20{instr[31]}},instr[31: 25],instr[11: 7]};  //word
                         3'b00   :   ImmExt = {{20{instr[31]}},instr[31: 25],instr[11: 7]};  //byte
                         default :   ImmExt = 32'b0;
                     endcase
                 end
-                7'd103  :   begin   //jalr
+
+                7'd103  :   begin   // JALR
                     case (funct3)
                         3'b0    :   ImmExt = {{20{instr[31]}},instr[31:20]};
                         default :   ImmExt = 32'b0;
                     endcase
                 end
-                7'd111  :   begin   //jal
+
+                7'd111  :   begin   // JAL
                     ImmExt = {{11{instr[31]}} ,instr[31], instr[19:12], instr[20], instr[30:21], 1'b0};
                 end
+
                 default :   ImmExt = 32'b0;
             endcase
         end
+
         default  :  ImmExt = 32'b0;
+
         // 2'b10 : begin   // byte extend
         
         // end
@@ -72,8 +81,8 @@ always_comb begin
         // 2'b11 : begin   // zero extend
 
         // end
+
     endcase
 end
-
 
 endmodule

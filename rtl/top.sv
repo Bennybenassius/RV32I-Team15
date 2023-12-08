@@ -1,8 +1,11 @@
 module top#(
 )(
+    //INPUTS
     input   logic           clk,
     input   logic           rst,
     input   logic           trigger,
+
+    //OUTPUTS
     output  logic[31:0]     a0
 );
 
@@ -32,27 +35,29 @@ logic [31: 0]   Result;
 logic [31: 0]   PCPlus4;
 logic [2: 0]    MemWrite;
 logic [1: 0]    ResultSrc;
+
 //==========================================
 ProgramCounter ProgramCounter(
-    //Input
+    //INPUTS
     .clk(clk),
     .rst(rst),
     .ImmExt(ImmExt),
     .PCSrc(PCSrc),
     .PCjalr(ALUResult),
-    //Output
+
+    //OUTPUTS
     .PC(Addr),
     .PCPlus4(PCPlus4)
 );
 
 Control_unit Control_unit(
-    //Input
+    //INPUTS
     .Zero(Zero),
     .op(op),
     .funct3(funct3),
     .funct7(funct7),
 
-    //Output
+    //OUTPUTS
     .RegWrite(RegWrite),
     .ALUControl(ALUControl),
     .ALUSrc(ALUSrc),
@@ -63,9 +68,10 @@ Control_unit Control_unit(
 );
 
 Instr_mem Instr_mem(
-    //Input
+    //INPUTS
     .A(Addr),
-    //Output
+
+    //OUTPUTS
     .RD(instr)
 );
 
@@ -74,7 +80,7 @@ logic [4:0]     rs2 = instr[24:20];
 logic [4:0]     rd = instr[11:7];
 
 ALU_RegFile ALU_RegFile(
-    //Input
+    //INPUTS
     .clk(clk),
     .RegWrite(RegWrite),
     .ALUSrc(ALUSrc),
@@ -85,7 +91,8 @@ ALU_RegFile ALU_RegFile(
     .ImmOp(ImmExt),
     .WD3(Result),
     .trigger(trigger),
-    //Output
+
+    //OUTPUTS
     .Zero(Zero),
     .ALUResult(ALUResult),
     .a0(a0),
@@ -93,20 +100,22 @@ ALU_RegFile ALU_RegFile(
 );
 
 Sign_extend Sign_extend(
-    //Input
+    //INPUTS
     .instr(instr),
     .ImmSrc(ImmSrc),
-    //Output
+
+    //OUTPUTS
     .ImmExt(ImmExt)
 );
 
 Data_mem Data_mem(
-    //Input
+    //INPUTS
     .clk(clk),
     .WE(MemWrite),
     .A(ALUResult),
     .WD(WriteData),
-    //Output
+
+    //OUTPUTS
     .RD(ReadData)
 );
 

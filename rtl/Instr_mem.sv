@@ -5,8 +5,8 @@ module Instr_mem #(
     output logic    [31:0]      RD
 );
 
-logic [31:0] addr_word = {A[31:2],2'b0};    //masking
-logic [DATA_WIDTH-1:0] rom_array [32'hBFC00FFF:32'hBFC00000];   //memory mapping
+logic [31:0] addr_word = {A[31:2],2'b0};                        // masking
+logic [DATA_WIDTH-1:0] rom_array [32'hBFC00FFF:32'hBFC00000];   // memory mapping
 
 initial begin 
         $display("Lodaing rom.");
