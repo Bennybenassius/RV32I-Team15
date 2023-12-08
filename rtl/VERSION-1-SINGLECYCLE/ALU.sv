@@ -6,10 +6,39 @@ module ALU(
     
     //OUTPUTS
     output  logic    [31:0]     ALUResult,      //ALU output
-    output  logic               Zero
+    output  logic    [1:0]      Zero
 );
 
-assign Zero = (SrcA == SrcB);   //Flag for equals or not equal
+//assign Zero = (SrcA == SrcB);   //Flag for equals or not equal
+
+logic [31: 0] cmp;
+logic sign;
+logic eq;
+
+always_comb begin
+    cmp = SrcA - SrcB;
+    sign = (SrcA[31] == SrcB[31]);
+    eq = (SrcA == SrcB);
+    case (eq)                     //see if equal
+        1'b1:   Zero = 2'b1;               //equal
+        1'b0:   begin                       //not queal
+            case(sign)     // see if same sign
+                1'b1:   begin               // same sign
+                    case(cmp[31])
+                        1'b0:      Zero = 2'b11;        //different is postive
+                        1'b1:      Zero = 2'b10;      //different is negetive
+                    endcase
+                end
+                1'b0:   begin           // different sign
+                    case(SrcA[31])
+                        1'b0:   Zero = 2'b11;          // SrcA is postive, SrcB is negetive
+                        1'b1:   Zero = 2'b10;          // SrcA is negetive, SrcB is postive
+                    endcase
+                end
+            endcase
+        end 
+    endcase
+end
 
 always_comb begin
     case(ALUControl)
@@ -24,4 +53,5 @@ always_comb begin
         default: ALUResult = 0;                                             // Handle unexpected ALUctrl values
     endcase
 end
+
 endmodule
