@@ -50,6 +50,7 @@ while (i < len(s)):
     instr_tmp = []
     i += 4
 instr = ' '.join(instr)
+instr += f'\n'
 f.close()
 
 f = open(dst_hex, 'w')
