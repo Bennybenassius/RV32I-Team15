@@ -31,7 +31,7 @@ end
 
 always_ff @ (posedge clk, posedge rst)begin
     if (rst)    PC <= 32'b0;
-    PC <= PCNext;
+    else PC <= PCNext;
 end;
 
 endmodule
