@@ -13,7 +13,7 @@ initial begin
         $readmemh("instruction_code.mem", rom_array);
 end;
 
-assign RD = {rom_array[addr_word], rom_array[addr_word+1], rom_array[addr_word+2], rom_array[addr_word+3]}; 
+assign RD = {rom_array[addr_word+3], rom_array[addr_word+2], rom_array[addr_word+1], rom_array[addr_word]}; 
 // concatenate the 4 byte address to make the full word address (little endian addressing)
 
 endmodule
