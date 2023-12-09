@@ -1,6 +1,6 @@
 module E#(
 
-    input logic           ckl,
+    input logic           clk,
     input logic           RegWriteM_i,
     input logic [1:0]     ResultSrcM_i,
     input logic           MemWriteM_i,
@@ -21,11 +21,11 @@ module E#(
 );
 //=======================================
 
-logic           RegWriteM_o = RegWrite_i;
-logic [1:0]     ResultSrcM_o = ResultSrcM_i;
-logic [31:0]    ALUResultM_i = ALUResultM_o;
-logic [11:7]    RdM_i = RdM_o;
-logic [31:0]    PCPlus4M_i = PCPlus4M_o;
+assign logic           RegWriteM_o = RegWrite_i;
+assign logic [1:0]     ResultSrcM_o = ResultSrcM_i;
+assign logic [31:0]    ALUResultM_i = ALUResultM_o;
+assign logic [11:7]    RdM_i = RdM_o;
+assign logic [31:0]    PCPlus4M_i = PCPlus4M_o;
 
 
 Data_mem Data_mem(
