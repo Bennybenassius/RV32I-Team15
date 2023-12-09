@@ -60,7 +60,7 @@ end
 always_comb begin
     case (WE)
         3'b0:   begin   //lw (load word)
-            RD = {mem_array[addr], mem_array[addr + 1], mem_array[addr + 2], mem_array[addr + 3]};
+            RD = {mem_array[addr + 3], mem_array[addr + 2], mem_array[addr + 1], mem_array[addr]};
         end 
 
         3'b10:  begin   //lb (load byte)
