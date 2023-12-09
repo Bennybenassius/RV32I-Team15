@@ -20,6 +20,8 @@ dst_raw = './src/myprog'
 
 src_hex = f'./src/myprog/{assembly}.hex'
 dst_hex = f'./rtl/{version}/instruction_code.mem'
+
+dst_rtl = f'./rtl/{version}/'
 #=============================end_parse_argument=======================================
 
 if os.name == 'nt':  # Windows
@@ -64,4 +66,4 @@ f.write(instr)
 f.close()
 
 os.system('echo "==================doit.sh=========================="')
-os.system(". ./doit.sh")
+os.system(f'cd {dst_rtl} \n . ./doit.sh')
