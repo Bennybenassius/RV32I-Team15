@@ -1,20 +1,20 @@
 module Pipeline_Regfile_FD(
     //INPUTS
     input logic             clk,
-    input logic  [31:0]     InstrF,
-    input logic             PCF,
-    input logic             PCPlus4F,
+    input logic  [31:0]     InstrF_i,
+    input logic             PCF_i,
+    input logic             PCPlus4F_i,
 
     //OUTPUTS
-    output logic [31:0]      InstrD,
-    output logic [31:0]      PCD,
-    output logic [31:0]      PCPlus4D,
+    output logic [31:0]      InstrD_o,
+    output logic [31:0]      PCD_o,
+    output logic [31:0]      PCPlus4D_o,
 );
 
 always_ff @(posedge clk) begin 
-    InstrD <= InstrF;
-    PCD <= PCF;
-    PCPlus4F <= PCPlus4D;
+    InstrD_o <= InstrF_i;
+    PCD_o <= PCF_i;
+    PCPlus4F_o <= PCPlus4D_i;
 end
 
 endmodule
