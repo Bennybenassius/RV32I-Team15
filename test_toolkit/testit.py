@@ -2,13 +2,25 @@ import os
 import sys
 import string
 
-arg = sys.argv
+args = sys.argv
+#=============================parse_argument===========================================
+versions = ['VERSION-1-SINGLECYCLE', 'VERSION-2-PIPELINING']
 
-if len(arg) == 2:
-    src_raw = f'./{arg[1]}'
-else:
-    src_raw = 'test.s'
+version = 'VERSION-1-SINGLECYCLE'
+assembly = 'test.s'
+
+for arg in args:
+    if 'version' in arg:
+        version = versions[int(arg.partition('=')[2])]
+    if 'assembly' in arg:
+        assembly = arg.partition('=')[2]
+
+src_raw = f'./{assembly}'
 dst_raw = './src/myprog'
+
+src_hex = f'./src/myprog/{assembly}.hex'
+dst_hex = f'./rtl/{version}/instruction_code.mem'
+#=============================end_parse_argument=======================================
 
 if os.name == 'nt':  # Windows
     cmd = 'copy ' + src_raw + " " + dst_raw
@@ -19,13 +31,6 @@ os.system(cmd)
 
 os.system('echo "==================Make_hex_file==================="')
 os.system("cd ./src \n make hexfile")
-
-if len(arg) == 2:
-    src_hex = f'./src/myprog/{arg[1]}.hex'
-else:
-    src_hex = './src/myprog/test.s.hex'
-
-dst_hex = 'instruction_code.mem'
 
 if os.name == 'nt':  # Windows
     cmd = 'copy ' + src_hex + " " + dst_hex
@@ -59,4 +64,4 @@ f.write(instr)
 f.close()
 
 os.system('echo "==================doit.sh=========================="')
-os.system("source doit.sh")
+os.system(". ./doit.sh")
