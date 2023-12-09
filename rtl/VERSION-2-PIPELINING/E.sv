@@ -34,12 +34,25 @@
     assign logic [31:0]    PCTargetE_o    = PCE_i   + ImmExtE;
     assign logic [31:0]    WriteDataE_o = RD2E_i;
     logic        [31:0]    SrcBE        = (ALUSrcE_i) ? ImmExtE_i : RD2E_i; 
-    assign logic           PCSrcE_o     = (ZeroE & BranchE_i) | JumpE_i;
     assign logic           RegWriteE_o = RegWriteE_i;
     assign logic [1:0]     ResultSrcE_o = ResultSrcE_i;
     assign logic           MemWriteE_o = MemWriteE_i;
     assign logic [11:7]    RdE_o = RdE_i;
     assign logic [31:0]    PCPlus4E_o = PCPlus4E_i;
+
+    always_comb begin
+        case({JumpE_i, BranchE_i, ZeroE})
+            3'b000:  PCSrcE_o = 1'b0;
+            3'b001:  PCSrcE_o = 1'b0;
+            3'b010:  PCSrcE_o = 1'b0;
+            3'b011:  PCSrcE_o = 1'b1;
+            3'b100:  PCSrcE_o = 1'b1;
+            3'b101:  PCSrcE_o = 1'b1;
+            3'b110:  PCSrcE_o = 1'b1;
+            3'b111:  PCSrcE_o = 1'b1;
+            default: PCSrcE_o = 1'b0; 
+        endcase
+    end
 
     ALU ALU(
         //INPUT
