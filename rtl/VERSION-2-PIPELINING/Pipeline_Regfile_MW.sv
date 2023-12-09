@@ -7,6 +7,7 @@ module Pipeline_Regfile_MW(
     input logic [31:0]      ALUResultM,
     input logic [31:0]      RdM,
     input logic [31:0]      PCPlus4M,
+    input logic [31:0]      ReadDataM
 
     //OUTPUTS
     output logic             RegWriteW,
@@ -15,6 +16,7 @@ module Pipeline_Regfile_MW(
     output logic [31:0]      ALUResultW,
     output logic [31:0]      RdW,
     output logic [31:0]      PCPlus4W,
+    output logic [31:0]      ReadDataW
 
 );
 
@@ -24,6 +26,7 @@ always_ff @(posedge clk) begin
     ALUResultW <= ALUResultM;
     PCPlus4W <= PCPlus4M;
     RdW <= RdM;
+    ReadDataW <= ReadDataM
 end
 
 endmodule
