@@ -122,7 +122,7 @@ always_comb begin
                     ImmSrc = 2'b1;           // use sign extend 
                     RegWrite = 1'b0;         // not writing to any reg
                     case(Zero)
-                        2'b1    :   begin 
+                        2'b1    :   begin // equal
                             PCSrc = 2'b1; // need branching
                         end
                         default: PCSrc = 2'b0;
@@ -144,7 +144,7 @@ always_comb begin
                     endcase
                 end      
 
-                3'b100    :  begin           // blt 
+                3'b100    :  begin  // BLT 
                     ResultSrc = 2'b0;        // don't care
                     MemWrite = 3'b0;         // don't care
                     ALUControl = 3'b0;       // don't care
@@ -152,14 +152,14 @@ always_comb begin
                     ImmSrc = 2'b1;           // use sign extend 
                     RegWrite = 1'b0;         // not writing to any reg
                     case(Zero)
-                        2'b10   :   begin // equal
+                        2'b10   :   begin 
                             PCSrc = 2'b1; // branch
                         end
-                        default: PCSrc = 2'b0; // otherwise, branch
+                        default: PCSrc = 2'b0; // otherwise, no branch
                     endcase
                 end 
 
-                3'b101    :  begin           // bge 
+                3'b101    :  begin  // BGE 
                     ResultSrc = 2'b0;        // don't care
                     MemWrite = 3'b0;         // don't care
                     ALUControl = 3'b0;       // don't care
@@ -173,7 +173,7 @@ always_comb begin
                         2'b01   :   begin     // =  
                             PCSrc = 2'b1; // branch
                         end
-                        default: PCSrc = 2'b0; // otherwise, branch
+                        default: PCSrc = 2'b0; // otherwise, no branch
                     endcase
                 end 
 

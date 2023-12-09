@@ -19,20 +19,20 @@ always_comb begin
     cmp = SrcA - SrcB;
     sign = (SrcA[31] == SrcB[31]);
     eq = (SrcA == SrcB);
-    case (eq)                     //see if equal
-        1'b1:   Zero = 2'b1;               //equal
-        1'b0:   begin                       //not queal
-            case(sign)     // see if same sign
-                1'b1:   begin               // same sign
+    case (eq)                                       //see if equal
+        1'b1:   Zero = 2'b1;                            //equal
+        1'b0:   begin                                   //not equal
+            case(sign)                              //see if same sign
+                1'b1:   begin                           // same sign
                     case(cmp[31])
-                        1'b0:      Zero = 2'b11;        //different is postive
-                        1'b1:      Zero = 2'b10;      //different is negetive
+                        1'b0:      Zero = 2'b11;            //difference is postive
+                        1'b1:      Zero = 2'b10;            //difference is negetive
                     endcase
                 end
-                1'b0:   begin           // different sign
+                1'b0:   begin                           // different sign
                     case(SrcA[31])
-                        1'b0:   Zero = 2'b11;          // SrcA is postive, SrcB is negetive
-                        1'b1:   Zero = 2'b10;          // SrcA is negetive, SrcB is postive
+                        1'b0:   Zero = 2'b11;               // SrcA is postive, SrcB is negetive
+                        1'b1:   Zero = 2'b10;               // SrcA is negetive, SrcB is postive
                     endcase
                 end
             endcase
