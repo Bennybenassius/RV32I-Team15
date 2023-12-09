@@ -32,10 +32,12 @@ always_comb begin
                     endcase
                 end
 
-                7'd99   :   begin   // BEQ or BNE
+                7'd99   :   begin   // BEQ, BNE, BLT, BGE
                     case (funct3)
-                        3'b1    :   ImmExt = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0}; 
-                        3'b0    :   ImmExt = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0};  
+                        3'b000    :   ImmExt = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0};  
+                        3'b001    :   ImmExt = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0}; 
+                        3'b100    :   ImmExt = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0};
+                        3'b101    :   ImmExt = {{19{instr[31]}}, instr[31], instr[7], instr[30:25], instr[11:8], 1'b0};  
                         default :   ImmExt = 32'b0;
                     endcase
                 end

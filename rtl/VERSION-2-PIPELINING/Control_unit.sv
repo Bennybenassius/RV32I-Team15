@@ -135,12 +135,45 @@ always_comb begin
                     ImmSrcD = 2'b1;           // use sign extend 
                     RegWriteD = 1'b0;         // not writing to any reg
                     case(Zero)
-                        1'b0    :   begin 
-                            PCSrc = 2'b1; // need branching
+                        2'b1    :   begin // equal
+                            PCSrc = 2'b0; // no branching
                         end
-                        default: PCSrc = 2'b0;
+                        default: PCSrc = 2'b1; // otherwise, branch
                     endcase
-                end      
+                end
+
+                3'b100    :  begin  // BLT 
+                    ResultSrc = 2'b0;        // don't care
+                    MemWrite = 3'b0;         // don't care
+                    ALUControl = 3'b0;       // don't care
+                    ALUSrc = 1'b0;           // use reg
+                    ImmSrc = 2'b1;           // use sign extend 
+                    RegWrite = 1'b0;         // not writing to any reg
+                    case(Zero)
+                        2'b10   :   begin 
+                            PCSrc = 2'b1; // branch
+                        end
+                        default: PCSrc = 2'b0; // otherwise, no branch
+                    endcase
+                end 
+
+                3'b101    :  begin  // BGE 
+                    ResultSrc = 2'b0;        // don't care
+                    MemWrite = 3'b0;         // don't care
+                    ALUControl = 3'b0;       // don't care
+                    ALUSrc = 1'b0;           // use reg
+                    ImmSrc = 2'b1;           // use sign extend 
+                    RegWrite = 1'b0;         // not writing to any reg
+                    case(Zero)
+                        2'b11   :   begin     // >  
+                            PCSrc = 2'b1; // branch
+                        end
+                        2'b01   :   begin     // =  
+                            PCSrc = 2'b1; // branch
+                        end
+                        default: PCSrc = 2'b0; // otherwise, no branch
+                    endcase
+                end       
 
                 default: begin // do nothing
                     PCSrc = 2'b0;

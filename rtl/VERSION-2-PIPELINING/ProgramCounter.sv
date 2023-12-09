@@ -21,16 +21,20 @@ assign  PCPlus4F = PCF + 32'b100;
 assign  PCTarget = ImmExt + PCF;
 
 always_comb begin // 4 input MUX
-    case (PCSrc)
-        2'b00 :  PCNextF = PCPlus4F;
-        2'b01 :  PCNextF = PCTarget;
-        2'b10 :  PCNextF = PCjalr;
-        default: PCNextF = PCPlus4F;
+    case (rst)
+        1'b1:   PCNextF = 0; 
+        1'b0:   begin
+            case (PCSrc)
+                2'b00 :  PCNextF = PCPlus4F;
+                2'b01 :  PCNextF = PCTarget;
+                2'b10 :  PCNextF = PCjalr;
+                default: PCNextF = PCPlus4F;
+            endcase
+        end
     endcase
 end
 
-always_ff @ (posedge clk, posedge rst)begin
-    if (rst)    PCF <= 32'b0;
+always_ff @ (posedge clk)begin
     PCF <= PCNextF;
 end;
 
