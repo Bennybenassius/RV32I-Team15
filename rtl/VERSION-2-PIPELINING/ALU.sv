@@ -16,23 +16,23 @@ logic sign;
 logic eq;
 
 always_comb begin
-    cmp = SrcA - SrcB;
-    sign = (SrcA[31] == SrcB[31]);
-    eq = (SrcA == SrcB);
+    cmp = SrcAE - SrcBE;
+    sign = (SrcAE[31] == SrcBE[31]);
+    eq = (SrcAE == SrcBE);
     case (eq)                                       //see if equal
-        1'b1:   Zero = 2'b1;                            //equal
+        1'b1:   ZeroE = 2'b1;                            //equal
         1'b0:   begin                                   //not equal
             case(sign)                              //see if same sign
                 1'b1:   begin                           // same sign
                     case(cmp[31])
-                        1'b0:      Zero = 2'b11;            //difference is postive
-                        1'b1:      Zero = 2'b10;            //difference is negetive
+                        1'b0:      ZeroE = 2'b11;            //difference is postive
+                        1'b1:      ZeroE = 2'b10;            //difference is negetive
                     endcase
                 end
                 1'b0:   begin                           // different sign
                     case(SrcA[31])
-                        1'b0:   Zero = 2'b11;               // SrcA is postive, SrcB is negetive
-                        1'b1:   Zero = 2'b10;               // SrcA is negetive, SrcB is postive
+                        1'b0:   ZeroE = 2'b11;               // SrcAE is postive, SrcBE is negetive
+                        1'b1:   ZeroE = 2'b10;               // SrcAE is negetive, SrcBE is postive
                     endcase
                 end
             endcase
