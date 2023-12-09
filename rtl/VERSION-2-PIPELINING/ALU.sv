@@ -30,7 +30,7 @@ always_comb begin
                     endcase
                 end
                 1'b0:   begin                           // different sign
-                    case(SrcA[31])
+                    case(SrcAE[31])
                         1'b0:   ZeroE = 2'b11;               // SrcAE is postive, SrcBE is negetive
                         1'b1:   ZeroE = 2'b10;               // SrcAE is negetive, SrcBE is postive
                     endcase

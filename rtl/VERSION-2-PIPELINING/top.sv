@@ -58,7 +58,7 @@ Control_unit Control_unit(
 
     //OUTPUTS
     .RegWrite(RegWrite),
-    .ResultSrc(ResultSrc)
+    .ResultSrc(ResultSrc),
     .MemWrite(MemWrite),
     .ALUControl(ALUControl),
     .ALUSrc(ALUSrc),
