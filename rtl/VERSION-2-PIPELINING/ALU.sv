@@ -20,19 +20,19 @@ always_comb begin
     sign = (SrcAE[31] == SrcBE[31]);
     eq = (SrcAE == SrcBE);
     case (eq)                                       //see if equal
-        1'b1:   ZeroE = 2'b1;                            //equal
+        1'b1:   ZeroE = 2'b01;                          //equal, a = b
         1'b0:   begin                                   //not equal
             case(sign)                              //see if same sign
                 1'b1:   begin                           // same sign
                     case(cmp[31])
-                        1'b0:      ZeroE = 2'b11;            //difference is postive
-                        1'b1:      ZeroE = 2'b10;            //difference is negetive
+                        1'b0:   ZeroE = 2'b10;               //difference is postive, a > b
+                        1'b1:   ZeroE = 2'b00;               //difference is negetive, a < b
                     endcase
                 end
                 1'b0:   begin                           // different sign
                     case(SrcAE[31])
-                        1'b0:   ZeroE = 2'b11;               // SrcAE is postive, SrcBE is negetive
-                        1'b1:   ZeroE = 2'b10;               // SrcAE is negetive, SrcBE is postive
+                        1'b0:   ZeroE = 2'b10;               // SrcAE is postive, SrcBE is negetive, a > b
+                        1'b1:   ZeroE = 2'b00;               // SrcAE is negetive, SrcBE is postive, a < b
                     endcase
                 end
             endcase
