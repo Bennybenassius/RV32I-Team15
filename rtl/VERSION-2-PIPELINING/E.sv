@@ -31,10 +31,15 @@
     //=======================================
     //          WIRE
 
-    logic [31:0]    PCTargetE    = PCE + ImmExtE;
+    logic [31:0]    PCTargetE_o    = PCE + ImmExtE;
     logic [31:0]    WriteDataE_o = RD2E;
     logic [31:0]    SrcBE        = (ALUSrcE_i) ? ImmExtE_i : RD2E_i; 
     logic           PCSrcE_o     = (ZeroE & BranchE) | JumpE_i;
+    logic           RegWriteE_o = RegWriteE_i;
+    logic [1:0]     ResultSrcE_o = ResultSrcE_i;
+    logic           MemWriteE_o = MemWriteE_i;
+    logic [11:7]    RdE_o = RdE_i;
+    logic [31:0]    PCPlus4E_o = PCPlus4E_i;
 
     ALU ALU(
         //INPUT
