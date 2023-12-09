@@ -11,7 +11,7 @@ assembly = 'test.s'
 
 for arg in args:
     if 'version' in arg:
-        version = versions[int(arg.partition('=')[2])]
+        version = versions[int(arg.partition('=')[2]) - 1]
     if 'assembly' in arg:
         assembly = arg.partition('=')[2]
 
