@@ -42,7 +42,7 @@ Instr_mem Instr_mem (
     //INPUTS
     .A(PCF),
     //OUTPUTS
-    .RD(InstrF_o),
-)
+    .RD(InstrF_o)
+);
 
 endmodule
