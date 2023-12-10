@@ -6,3 +6,6 @@ obj_dir/
 
 # ignore all all files in any directory named .obsidian
 .obsidian/
+
+# ignore all files in any directory named myprog
+myprog/
