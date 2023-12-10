@@ -1,11 +1,10 @@
 module D (
     //Input
     input logic             clk,
-    input logic     [31: 0] InstrD_i,
-    input logic     [31: 0] PCD_i,
-    input logic     [31: 0] ResultW_i,
-    input logic     [31: 0] RdW_i,
-    input logic            RegWriteW_i,
+    input logic     [31:0]  InstrD_i,
+    input logic     [31:0]  ResultW_i,
+    input logic     [4: 0]  RdW_i,
+    input logic             RegWriteW_i,
     input logic             trigger_i,
     //Output
     output logic            RegWriteD_o,
@@ -16,12 +15,12 @@ module D (
     output logic    [2: 0]  ALUControlD_o,
     output logic            ALUSrcD_o,
 
-    output logic    [31: 0] RD1D_o,
-    output logic    [31: 0] RD2D_o,
+    output logic    [31:0]  RD1D_o,
+    output logic    [31:0]  RD2D_o,
     output logic    [4: 0]  RdD_o,
-    output logic    [31: 0] ImmExtD_o,
+    output logic    [31:0]  ImmExtD_o,
 
-    output  logic   [31:0]    a0
+    output  logic   [31:0]  a0
 );
 
 logic   [6: 0]    op;
@@ -29,11 +28,11 @@ logic   [2: 0]    funct3;
 logic             funct7;
 logic   [4: 0]    A1;
 logic   [4: 0]    A2;
-logic   [31: 0]   A3;
-logic   [31: 0]   WD3;
+logic   [4: 0]    A3;
+logic   [31:0]    WD3;
 logic   [4: 0]    RdD;
-logic   [31: 0]   Instr;
-logic             ImmSrc;
+logic   [31:0]    Instr;
+logic   [1: 0]    ImmSrc;
 
 always_comb begin
     op = InstrD_i[6: 0];

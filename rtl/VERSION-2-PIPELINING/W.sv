@@ -13,7 +13,7 @@ always_comb begin
     case (ResultSrcW_i)
         2'b00: ResultW_o = ALUResultW_i;
         2'b01: ResultW_o = ReadDataW_i;
-        2'b01: ResultW_o = PCPlus4W_i;
+        2'b10: ResultW_o = PCPlus4W_i;
     endcase
 end
 

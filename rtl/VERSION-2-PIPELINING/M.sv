@@ -1,7 +1,7 @@
 module M(
     //INPUTS
     input logic           clk,
-    input logic           MemWriteM_i,
+    input logic [2: 0]    MemWriteM_i,
     input logic [31:0]    ALUResultM_i,
     input logic [31:0]    WriteDataM_i,
 
@@ -19,7 +19,7 @@ Data_mem Data_mem(
     .WD(WriteDataM_i),
 
     //OUTPUTS
-    .RD(ReadDataM_o),
+    .RD(ReadDataM_o)
 );
 
 endmodule

@@ -21,6 +21,9 @@ logic   [WIDTH-1:0] PCF = 0;
 assign  PCPlus4F_o = PCF + 32'b100;   //PC + 4
 
 always_comb begin // 4 input MUX
+    
+    PCF_o = PCF;                                    //Wire PCF straight out 
+    
     case (rst)
         1'b1:   PCNextF = 0;
         1'b0:   begin

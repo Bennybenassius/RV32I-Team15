@@ -28,7 +28,7 @@ logic   [4: 0]  RdW_o;
 logic   [31:0]  ResultW_o;
 logic           RegWriteD_o;
 logic   [1: 0]  ResultSrcD_o;
-logic           MemWriteD_o;
+logic   [2: 0]  MemWriteD_o;
 logic   [1: 0]  JumpD_o;
 logic           BranchD_o;
 logic   [2: 0]  ALUControlD_o;
@@ -40,7 +40,7 @@ logic   [31:0]  ImmExtD_o;
 //Wires going in and out of DE pipeline register
 logic           RegWriteE_o;
 logic   [1: 0]  ResultSrcE_o;
-logic           MemWriteE_o;
+logic   [2: 0]  MemWriteE_o;
 logic   [1: 0]  JumpE_o;
 logic           BranchE_o;
 logic   [2: 0]  ALUControlE_o;
@@ -57,7 +57,7 @@ logic   [31:0]  WriteDataE_o;
 //Wires going in and out of EM pipeline register
 logic           RegWriteM_o;
 logic   [1: 0]  ResultSrcM_o;
-logic           MemWriteM_o;
+logic   [2: 0]  MemWriteM_o;
 logic   [31:0]  ALUResultM_o_2_r;
 logic   [31:0]  ALUResultM_o_2_m;
 logic   [31:0]  WriteDataM_o;
@@ -69,7 +69,7 @@ logic   [31:0]  ReadDataM_o;
 
 
 //Wire going in and out of MW pipeline register
-logic   [2: 0]  ResultSrcW_o;
+logic   [1: 0]  ResultSrcW_o;
 logic   [31:0]  ALUResultW_o;
 logic   [31:0]  ReadDataW_o;
 logic   [31:0]  PCPlus4W_o;
@@ -110,7 +110,6 @@ D   D (
     .clk(clk),
     .RegWriteW_i(RegWriteW_o),
     .InstrD_i(InstrD_o),
-    .PCD_i(PCD_o),
     .RdW_i(RdW_o),
     .ResultW_i(ResultW_o),
     .trigger_i(trigger),
@@ -202,7 +201,7 @@ Pipeline_Regfile_EM Pipeline_Regfile_EM (
     .ALUResultM_o_2_m(ALUResultM_o_2_m),
     .WriteDataM_o(WriteDataM_o),
     .RdM_o(RdM_o),
-    .PCPlus4M_o(PCPlus4M_o),
+    .PCPlus4M_o(PCPlus4M_o)
 );
 
 //Memory pipeline stage
