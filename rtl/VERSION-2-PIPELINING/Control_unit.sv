@@ -127,7 +127,7 @@ always_comb begin
                     RegWriteD = 1'b0;               // not writing to reg
                     ResultSrcD = 2'b0;              // don't care
                     MemWriteD = 3'b0;               // don't care
-                    JumpD = 2'b0;                   // no jump
+                    JumpD = 2'b11;                  // no jump
                     BranchD = 1'b1;                 // branch
                     ALUControlD = 3'b0;             // don't care
                     ALUSrcD = 1'b0;                 // use reg
@@ -138,7 +138,7 @@ always_comb begin
                     RegWriteD = 1'b0;               // not writing to reg
                     ResultSrcD = 2'b0;              // don't care
                     MemWriteD = 3'b0;               // don't care
-                    JumpD = 2'b0;                   // no jump
+                    JumpD = 2'b01;                  // no jump
                     BranchD = 1'b1;                 // branch
                     ALUControlD = 3'b0;             // don't care
                     ALUSrcD = 1'b0;                 // use reg

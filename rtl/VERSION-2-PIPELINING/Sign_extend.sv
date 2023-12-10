@@ -76,14 +76,6 @@ always_comb begin
 
         default  :  ImmExtD = 32'b0;
 
-        // 2'b10 : begin   // byte extend
-        
-        // end
-
-        // 2'b11 : begin   // zero extend
-
-        // end
-
     endcase
 end
 

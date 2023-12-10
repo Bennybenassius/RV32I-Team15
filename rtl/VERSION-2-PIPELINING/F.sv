@@ -39,9 +39,9 @@ always_ff @ (posedge clk)begin
 end;
 
 Instr_mem Instr_mem (
-    //Input
+    //INPUTS
     .A(PCF),
-    //Output
+    //OUTPUTS
     .RD(InstrF_o),
 )
 

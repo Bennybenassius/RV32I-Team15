@@ -21,15 +21,25 @@ mainloop:
     nop
     nop
 	jal     ra, secondTimer    		    /*Jumps to the secondTimer subroutine to count 1s*/
+	nop
+	nop
 	jal     zero, mainloop            	/*Always jumps back to increment to next state*/
+	nop
+	nop
 
 lastState:
 	jal     ra, randTimer               /*Random timer countdown*/
+	nop
+	nop
 	addi    a0, zero, 0        			/*Return the state to 0*/
 	jal     zero, start            		/*Always jump back outside the main loop to reset and wait for trigger again*/
+	nop
+	nop
 
 wait:
 	jal     zero, start         		/*Always loop back to start and continuously listen for trigger*/
+	nop
+	nop
 
 /*one second timer subroutine*/
 secondTimer:
@@ -37,7 +47,11 @@ secondTimer:
 	minusloop1:
 		addi    a2, a2, -1
 		bne     a2, zero, minusloop1	/*Keep looping back to -1 until 1s is reached*/
+		nop
+		nop
 	jalr    zero, ra, 0          		/*Resume program execution*/
+	nop
+	nop
 
 /*random time timer subroutine*/
 randTimer:
@@ -51,7 +65,7 @@ randTimer:
     xor     a4, a4, a5          		/*XOR the last 2 digits*/
 	srl     a3, a3, t1          		/*Shift the LFSR by 1 bit to the right*/
 	nop
-    sll		a4, a4, t3					/*Append XOR result to left (start of LFSR*/
+    sll		a4, a4, t3					/*Append XOR result to left (start of LFSR)*/
 	add    	a2, zero, a3         		/*initialise the counting register to LFSR*/
 minusloop2:
 	addi    a2, a2, -1
@@ -61,3 +75,5 @@ minusloop2:
     nop
     nop
 	jalr    zero, ra, 0                 /*Resume program execution*/
+	nop
+	nop
