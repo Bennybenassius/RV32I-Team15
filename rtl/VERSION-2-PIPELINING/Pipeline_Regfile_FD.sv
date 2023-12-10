@@ -2,8 +2,8 @@ module Pipeline_Regfile_FD(
     //INPUTS
     input logic             clk,
     input logic  [31:0]     InstrF_i,
-    input logic             PCF_i,
-    input logic             PCPlus4F_i,
+    input logic  [31:0]     PCF_i,
+    input logic  [31:0]     PCPlus4F_i,
 
     //OUTPUTS
     output logic [31:0]      InstrD_o,
