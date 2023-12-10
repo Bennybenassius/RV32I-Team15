@@ -18,7 +18,8 @@ module D (
     output logic    [4: 0]  RdD_o,
     output logic    [31: 0] ImmExtD_o
 
-),
+);
+
 logic   [6: 0]    op;
 logic   [2: 0]    func3;
 logic             func7;
