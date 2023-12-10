@@ -22,8 +22,9 @@ module E(
 //          WIRE
 
 logic   [1: 0] ZeroE;
-logic  [31:0]  SrcBE = (ALUSrcE_i) ? ImmExtE_i : RD2E_i; 
+logic   [31:0] SrcBE;
 
+assign  SrcBE = (ALUSrcE_i) ? ImmExtE_i : RD2E_i; 
 assign  PCTargetE_o = PCE_i + ImmExtE_i;
 assign  WriteDataE_o = RD2E_i;
 
