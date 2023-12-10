@@ -58,13 +58,15 @@ logic   [31:0]  WriteDataE_o;
 logic           RegWriteM_o;
 logic   [1: 0]  ResultSrcM_o;
 logic           MemWriteM_o;
-logic   [31:0]  ALUResultM_o;
+logic   [31:0]  ALUResultM_o_2_r;
+logic   [31:0]  ALUResultM_o_2_m;
 logic   [31:0]  WriteDataM_o;
 logic   [4: 0]  RdM_o;
 logic   [31:0]  PCPlus4M_o;
 
 //Wires going in and out of M stage
 logic   [31:0]  ReadDataM_o;
+
 
 //Wire going in and out of MW pipeline register
 logic   [2: 0]  ResultSrcW_o;
@@ -196,7 +198,8 @@ Pipeline_Regfile_EM Pipeline_Regfile_EM (
     .RegWriteM_o(RegWriteM_o),
     .ResultSrcM_o(ResultSrcM_o),
     .MemWriteM_o(MemWriteM_o),
-    .ALUResultM_o(ALUResultM_o),
+    .ALUResultM_o_2_r(ALUResultM_o_2_r),
+    .ALUResultM_o_2_m(ALUResultM_o_2_m),
     .WriteDataM_o(WriteDataM_o),
     .RdM_o(RdM_o),
     .PCPlus4M_o(PCPlus4M_o),
@@ -207,10 +210,9 @@ M   M (
     //INPUT
     .clk(clk),
     .MemWriteM_i(MemWriteM_o),
-    .ALUResultM_i(ALUResultM_o),
+    .ALUResultM_i(ALUResultM_o_2_m),
     .WriteDataM_i(WriteDataM_o),
     //OUTPUT
-    .ALUResultM_o(ALUResultM_o),
     .ReadDataM_o(ReadDataM_o)
 );
 
@@ -220,15 +222,17 @@ Pipeline_Regfile_MW Pipeline_Regfile_MW (
     .clk(clk),
     .RegWriteM_i(RegWriteM_o),
     .ResultSrcM_i(ResultSrcM_o),
-    .ALUResultM_i(ALUResultM_o),
+    .ALUResultM_i(ALUResultM_o_2_r),
     .ReadDataM_i(ReadDataM_o),
     .RdM_i(RdM_o),
-    .PCPlus4M_i(PCPlus4M_i),
+    .PCPlus4M_i(PCPlus4M_o),
     //OUTPUT
+    .RegWriteW_o(RegWriteW_o),
     .ResultSrcW_o(ResultSrcW_o),
     .ALUResultW_o(ALUResultW_o),
     .ReadDataW_o(ReadDataW_o),
-    .PCPlus4W_o(PCPlus4W_o)
+    .PCPlus4W_o(PCPlus4W_o),
+    .RdW_o(RdW_o)
 );
 
 //Write pipeline stage

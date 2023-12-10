@@ -1,34 +1,36 @@
 module Pipeline_Regfile_EM (
     //INPUTS
     input logic             clk,
-    input logic             RegWriteE,
-    input logic [1:0]       ResultSrcE,
-    input logic             MemWriteE,
+    input logic             RegWriteE_i,
+    input logic [1:0]       ResultSrcE_i,
+    input logic             MemWriteE_i,
 
-    input logic [31:0]      ALUResultE,
-    input logic [31:0]      WriteDataE,
-    input logic [4:0]       RdE,
-    input logic [31:0]      PCPlus4E,
+    input logic [31:0]      ALUResultE_i,
+    input logic [31:0]      WriteDataE_i,
+    input logic [4:0]       RdE_i,
+    input logic [31:0]      PCPlus4E_i,
 
     //OUTPUTS
-    output logic            RegWriteM,
-    output logic [1:0]      ResultSrcM,
-    output logic            MemWriteM,
+    output logic            RegWriteM_o,
+    output logic [1:0]      ResultSrcM_o,
+    output logic            MemWriteM_o,
 
-    output logic [31:0]     ALUResultM,
-    output logic [31:0]     WriteDataM, 
-    output logic [4:0]      RdM,
-    output logic [31:0]     PCPlus4M
+    output logic [31:0]     ALUResultM_o_2_m,
+    output logic [31:0]     ALUResultM_o_2_r,
+    output logic [31:0]     WriteDataM_o, 
+    output logic [4:0]      RdM_o,
+    output logic [31:0]     PCPlus4M_o
 );
 
 always_ff @(posedge clk) begin
-    RegWriteM <= RegWriteE;
-    ResultSrcM <= ResultSrcE;
-    MemWriteM <= MemWriteE;
-    ALUResultM <= ALUResultE;
-    WriteDataM <= WriteDataE;
-    RdM <= RdE;
-    PCPlus4M <= PCPlus4E;
+    RegWriteM_o <= RegWriteE_i;
+    ResultSrcM_o <= ResultSrcE_i;
+    MemWriteM_o <= MemWriteE_i;
+    ALUResultM_o_2_m <= ALUResultE_i;
+    ALUResultM_o_2_r <= ALUResultE_i;
+    WriteDataM_o <= WriteDataE_i;
+    RdM_o <= RdE_i;
+    PCPlus4M_o <= PCPlus4E_i;
 end
 
 endmodule

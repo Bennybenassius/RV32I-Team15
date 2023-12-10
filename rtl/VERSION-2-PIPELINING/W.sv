@@ -10,13 +10,11 @@ module W (
 );
 
 always_comb begin
-    case (ResultSrcW_i) begin
-        2'b00: Result_o = ALUResultW_i;
-        2'b01: Result_o = ReadDataW_i;
-        2'b01: Result_o = PCPlus4W_i;
-        end
+    case (ResultSrcW_i)
+        2'b00: ResultW_o = ALUResultW_i;
+        2'b01: ResultW_o = ReadDataW_i;
+        2'b01: ResultW_o = PCPlus4W_i;
     endcase
-    
 end
 
 endmodule

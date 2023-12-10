@@ -25,8 +25,8 @@ module D (
 );
 
 logic   [6: 0]    op;
-logic   [2: 0]    func3;
-logic             func7;
+logic   [2: 0]    funct3;
+logic             funct7;
 logic   [4: 0]    A1;
 logic   [4: 0]    A2;
 logic   [31: 0]   A3;
@@ -37,8 +37,8 @@ logic             ImmSrc;
 
 always_comb begin
     op = InstrD_i[6: 0];
-    func3 = InstrD_i[14: 12];
-    func7 = InstrD_i[30];
+    funct3 = InstrD_i[14: 12];
+    funct7 = InstrD_i[30];
     A1 = InstrD_i[19: 15];
     A2 = InstrD_i[24: 20];
     A3 = RdW_i;
@@ -51,7 +51,7 @@ end
 Control_unit    Control_unit(
     //Input
     .op(op),
-    .funct3(func3),
+    .funct3(funct3),
     .funct7(funct7),
 
     //Output
@@ -77,13 +77,13 @@ RegFile RegFile(
 
     //Output
     .RD1D(RD1D_o),
-    .RD2D(RD2D_0),
+    .RD2D(RD2D_o),
     .a0(a0)
 );
 
 Sign_extend     Extend(
     //INput
-    .instrD(instr),
+    .instrD(Instr),
     .ImmSrcD(ImmSrc),
 
     //Output

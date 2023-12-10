@@ -28,7 +28,7 @@ always_comb begin // 4 input MUX
                 2'b00 :  PCNextF = PCPlus4F_o;
                 2'b01 :  PCNextF = PCTargetE_i;     //PC +Imm
                 2'b10 :  PCNextF = ALUResultE_i;    //jalr
-                default: PCNextF = PCPlus4F;
+                default: PCNextF = PCPlus4F_o;
             endcase
         end
     endcase

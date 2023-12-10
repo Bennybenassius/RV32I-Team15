@@ -15,13 +15,13 @@ module E(
     output logic [31:0]   WriteDataE_o,
     output logic [31:0]   ALUResultE_o,
 
-    output logic [1:0]    PCSrcE_o,
-    output logic [1:0]    ZeroE
+    output logic [1:0]    PCSrcE_o
 
 );
 //=======================================
 //          WIRE
 
+logic   [1: 0] ZeroE;
 logic  [31:0]  SrcBE = (ALUSrcE_i) ? ImmExtE_i : RD2E_i; 
 
 assign  PCTargetE_o = PCE_i + ImmExtE_i;

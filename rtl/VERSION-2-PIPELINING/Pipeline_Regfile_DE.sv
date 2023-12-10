@@ -1,52 +1,52 @@
 module Pipeline_Regfile_DE(
     //INPUTS
     input logic             clk,
-    input logic             RegWriteD,
-    input logic [1:0]       ResultSrcD,
-    input logic             MemWriteD,
-    input logic [1:0]       JumpD,
-    input logic             BranchD,
-    input logic [2:0]       ALUControlD,
-    input logic             ALUSrcD,
+    input logic             RegWriteD_i,
+    input logic [1:0]       ResultSrcD_i,
+    input logic             MemWriteD_i,
+    input logic [1:0]       JumpD_i,
+    input logic             BranchD_i,
+    input logic [2:0]       ALUControlD_i,
+    input logic             ALUSrcD_i,
 
-    input logic [31:0]      RD1D,
-    input logic [31:0]      RD2D,
-    input logic [31:0]      PCD,
-    input logic [4:0]       RdD,
-    input logic [31:0]      ImmExtD,
-    input logic [31:0]      PCPlus4D,
+    input logic [31:0]      RD1D_i,
+    input logic [31:0]      RD2D_i,
+    input logic [31:0]      PCD_i,
+    input logic [4:0]       RdD_i,
+    input logic [31:0]      ImmExtD_i,
+    input logic [31:0]      PCPlus4D_i,
 
     //OUTPUTS
-    output logic             RegWriteE,
-    output logic [1:0]       ResultSrcE,
-    output logic             MemWriteE,
-    output logic [1:0]       JumpE,
-    output logic             BranchE,
-    output logic [2:0]       ALUControlE,
-    output logic             ALUSrcE,
+    output logic             RegWriteE_o,
+    output logic [1:0]       ResultSrcE_o,
+    output logic             MemWriteE_o,
+    output logic [1:0]       JumpE_o,
+    output logic             BranchE_o,
+    output logic [2:0]       ALUControlE_o,
+    output logic             ALUSrcE_o,
     
-    output logic [31:0]      RD1E,
-    output logic [31:0]      RD2E,
-    output logic [31:0]      PCE,
-    output logic [4:0]       RdE,
-    output logic [31:0]      ImmExtE,
-    output logic [31:0]      PCPlus4E
+    output logic [31:0]      RD1E_o,
+    output logic [31:0]      RD2E_o,
+    output logic [31:0]      PCE_o,
+    output logic [4:0]       RdE_o,
+    output logic [31:0]      ImmExtE_o,
+    output logic [31:0]      PCPlus4E_o
 );
 
 always_ff @(posedge clk) begin 
-    RegWriteD <= RegWriteE;
-    ResultSrcD <= ResultSrcE;
-    MemWriteD <= MemWriteE;
-    JumpD <= JumpE;
-    BranchD <= BranchE;
-    ALUControlD <= ALUControlE;
-    ALUSrcD <= ALUSrcE;
-    RD1D <= RD1E;
-    RD2D <= RD2E;
-    PCD <= PCE;
-    RdD <= RdE;
-    ImmExtD <= ImmExtE;
-    PCPlus4D <= PCPlus4E;
+    RegWriteE_o <= RegWriteD_i;
+    ResultSrcE_o <= ResultSrcD_i;
+    MemWriteE_o <= MemWriteD_i;
+    JumpE_o <= JumpD_i;
+    BranchE_o <= BranchD_i;
+    ALUControlE_o <= ALUControlD_i;
+    ALUSrcE_o <= ALUSrcD_i;
+    RD1E_o <= RD1D_i;
+    RD2E_o <= RD2D_i;
+    PCE_o <= PCD_i;
+    RdE_o <= RdD_i;
+    ImmExtE_o <= ImmExtD_i;
+    PCPlus4E_o <= PCPlus4D_i;
 end
 
 endmodule

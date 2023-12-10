@@ -12,7 +12,7 @@ module Control_unit (
     output logic               BranchD,
     output logic [2:0]         ALUControlD,
     output logic               ALUSrcD,
-    output logic [1:0]         ImmSrcD,
+    output logic [1:0]         ImmSrcD
 );
 
 always_comb begin
