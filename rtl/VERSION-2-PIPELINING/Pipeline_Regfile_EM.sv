@@ -7,7 +7,7 @@ module Pipeline_Regfile_EM (
 
     input logic [31:0]      ALUResultE,
     input logic [31:0]      WriteDataE,
-    input logic [31:0]      RdE,
+    input logic [4:0]       RdE,
     input logic [31:0]      PCPlus4E,
 
     //OUTPUTS
@@ -17,10 +17,9 @@ module Pipeline_Regfile_EM (
 
     output logic [31:0]     ALUResultM,
     output logic [31:0]     WriteDataM, 
-    output logic [31:0]     RdM,
+    output logic [4:0]      RdM,
     output logic [31:0]     PCPlus4M
-
-)
+);
 
 always_ff @(posedge clk) begin
     RegWriteM <= RegWriteE;
