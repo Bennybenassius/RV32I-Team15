@@ -21,7 +21,6 @@ int main(int argc, char **argv, char **env) {
     //init vbuddy
     if (vbdOpen()!=1) return(-1);
     vbdHeader("RV32I CPU");
-    vbdSetMode(1);
 
     //init simulation inputs
     top->clk = 1;
