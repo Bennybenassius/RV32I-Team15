@@ -3,7 +3,7 @@ addi    t1, zero, 1         			/*t1 is storing 1 to compare with trigger and shi
 addi	t2, zero, 2						/*t2 is the and mask*/
 addi	t3, zero, 3						/*t3 is the shift left amount for XOR*/
 addi    a1, zero, 255         			/*set a 7 to compare state at which to start random countdown*/
-addi    a3, zero, 180  				    /*Some number to initialise LFSR (2^31)*/
+addi    a3, zero, 12  				    /*Some number to initialise LFSR (2^31)*/
 
 start: 
 	bne     t0, t1, wait        		/*Branch to continuously loop until trigger is reached*/
@@ -75,6 +75,8 @@ randTimer:
 	nop
     sll		a4, a4, t3					/*Append XOR result to left (start of LFSR)*/
 	add    	a2, zero, a3         		/*initialise the counting register to LFSR*/
+	nop
+	nop
 minusloop2:
 	addi    a2, a2, -1
     nop
