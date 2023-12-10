@@ -4,7 +4,7 @@ module RegFile(
     input   logic             RegWrite,          //read register write enable
     input   logic   [4:0]     rs1,               //rs1 register addr
     input   logic   [4:0]     rs2,               //rs2 register addr
-    input   logic   [4:0]     rd,                //read register addrs
+    input   logic   [4:0]     rd,                //write register addrs
     input   logic   [31:0]    WD3,               //Data to write to destination register rd
     input   logic             trigger,           //trigger (external input)
 

@@ -1,9 +1,12 @@
 module D (
     //Input
+    input logic             clk,
     input logic     [31: 0] InstrD_i,
     input logic     [31: 0] PCD_i,
     input logic     [31: 0] ResultW_i,
     input logic     [31: 0] RdW_i,
+    input logic            RegWriteW_i,
+    input logic             trigger_i,
     //Output
     output logic            RegWriteD_o,
     output logic    [1: 0]  ResultSrcD_o,
@@ -16,8 +19,9 @@ module D (
     output logic    [31: 0] RD1D_o,
     output logic    [31: 0] RD2D_o,
     output logic    [4: 0]  RdD_o,
-    output logic    [31: 0] ImmExtD_o
+    output logic    [31: 0] ImmExtD_o,
 
+    output  logic   [31:0]    a0
 );
 
 logic   [6: 0]    op;
@@ -38,7 +42,7 @@ always_comb begin
     A1 = InstrD_i[19: 15];
     A2 = InstrD_i[24: 20];
     A3 = RdW_i;
-    WD3 = ReadDataW_i;
+    WD3 = ResultW_i;
     RdD = InstrD_i[11: 7];
     RdD_o = RdD;
     Instr = InstrD_i;
@@ -59,6 +63,22 @@ Control_unit    Control_unit(
     .ALUControlD(ALUControlD_o),
     .ALUSrcD(ALUSrcD_o),
     .ImmSrcD(ImmSrc)
+);
+
+RegFile RegFile(
+    //Input
+    .clk(clk),
+    .RegWrite(RegWriteW_i),
+    .rs1(A1),
+    .rs2(A2),
+    .rd(A3),
+    .WD3(WD3),
+    .trigger(trigger_i),
+
+    //Output
+    .RD1D(RD1D_o),
+    .RD2D(RD2D_0),
+    .a0(a0)
 );
 
 Sign_extend     Extend(

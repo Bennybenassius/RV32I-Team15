@@ -111,6 +111,8 @@ D   D (
     .PCD_i(PCD_o),
     .RdW_i(RdW_o),
     .ResultW_i(ResultW_o),
+    .trigger_i(trigger),
+
     //OUTPUT
     .RegWriteD_o(RegWriteD_o),
     .ResultSrcD_o(ResultSrcD_o),
@@ -119,10 +121,13 @@ D   D (
     .BranchD_o(BranchD_o),
     .ALUControlD_o(ALUControlD_o),
     .ALUSrcD_o(ALUSrcD_o),
+
     .RD1D_o(RD1D_o),
     .RD2D_o(RD2D_o),
     .RdD_o(RdD_o),
-    .ImmExtD_o(ImmExtD_o)
+    .ImmExtD_o(ImmExtD_o),
+
+    .a0(a0)
 );
 
 //Pipeline register between D and E
