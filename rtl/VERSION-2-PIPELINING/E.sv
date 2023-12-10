@@ -1,4 +1,4 @@
-module E#(
+module E(
     //INPUTS
     input logic [1:0]     JumpE_i,
     input logic           BranchE_i,
@@ -38,8 +38,8 @@ always_comb begin
                         2'b10   : PCSrcE_o = 2'b01;     // branch
                         default : PCSrcE_o = 2'b00;     // otherwise, no branch
                     endcase
-                default : PCSrcE_o = 2'b00;             
                 end
+                default : PCSrcE_o = 2'b00;             
             endcase 
         end 
 
@@ -84,12 +84,12 @@ end
 ALU ALU(
     //INPUTS
     .SrcAE(RD1E_i),
-    .SrcBE(SrcBE)
-    .ALUControlE(ALUControlE_i)
+    .SrcBE(SrcBE),
+    .ALUControlE(ALUControlE_i),
 
     //OUTPUTS
     .ALUResultE(ALUResultE_o),
-    .ZeroE(ZeroE),
+    .ZeroE(ZeroE)
 );
 
 endmodule
