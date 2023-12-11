@@ -56,6 +56,7 @@ end
 assign  SrcBE = (ALUSrcE_i) ? ImmExtE_i : ForwardBE_mux; 
 //ENDFORWARDING
 
+// PCSrcE case statements
 always_comb begin
     case(JumpE_i)
         2'b00 : begin // BLT, BGE

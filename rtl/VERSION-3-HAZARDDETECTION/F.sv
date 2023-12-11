@@ -2,11 +2,14 @@ module F #(
     parameter WIDTH = 32
 )(
     // INPUTS
-    input logic                 clk,
-    input logic                 rst, 
-    input logic  [WIDTH-1: 0]   PCTargetE_i,    //This is after adding PC with Imm offset
-    input logic  [1:0]          PCSrcE_i,       //This is the mux input from control and execution unit (Stage D, E)
-    input logic  [WIDTH-1: 0]   ALUResultE_i,   //This is for jalr
+    input  logic                clk,
+    input  logic                rst, 
+    input  logic [WIDTH-1: 0]   PCTargetE_i,    //This is after adding PC with Imm offset
+    input  logic [1:0]          PCSrcE_i,       //This is the mux input from control and execution unit (Stage D, E)
+    input  logic [WIDTH-1: 0]   ALUResultE_i,   //This is for jalr
+
+    // STALL
+    input  logic                EN,             //Active low enable signal 
 
     // OUTPUTS
     output logic [WIDTH-1: 0]   PCF_o,          //The value of the current PC
@@ -38,7 +41,9 @@ always_comb begin // 4 input MUX
 end
 
 always_ff @ (posedge clk)begin
-    PCF <= PCNextF;
+    // STALL
+    if (~EN) PCF <= PCNextF;    // if ~EN is high (StallF is low), update PCF
+    else     PCF <= PCF;        // if ~EN is low (StallF is high), STALL
 end;
 
 Instr_mem Instr_mem (
