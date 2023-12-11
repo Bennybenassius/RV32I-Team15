@@ -23,19 +23,13 @@ module Hazard(
 //           FORWARDING
 //===================================
 always_comb begin
-    if ((Rs1E_i_eh == RdM_i_mh) & RegWriteM_i_mh) & (Rs1E_i_eh != 0)
-        ForwardAE_o = 2'b10;
-    else if ((Rs1E_i_eh == RdW_i_wh) & RegWriteW_i_wh) & (Rs1E_i_eh != 0)
-        ForwardAE_o = 2'b01;
-    else 
-        ForwardAE_o = 2'b00;  
+    if (((Rs1E_i_eh == RdM_i_mh) & RegWriteM_i_mh) & (Rs1E_i_eh != 0))  ForwardAE_o = 2'b10;
+    else if (((Rs1E_i_eh == RdW_i_wh) & RegWriteW_i_wh) & (Rs1E_i_eh != 0))   ForwardAE_o = 2'b01;
+    else    ForwardAE_o = 2'b00;  
 
-    if ((Rs2E_i_eh == RdM_i_mh) & RegWriteM_i_mh) & (Rs2E_i_eh != 0)
-        ForwardBE_o = 2'b10;
-    else if ((Rs2E_i_eh == RdW_i_wh) & RegWriteW_i_wh) & (Rs2E_i_eh != 0)
-        ForwardBE_o = 2'b01;
-    else 
-        ForwardBE_o = 2'b00;  
+    if (((Rs2E_i_eh == RdM_i_mh) & RegWriteM_i_mh) & (Rs2E_i_eh != 0))    ForwardBE_o = 2'b10;
+    else if (((Rs2E_i_eh == RdW_i_wh) & RegWriteW_i_wh) & (Rs2E_i_eh != 0))   ForwardBE_o = 2'b01;
+    else    ForwardBE_o = 2'b00;  
 end
 //===================================
 
