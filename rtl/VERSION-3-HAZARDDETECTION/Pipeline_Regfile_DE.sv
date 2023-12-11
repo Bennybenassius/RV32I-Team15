@@ -45,7 +45,7 @@ module Pipeline_Regfile_DE(
 );
 
 always_ff @(posedge clk) begin 
-    // FLUSH
+    //FLUSH
     if (CLR) begin                     // if CLR is high, FLUSH
         RegWriteE_o <= 1'b0;
         ResultSrcE_o <= 2'b0;
@@ -60,6 +60,8 @@ always_ff @(posedge clk) begin
         RdE_o <= 5'b0;
         ImmExtE_o <= 32'b0;
         PCPlus4E_o <= 32'b0;
+
+        //FORWARDING
         Rs1E_o <= 5'b0;
         Rs2E_o <= 5'b0;
     end
@@ -77,6 +79,8 @@ always_ff @(posedge clk) begin
         RdE_o <= RdD_i;
         ImmExtE_o <= ImmExtD_i;
         PCPlus4E_o <= PCPlus4D_i;
+
+        //FORWARDING
         Rs1E_o <= Rs1D_i;
         Rs2E_o <= Rs2D_i;        
     end

@@ -13,7 +13,7 @@ module Pipeline_Regfile_EM (
     //OUTPUTS
     output logic            RegWriteM_o,
     output logic [1: 0]     ResultSrcM_o,
-    output logic [2: 0]      MemWriteM_o,
+    output logic [2: 0]     MemWriteM_o,
 
     output logic [31:0]     ALUResultM_o_2_m,
     output logic [31:0]     ALUResultM_o_2_r,
