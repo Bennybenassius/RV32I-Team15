@@ -55,10 +55,11 @@ while (i < len(s)):
         instr_tmp += [s[i + j]]
     #instr_tmp.reverse()
     instr += instr_tmp
+    instr += f'\n'
     instr_tmp = []
     i += 4
 instr = ' '.join(instr)
-instr += f'\n'
+instr = instr.replace(' \n ', '\n')
 f.close()
 
 f = open(dst_hex, 'w')
