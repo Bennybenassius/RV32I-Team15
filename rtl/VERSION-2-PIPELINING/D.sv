@@ -44,6 +44,7 @@ always_comb begin
     WD3 = ResultW_i;
     RdD = InstrD_i[11: 7];
     RdD_o = RdD;
+    Instr = InstrD_i;
 end
 
 Control_unit    Control_unit(

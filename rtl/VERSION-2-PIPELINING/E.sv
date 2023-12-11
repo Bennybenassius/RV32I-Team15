@@ -15,9 +15,7 @@ module E(
     output logic [31:0]   WriteDataE_o,
     output logic [31:0]   ALUResultE_o,
 
-    output logic [1:0]    PCSrcE_o,
-
-
+    output logic [1:0]    PCSrcE_o
 
 );
 //=======================================
