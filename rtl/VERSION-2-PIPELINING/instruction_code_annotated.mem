@@ -9,8 +9,6 @@ start:
 63 94 62 06 bne     t0, t1, wait 
 13 00 00 00 nop
 13 00 00 00 nop
-13 00 00 00 nop
-13 00 00 00 nop
 93 02 00 00 addi    t0, zero, 0
 mainloop:
 33 15 65 00 sll     a0, a0, t1
@@ -20,8 +18,6 @@ mainloop:
 13 00 00 00 nop
 13 00 00 00 nop
 63 02 b5 02 beq     a0, a1, lastState
-13 00 00 00 nop
-13 00 00 00 nop
 13 00 00 00 nop
 13 00 00 00 nop
 ef 00 00 04 jal     ra, secondTimer
@@ -54,8 +50,6 @@ minusloop1:
 e3 1e 06 fe bne     a2, zero, minusloop1
 13 00 00 00 nop
 13 00 00 00 nop
-13 00 00 00 nop
-13 00 00 00 nop
 67 80 00 00 jalr    zero, ra, 0
 13 00 00 00 nop
 13 00 00 00 nop
@@ -80,8 +74,6 @@ minusloop2:
 13 00 00 00 nop
 13 00 00 00 nop
 e3 1a 06 fe bne     a2, zero, minusloop2
-13 00 00 00 nop
-13 00 00 00 nop
 13 00 00 00 nop
 13 00 00 00 nop
 67 80 00 00 jalr    zero, ra, 0

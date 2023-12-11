@@ -9,8 +9,6 @@ start:
 	bne     t0, t1, wait        		/*Branch to continuously loop until trigger is reached*/
     nop
     nop
-	nop
-	nop
 	addi    t0, zero, 0         		/*Reinitialise trigger to low after triggering*/
 mainloop:
 	sll     a0, a0, t1					/*Shift state left by 1 bit*/
@@ -22,8 +20,6 @@ mainloop:
 	beq     a0, a1, lastState   		/*If a0 == a1, then random Countdown*/
     nop
     nop
-	nop
-	nop
 	jal     ra, secondTimer    		    /*Jumps to the secondTimer subroutine to count 1s*/
 	nop
 	nop
@@ -47,14 +43,12 @@ wait:
 
 /*one second timer subroutine*/
 secondTimer:
-	addi    a2, zero, 10  				/*The immediate is the number of cycles for 1s*/
+	addi    a2, zero, 1  				/*The immediate is the number of cycles for 1s*/
 	nop
 	nop
 	minusloop1:
 		addi    a2, a2, -1
 		bne     a2, zero, minusloop1	/*Keep looping back to -1 until 1s is reached*/
-		nop
-		nop
 		nop
 		nop
 	jalr    zero, ra, 0          		/*Resume program execution*/
@@ -84,8 +78,6 @@ minusloop2:
 	bne     a2, zero, minusloop2		/*Keep looping back to -1 until 1s is reached*/
     nop
     nop
-	nop
-	nop
 	jalr    zero, ra, 0                 /*Resume program execution*/
 	nop
 	nop
