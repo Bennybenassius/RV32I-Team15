@@ -180,7 +180,7 @@ Pipeline_Regfile_DE Pipeline_Regfile_DE (
     .PCPlus4D_i(PCPlus4D_o),
     //HAZARD
     .Rs1D_i(Rs1D_o),
-    .Rs2D_i(Rs2D_io),
+    .Rs2D_i(Rs2D_o),
     .CLR(FlushE_o),
 
     //OUTPUT
@@ -298,7 +298,7 @@ Hazard Hazard (
     .Rs2E_i_eh(Rs2E_o),
     .RdE_i_eh(RdE_o),
     .PCSrcE_i_eh(PCSrcE_o),
-    .ResultSrcE_i_eh(ResultSrcE_o),
+    .ResultSrcE_i_eh(ResultSrcE_o[0]),      // LSB of ResultSrcE_o (tells if writing back data from data_mem)
     .RdM_i_mh(RdM_o),
     .RegWriteM_i_mh(RegWriteM_o),
     .RdW_i_wh(RdW_o),

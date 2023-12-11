@@ -32,9 +32,10 @@ logic   [31:0] SrcBE;
 logic   [31:0] SrcAE;
 logic   [31:0] ForwardBE_mux;
 
-assign  PCTargetE_o = PCE_i + ImmExtE_i;
-assign  WriteDataE_o = ForwardBE_mux;
-
+always_comb begin
+    PCTargetE_o = PCE_i + ImmExtE_i;
+    WriteDataE_o = ForwardBE_mux;
+end
 //FORWARDING
 always_comb begin //mux
     case(ForwardAE)
@@ -46,14 +47,17 @@ always_comb begin //mux
 end
 
 always_comb begin //mux
-    case(ForwardBE_mux)
-    2'b00 : SrcBE = RD2E_i;
-    2'b01 : SrcBE = ResultW_i_we;
-    2'b10 : SrcBE = ALUResultM_i_me;
-    default : SrcBE = RD2E_i;
+    case(ForwardBE)
+    2'b00 : ForwardBE_mux = RD2E_i;
+    2'b01 : ForwardBE_mux = ResultW_i_we;
+    2'b10 : ForwardBE_mux = ALUResultM_i_me;
+    default : ForwardBE_mux = RD2E_i;
     endcase
 end
-assign  SrcBE = (ALUSrcE_i) ? ImmExtE_i : ForwardBE_mux; 
+always_comb begin
+    SrcBE = (ALUSrcE_i) ? ImmExtE_i : ForwardBE_mux;
+end
+
 //ENDFORWARDING
 
 // PCSrcE case statements
@@ -113,7 +117,7 @@ end
 
 ALU ALU(
     //INPUTS
-    .SrcAE(RD1E_i),
+    .SrcAE(SrcAE),
     .SrcBE(SrcBE),
     .ALUControlE(ALUControlE_i),
 

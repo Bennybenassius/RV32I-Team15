@@ -15,6 +15,7 @@ always_comb begin
         2'b00: ResultW_o = ALUResultW_i;
         2'b01: ResultW_o = ReadDataW_i;
         2'b10: ResultW_o = PCPlus4W_i;
+        default:;
     endcase
 end
 
