@@ -24,8 +24,6 @@ always_comb begin
         1'b0:   begin   //word instr
             addr = {A[ADDRESS_WIDTH - 1:2],2'b0};
         end
-        
-        default:;
     endcase
 end
 
@@ -74,6 +72,7 @@ always_comb begin
         3'b110: begin   //lbu (load byte unsigned)
             RD = {24'b0, mem_array[addr]};  //zero extend immediately and output
         end
+        default:;
     endcase
 end
 endmodule
