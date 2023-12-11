@@ -24,6 +24,8 @@ always_comb begin
         1'b0:   begin   //word instr
             addr = {A[ADDRESS_WIDTH - 1:2],2'b0};
         end
+        
+        default:;
     endcase
 end
 
@@ -53,6 +55,8 @@ always_ff @( posedge clk ) begin
         3'b11:  begin   //sb (store byte)
             mem_array[addr] <= WD[7: 0];
         end
+
+        default:;
     endcase
 end
 
