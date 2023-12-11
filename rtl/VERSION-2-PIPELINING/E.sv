@@ -24,9 +24,11 @@ module E(
 logic   [1: 0] ZeroE;
 logic   [31:0] SrcBE;
 
-assign  SrcBE = (ALUSrcE_i) ? ImmExtE_i : RD2E_i; 
-assign  PCTargetE_o = PCE_i + ImmExtE_i;
-assign  WriteDataE_o = RD2E_i;
+always_comb begin
+    SrcBE = (ALUSrcE_i) ? ImmExtE_i : RD2E_i; 
+    PCTargetE_o = PCE_i + ImmExtE_i;
+    WriteDataE_o = RD2E_i;
+end
 
 always_comb begin
     case(JumpE_i)
