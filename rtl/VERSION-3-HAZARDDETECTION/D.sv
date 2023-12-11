@@ -23,8 +23,8 @@ module D (
     output  logic   [31:0]  a0
 
     //FORWARDING
-    output logic   [15:19] Rs1D_o;
-    output logic   [20:24] Rs2D_o;
+    output logic   [4:0] Rs1D_o;
+    output logic   [4:0] Rs2D_o;
 
 );
 
