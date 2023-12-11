@@ -17,8 +17,8 @@ module Pipeline_Regfile_DE(
     input logic [31:0]      PCPlus4D_i,
 
     //FORWARDING INPUTS
-    input logic [15:19]     Rs1D_i,
-    input logic [20:24]     Rs2D_i,
+    input logic [4:0]     Rs1D_i,
+    input logic [4:0]     Rs2D_i,
 
     //OUTPUTS
     output logic            RegWriteE_o,
@@ -37,8 +37,8 @@ module Pipeline_Regfile_DE(
     output logic [31:0]     PCPlus4E_o,
 
     //FORDWARDING OUTPUTS
-    output logic [15:19]    Rs1E_o,
-    output logic [20:24]    Rs2E_o
+    output logic [4:0]    Rs1E_o,
+    output logic [4:0]    Rs2E_o
 );
 
 always_ff @(posedge clk) begin 

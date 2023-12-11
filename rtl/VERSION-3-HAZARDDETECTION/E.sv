@@ -11,8 +11,8 @@ module E(
     input logic [31:0]    ImmExtE_i,
 
     //FORWARDING
-    input logic [31:0]    ALUResultM_i,
-    input logic [31:0]    ResultW_i,
+    input logic [31:0]    ALUResultM_i_me,
+    input logic [31:0]    ResultW_i_we,
     input logic [1:0]     ForwardAE,
     input logic [1:0]     ForwardBE,
 
@@ -33,24 +33,24 @@ logic   [31:0] SrcAE;
 logic   [31:0] ForwardBE_mux;
 
 assign  PCTargetE_o = PCE_i + ImmExtE_i;
-assign  WriteDataE_o = RD2E_i;
+assign  WriteDataE_o = ForwardBE_mux;
 
 //FORWARDING
-always_comb begin
+always_comb begin //mux
     case(ForwardAE)
     2'b00 : SrcAE = RD1E_i;
-    2'b01 : SrcAE = ResultW_i;
-    2'b10 : SrcAE = ALUResultM_i;
-    default : SrcAE = RD1E_i;;
+    2'b01 : SrcAE = ResultW_i_we;
+    2'b10 : SrcAE = ALUResultM_i_me;
+    default : SrcAE = RD1E_i;
     endcase
 end
 
-always_comb begin
+always_comb begin //mux
     case(ForwardBE_mux)
     2'b00 : SrcBE = RD2E_i;
-    2'b01 : SrcBE = ResultW_i;
-    2'b10 : SrcBE = ALUResultM_i;
-    default : SrcBE = RD2E_i;;
+    2'b01 : SrcBE = ResultW_i_we;
+    2'b10 : SrcBE = ALUResultM_i_me;
+    default : SrcBE = RD2E_i;
     endcase
 end
 assign  SrcBE = (ALUSrcE_i) ? ImmExtE_i : ForwardBE_mux; 
