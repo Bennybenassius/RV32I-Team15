@@ -11,18 +11,20 @@ module top#(
 
 //==========================================
 //                 WIRE
-//Wires going in and out of F stage
+//Wires coming out of F stage
 logic   [1: 0]  PCSrcE_o;
 logic   [31:0]  PCTargetE_o;
 logic   [31:0]  ALUResultE_o;
 logic   [31:0]  PCF_o;
 logic   [31:0]  PCPlus4F_o;
 logic   [31:0]  InstrF_o;
-//Wires going in and out of FD pipeline register
+
+//Wires coming out of FD pipeline register
 logic   [31:0]  InstrD_o;
 logic   [31:0]  PCD_o;
 logic   [31:0]  PCPlus4D_o;
-//Wires going in and out of D stage
+
+//Wires coming out of D stage
 logic           RegWriteW_o;
 logic   [4: 0]  RdW_o;
 logic   [31:0]  ResultW_o;
@@ -37,7 +39,11 @@ logic   [31:0]  RD1D_o;
 logic   [31:0]  RD2D_o;
 logic   [4: 0]  RdD_o;
 logic   [31:0]  ImmExtD_o;
-//Wires going in and out of DE pipeline register
+//HAZARD
+logic   [4:0]   Rs1D_o;
+logic   [4:0]   Rs2D_o;
+
+//Wires coming out of DE pipeline register
 logic           RegWriteE_o;
 logic   [1: 0]  ResultSrcE_o;
 logic   [2: 0]  MemWriteE_o;
@@ -51,10 +57,14 @@ logic   [4: 0]  RdE_o;
 logic   [31:0]  ImmExtE_o;
 logic   [31:0]  PCE_o;
 logic   [31:0]  PCPlus4E_o;
-//Wires going in and out of E stage
+//HAZARD
+logic   [4:0]   Rs1E_o;
+logic   [4:0]   Rs2E_o;
+
+//Wires coming out of E stage
 logic   [31:0]  WriteDataE_o;
 
-//Wires going in and out of EM pipeline register
+//Wires coming out of EM pipeline register
 logic           RegWriteM_o;
 logic   [1: 0]  ResultSrcM_o;
 logic   [2: 0]  MemWriteM_o;
@@ -64,31 +74,43 @@ logic   [31:0]  WriteDataM_o;
 logic   [4: 0]  RdM_o;
 logic   [31:0]  PCPlus4M_o;
 
-//Wires going in and out of M stage
+//Wires coming out of M stage
 logic   [31:0]  ReadDataM_o;
 
-
-//Wire going in and out of MW pipeline register
+//Wire coming out of MW pipeline register
 logic   [1: 0]  ResultSrcW_o;
 logic   [31:0]  ALUResultW_o;
 logic   [31:0]  ReadDataW_o;
 logic   [31:0]  PCPlus4W_o;
+
+//HAZARD 
+//Wire coming out of Hazard Unit
+logic            StallF_o;
+logic            StallD_o;
+logic            FlushD_o;
+logic            FlushE_o;
+logic [1:0]      ForwardAE_o;
+logic [1:0]      ForwardBE_o;
 
 //==========================================
 //                  MODULES
 
 //Fetching pipeline stage
 F   F(
-    //INPUTS\
+    //INPUTS
     .clk(clk),
     .rst(rst),
     .PCSrcE_i(PCSrcE_o),
     .PCTargetE_i(PCTargetE_o),
     .ALUResultE_i(ALUResultE_o),
+    //HAZARD
+    .EN(StallF_o),
+
     //OUTPUTS
     .PCF_o(PCF_o),
     .PCPlus4F_o(PCPlus4F_o),
     .InstrF_o(InstrF_o)
+
 );
 
 //Pipeline register between F and D
@@ -98,6 +120,10 @@ Pipeline_Regfile_FD Pipeline_Regfile_FD (
     .InstrF_i(InstrF_o),
     .PCF_i(PCF_o),
     .PCPlus4F_i(PCPlus4F_o),
+    //HAZARD
+    .EN(StallD_o),
+    .CLR(FlushD_o),
+
     //OUTPUT
     .InstrD_o(InstrD_o),
     .PCD_o(PCD_o),
@@ -128,7 +154,11 @@ D   D (
     .RdD_o(RdD_o),
     .ImmExtD_o(ImmExtD_o),
 
-    .a0(a0)
+    .a0(a0),
+
+    //HAZARD
+    .Rs1D_o(Rs1D_o),
+    .Rs2D_o(Rs2D_o)
 );
 
 //Pipeline register between D and E
@@ -148,6 +178,11 @@ Pipeline_Regfile_DE Pipeline_Regfile_DE (
     .ImmExtD_i(ImmExtD_o),
     .PCD_i(PCD_o),
     .PCPlus4D_i(PCPlus4D_o),
+    //HAZARD
+    .Rs1D_i(Rs1D_o),
+    .Rs2D_i(Rs2D_io),
+    .CLR(FlushE_o),
+
     //OUTPUT
     .RegWriteE_o(RegWriteE_o),
     .ResultSrcE_o(ResultSrcE_o),
@@ -161,7 +196,10 @@ Pipeline_Regfile_DE Pipeline_Regfile_DE (
     .RdE_o(RdE_o),
     .ImmExtE_o(ImmExtE_o),
     .PCE_o(PCE_o),
-    .PCPlus4E_o(PCPlus4E_o)
+    .PCPlus4E_o(PCPlus4E_o),
+    //HAZARD
+    .Rs1E_o(Rs1E_o),
+    .Rs2E_o(Rs2E_o)
 );
 
 //Execution pipeline stage
@@ -175,6 +213,12 @@ E   E (
     .RD2E_i(RD2E_o),
     .ImmExtE_i(ImmExtE_o),
     .PCE_i(PCE_o),
+    //HAZARD
+    .ALUResultM_i_me(ALUResultM_o_2_m),
+    .ResultW_i_we(ResultW_o),
+    .ForwardAE(ForwardAE_o),
+    .ForwardBE(ForwardBE_o),
+
     //OUTPUT
     .PCSrcE_o(PCSrcE_o),
     .ALUResultE_o(ALUResultE_o),
@@ -243,6 +287,30 @@ W   W (
     .PCPlus4W_i(PCPlus4W_o),
     //OUTPUT
     .ResultW_o(ResultW_o)
+);
+
+//Hazard unit
+Hazard Hazard (
+    //INPUTS
+    .Rs1D_i_dh(Rs1D_o),
+    .Rs2D_i_dh(Rs2D_o),
+    .Rs1E_i_eh(Rs1E_o),
+    .Rs2E_i_eh(Rs2E_o),
+    .RdE_i_eh(RdE_o),
+    .PCSrcE_i_eh(PCSrcE_o),
+    .ResultSrcE_i_eh(ResultSrcE_o),
+    .RdM_i_mh(RdM_o),
+    .RegWriteM_i_mh(RegWriteM_o),
+    .RdW_i_wh(RdW_o),
+    .RegWriteW_i_wh(RegWriteW_o),
+
+    //OUTPUTS
+    .StallF_o(StallF_o),
+    .StallD_o(StallD_o),
+    .FlushD_o(FlushD_o),
+    .FlushE_o(FlushE_o),
+    .ForwardAE_o(ForwardAE_o),
+    .ForwardBE_o(ForwardBE_o)
 );
 
 //==========================================
