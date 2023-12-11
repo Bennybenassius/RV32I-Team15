@@ -20,10 +20,6 @@ module D (
     output logic    [4: 0]  RdD_o,
     output logic    [31:0]  ImmExtD_o,
 
-    //FORWARDING
-    output logic   [15:19] Rs1D_o;
-    output logic   [20:24] Rs2D_o;
-
     output  logic   [31:0]  a0
 );
 
@@ -48,9 +44,6 @@ always_comb begin
     WD3 = ResultW_i;
     RdD = InstrD_i[11: 7];
     RdD_o = RdD;
-    Instr = InstrD_i;
-    Rs1D_o = InstrD_i[15:19];
-    Rs2D_o = InstrD_i[20:24];
 end
 
 Control_unit    Control_unit(

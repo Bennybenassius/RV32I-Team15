@@ -4,7 +4,7 @@ module E(
     input logic           BranchE_i,
     input logic [2:0]     ALUControlE_i,
     input logic           ALUSrcE_i,
-
+    
     input logic [31:0]    RD1E_i,
     input logic [31:0]    RD2E_i,
     input logic [31:0]    PCE_i,
@@ -15,7 +15,9 @@ module E(
     output logic [31:0]   WriteDataE_o,
     output logic [31:0]   ALUResultE_o,
 
-    output logic [1:0]    PCSrcE_o
+    output logic [1:0]    PCSrcE_o,
+
+
 
 );
 //=======================================
