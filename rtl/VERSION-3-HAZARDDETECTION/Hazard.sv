@@ -18,7 +18,7 @@ module Hazard(
     output logic            FlushE_o,
     output logic [1:0]      ForwardAE_o,
     output logic [1:0]      ForwardBE_o
-)
+);
 
 
 
