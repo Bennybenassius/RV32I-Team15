@@ -17,9 +17,15 @@ module Pipeline_Regfile_FD(
 );
 
 always_ff @(posedge clk) begin 
-    // STALL
-    if (~EN) begin                  // if ~EN is high (StallD is low), update signals 
-        InstrD_o <= InstrF_i;
+    // FLUSH
+    if (CLR) begin                  // if CLR is high, FLUSH
+        InstrD_o <= 32'h13;         // nop instr
+        PCD_o <= 32'b0;
+        PCPlus4D_o <= 32'b0;
+    end
+    // STALL    (Mutually exclusive to flush)
+    else if (~EN) begin                  // if ~EN is high or CLR is low (StallD is low), update signals
+        InstrD_o <= InstrF_i;            
         PCD_o <= PCF_i;
         PCPlus4D_o <= PCPlus4F_i;
     end
@@ -27,18 +33,6 @@ always_ff @(posedge clk) begin
         InstrD_o <= InstrD_o;
         PCD_o <= PCD_o;
         PCPlus4D_o <= PCPlus4D_o;
-    end
-
-    // FLUSH
-    if (CLR) begin                  // if CLR is high, FLUSH
-        InstrD_o <= 32'h13;         // nop instr
-        PCD_o <= 32'b0;
-        PCPlus4D_o <= 32'b0;
-    end
-    else begin                      // if CLR is low, update signals
-        InstrD_o <= InstrF_i;
-        PCD_o <= PCF_i;
-        PCPlus4D_o <= PCPlus4F_i;
     end
 end
 
