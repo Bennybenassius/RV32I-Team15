@@ -28,12 +28,13 @@ always_comb begin
 end
 
 initial begin 
+        // uncomment this section to run F1
         $display("Lodaing Data_mem.");
         $readmemh("Data.mem", mem_array);
         $display("Load finished.");
         $display("memory ready.");
 
-        // for running reference program
+        // uncomment this section to run reference program
         // $display("Lodaing Data_mem.");
         // $readmemh("Data.mem", mem_array, 20'h10000, 20'h1FFFF);
         // $display("Load finished.");

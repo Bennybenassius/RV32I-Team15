@@ -3,7 +3,7 @@
 93 03 20 00 addi	t2, zero, 2	
 13 0e 30 00 addi	t3, zero, 3	
 93 05 f0 0f addi    a1, zero, 255
-93 06 40 0b addi    a3, zero, 180
+93 06 c0 00 addi    a3, zero, 12
 
 start:
 63 94 62 06 bne     t0, t1, wait 
