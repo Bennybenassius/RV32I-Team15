@@ -20,7 +20,7 @@ int main(int argc, char **argv, char **env) {
 
     //init vbuddy
     if (vbdOpen()!=1) return(-1);
-    vbdHeader("RV32I CPU");
+    vbdHeader("RV32I PIPE");
     vbdSetMode(1);
 
     //init simulation inputs

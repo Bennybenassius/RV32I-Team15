@@ -20,14 +20,14 @@ int main(int argc, char **argv, char **env) {
 
     //init vbuddy
     if (vbdOpen()!=1) return(-1);
-    vbdHeader("RV32I CPU");
+    vbdHeader("RV32I HAZARD");
     vbdSetMode(1);
 
     //init simulation inputs
     top->clk = 1;
     top->rst = 1;
 
-    for (i=0; i<1000; i++) {
+    for (i=0; i<2000; i++) {
         //dump variables into VCD file and toggle clock
         for(clk=0; clk<2; clk++) {
             tfp->dump(2*i+clk);
