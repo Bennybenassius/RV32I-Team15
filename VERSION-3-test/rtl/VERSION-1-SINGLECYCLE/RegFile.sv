@@ -20,12 +20,14 @@ always_ff @(posedge clk) begin
     if (RegWrite)                               //If RegWrite is enabled, write to regsiter file
         if (rd==5'b0) Reg_File[rd] <= 32'b0;    //If writing to reg zero, just write 0 since it should be always 0
         else Reg_File[rd] <= WD3;               //Else if writing to any other registers, business as usual
+    else;
 end
 
 always_comb begin
     RD1 = Reg_File[rs1];                        //Output the contents of the registers
     RD2 = Reg_File[rs2];
     if (trigger)    Reg_File[5] = 32'b1;
+    else;
     a0 = Reg_File[10];                          //a0 is the 10th register, read out should be un-synced
 end
 

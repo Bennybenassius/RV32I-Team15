@@ -53,7 +53,6 @@ always_ff @( posedge clk ) begin
         3'b11:  begin   //sb (store byte)
             mem_array[addr] <= WD[7: 0];
         end
-
         default:;
     endcase
 end

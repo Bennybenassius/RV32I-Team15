@@ -53,6 +53,7 @@ always_ff @( posedge clk ) begin
         3'b11:  begin   //sb (store byte)
             mem_array[addr] <= WD[7: 0];
         end
+        default:;
     endcase
 end
 
@@ -70,6 +71,7 @@ always_comb begin
         3'b110: begin   //lbu (load byte unsigned)
             RD = {24'b0, mem_array[addr]};  //zero extend immediately and output
         end
+        default:;
     endcase
 end
 endmodule

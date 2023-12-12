@@ -30,6 +30,7 @@ always_comb begin
     WriteDataE_o = RD2E_i;
 end
 
+// PCSrcE case statements
 always_comb begin
     case(JumpE_i)
         2'b00 : begin // BLT, BGE

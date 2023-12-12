@@ -54,7 +54,6 @@ int main(int argc, char **argv, char **env) {
             vbdCycle(i);
         } */
 
-
         //end vbuddy
         if (Verilated::gotFinish()) exit(0);
     }
