@@ -1,11 +1,14 @@
-# ignore all all files in any directory named obj_dir
+# ignore all files in any directory named obj_dir
 obj_dir/
 
 # ignore all .vcd files
 *.vcd
 
-# ignore all all files in any directory named .obsidian
+# ignore all files in any directory named .obsidian
 .obsidian/
 
 # ignore all files in any directory named myprog
 myprog/
+
+# ignore all myprog files
+myprog
