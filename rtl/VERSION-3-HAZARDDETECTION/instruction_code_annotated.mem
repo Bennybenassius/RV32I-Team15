@@ -7,75 +7,38 @@
 
 start:
 63 94 62 06 bne     t0, t1, wait 
-13 00 00 00 nop
-13 00 00 00 nop
 93 02 00 00 addi    t0, zero, 0
 mainloop:
 33 15 65 00 sll     a0, a0, t1
-13 00 00 00 nop
-13 00 00 00 nop
 13 05 15 00 addi    a0, a0, 1 
-13 00 00 00 nop
-13 00 00 00 nop
 63 02 b5 02 beq     a0, a1, lastState
-13 00 00 00 nop
-13 00 00 00 nop
 ef 00 00 04 jal     ra, secondTimer
-13 00 00 00 nop
-13 00 00 00 nop
 6f f0 1f fd jal     zero, mainloop
-13 00 00 00 nop
-13 00 00 00 nop
 
 lastState:
 ef 00 80 04 jal     ra, randTimer
-13 00 00 00 nop
-13 00 00 00 nop
 13 05 00 00 addi    a0, zero, 0
 6f f0 5f fa jal     zero, start
-13 00 00 00 nop
-13 00 00 00 nop
 
 wait:
 6f f0 9f f9 jal     zero, start
-13 00 00 00 nop
-13 00 00 00 nop
 
 secondTimer:
-13 06 a0 00 addi    a2, zero, 10
-13 00 00 00 nop
-13 00 00 00 nop
+13 06 10 00 addi    a2, zero, 1
 minusloop1:
 13 06 f6 ff addi    a2, a2, -1
 e3 1e 06 fe bne     a2, zero, minusloop1
-13 00 00 00 nop
-13 00 00 00 nop
 67 80 00 00 jalr    zero, ra, 0
-13 00 00 00 nop
-13 00 00 00 nop
 
 randTimer:
 33 f7 66 00 and     a4, a3, t1
 b3 f7 76 00 and     a5, a3, t2
-13 00 00 00 nop
-13 00 00 00 nop
 b3 d7 67 00 srl		a5, a5, t1
-13 00 00 00 nop
-13 00 00 00 nop
 33 47 f7 00 xor     a4, a4, a5
 b3 d6 66 00 srl     a3, a3, t1
-13 00 00 00 nop
 33 17 c7 01 sll		a4, a4, t3
 33 06 d0 00 add    	a2, zero, a3
-13 00 00 00 nop
-13 00 00 00 nop
 minusloop2:
 13 06 f6 ff addi    a2, a2, -1
-13 00 00 00 nop
-13 00 00 00 nop
 e3 1a 06 fe bne     a2, zero, minusloop2
-13 00 00 00 nop
-13 00 00 00 nop
 67 80 00 00 jalr    zero, ra, 0
-13 00 00 00 nop
-13 00 00 00 nop
