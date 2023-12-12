@@ -42,7 +42,7 @@ wait:
 13 00 00 00 nop
 
 secondTimer:
-13 06 a0 00 addi    a2, zero, 10
+13 06 10 00 addi    a2, zero, 1
 13 00 00 00 nop
 13 00 00 00 nop
 minusloop1:

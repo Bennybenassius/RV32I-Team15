@@ -3,7 +3,7 @@ addi    t1, zero, 1         			/*t1 is storing 1 to compare with trigger and shi
 addi	t2, zero, 2						/*t2 is the and mask*/
 addi	t3, zero, 3						/*t3 is the shift left amount for XOR*/
 addi    a1, zero, 255         			/*set a 7 to compare state at which to start random countdown*/
-addi    a3, zero, 180  				    /*Some number to initialise LFSR (2^31)*/
+addi    a3, zero, 12  				    /*Some number to initialise LFSR (2^31)*/
 
 start: 
 	bne     t0, t1, wait        		/*Branch to continuously loop until trigger is reached*/
@@ -25,7 +25,7 @@ wait:
 
 /*one second timer subroutine*/
 secondTimer:
-	addi    a2, zero, 10  				/*The immediate is the number of cycles for 1s*/
+	addi    a2, zero, 1  				/*The immediate is the number of cycles for 1s*/
 	minusloop1:
 		addi    a2, a2, -1
 		bne     a2, zero, minusloop1	/*Keep looping back to -1 until 1s is reached*/
