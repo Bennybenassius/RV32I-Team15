@@ -1,6 +1,6 @@
 module Data_mem #(
-    parameter ADDRESS_WIDTH = 20,           // total 2**17-1 number of byte address locations
-              DATA_WIDTH = 8                // each location has 1 byte data
+    parameter ADDRESS_WIDTH = 17,           //2^17 locations in data mem
+              DATA_WIDTH = 8                //each location has 1 byte data
 )(
     //INPUTS
     input   logic             clk,

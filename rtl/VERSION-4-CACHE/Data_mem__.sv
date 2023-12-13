@@ -1,7 +1,7 @@
 //old data memery
 module Data_mem__ #(
-    parameter ADDRESS_WIDTH = 20,           // total 2**17-1 number of byte address locations
-              DATA_WIDTH = 8                // each location has 1 byte data
+    parameter ADDRESS_WIDTH = 17,           //2^17 locations in data mem
+              DATA_WIDTH = 8                //each location has 1 byte data
 )(
     //INPUTS
     input   logic             clk,
@@ -29,12 +29,13 @@ always_comb begin
 end
 
 initial begin 
+        // uncomment this section to run F1
         $display("Lodaing Data_mem.");
         $readmemh("Data.mem", mem_array);
         $display("Load finished.");
         $display("memory ready.");
 
-        // for running reference program
+        // uncomment this section to run reference program
         // $display("Lodaing Data_mem.");
         // $readmemh("Data.mem", mem_array, 20'h10000, 20'h1FFFF);
         // $display("Load finished.");

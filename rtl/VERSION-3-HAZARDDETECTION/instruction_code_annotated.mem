@@ -24,7 +24,7 @@ wait:
 6f f0 9f f9 jal     zero, start
 
 secondTimer:
-13 06 10 00 addi    a2, zero, 1
+13 06 50 00 addi    a2, zero, 5 
 minusloop1:
 13 06 f6 ff addi    a2, a2, -1
 e3 1e 06 fe bne     a2, zero, minusloop1
