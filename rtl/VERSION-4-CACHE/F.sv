@@ -25,7 +25,7 @@ assign  PCPlus4F_o = PCF + 32'b100;   //PC + 4
 
 always_comb begin // 4 input MUX
     
-    PCF_o = PCF;                                    //Wire PCF straight out 
+    PCF_o = PCF;                                    //Wire PCF straight out
     
     case (rst)
         1'b1:   PCNextF = 0;
@@ -40,11 +40,11 @@ always_comb begin // 4 input MUX
     endcase
 end
 
-always_ff @ (posedge clk)begin
+always_ff @ (posedge clk) begin
     // STALL
     if (~EN) PCF <= PCNextF;    // if ~EN is high (StallF is low), update PCF
     else     PCF <= PCF;        // if ~EN is low (StallF is high), STALL
-end;
+end
 
 Instr_mem Instr_mem (
     //INPUTS
