@@ -20,11 +20,10 @@ module Pipeline_Regfile_DE(
     input logic [4:0]       Rs1D_i,
     input logic [4:0]       Rs2D_i,
 
-    //FLUSH
-    input logic             CLR,          // synchronous reset/clear signal
-
-    //stall
+    //STALL
     input logic             EN,           //Active low enable signal 
+    //FLUSH
+    input logic             CLR,          //synchronous reset/clear signal
 
     //OUTPUTS
     output logic            RegWriteE_o,
@@ -48,9 +47,9 @@ module Pipeline_Regfile_DE(
 );
 
 always_ff @(posedge clk) begin 
-    if (~ EN) begin
+    if (~EN) begin                   //if ~EN is high (Stall_E is low) and the following:
         //FLUSH
-        if (CLR) begin                     // if CLR is high, FLUSH
+        if (CLR) begin                   //if CLR is high, FLUSH
             RegWriteE_o <= 1'b0;
             ResultSrcE_o <= 2'b0;
             MemWriteE_o <= 3'b0;
@@ -69,7 +68,8 @@ always_ff @(posedge clk) begin
             Rs1E_o <= 5'b0;
             Rs2E_o <= 5'b0;
         end
-        else begin                         // if CLR is low, update signals
+        //No FlUSH
+        else begin                       //if CLR is low, update signals
             RegWriteE_o <= RegWriteD_i;
             ResultSrcE_o <= ResultSrcD_i;
             MemWriteE_o <= MemWriteD_i;
@@ -89,7 +89,7 @@ always_ff @(posedge clk) begin
             Rs2E_o <= Rs2D_i;        
         end
     end
-    else begin
+    else begin                       //if ~EN is low (Stall_E is high), STALL 
         RegWriteE_o <= RegWriteE_o;
         ResultSrcE_o <= ResultSrcE_o;
         MemWriteE_o <= MemWriteE_o;

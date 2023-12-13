@@ -89,18 +89,18 @@ logic            StallF_o;
 logic            StallD_o;
 logic            FlushD_o;
 logic            FlushE_o;
-logic [1:0]      ForwardAE_o;
-logic [1:0]      ForwardBE_o;
+logic   [1:0]    ForwardAE_o;
+logic   [1:0]    ForwardBE_o;
 
 //CACHE
-logic           StallAllM_o;
+logic            StallAllM_o;
 
-//Stall
-logic Stall_F;
-logic Stall_D;
-logic Stall_E;
-logic Stall_M;
-logic Stall_W;
+//STALL
+logic            Stall_F;
+logic            Stall_D;
+logic            Stall_E;
+logic            Stall_M;
+logic            Stall_W;
 //==========================================
 //                  MODULES
 
@@ -124,7 +124,7 @@ F   F(
 
 //Pipeline register between F and D
 Pipeline_Regfile_FD Pipeline_Regfile_FD (
-    //INPUTS
+    //INPUTSS
     .clk(clk),
     .InstrF_i(InstrF_o),
     .PCF_i(PCF_o),
@@ -133,7 +133,7 @@ Pipeline_Regfile_FD Pipeline_Regfile_FD (
     .EN(Stall_D),
     .CLR(FlushD_o),
 
-    //OUTPUT
+    //OUTPUTS
     .InstrD_o(InstrD_o),
     .PCD_o(PCD_o),
     .PCPlus4D_o(PCPlus4D_o)
@@ -141,7 +141,7 @@ Pipeline_Regfile_FD Pipeline_Regfile_FD (
 
 //Decode pipeline stage
 D   D (
-    //INPUT
+    //INPUTS
     .clk(clk),
     .RegWriteW_i(RegWriteW_o),
     .InstrD_i(InstrD_o),
@@ -149,7 +149,7 @@ D   D (
     .ResultW_i(ResultW_o),
     .trigger_i(trigger),
 
-    //OUTPUT
+    //OUTPUTS
     .RegWriteD_o(RegWriteD_o),
     .ResultSrcD_o(ResultSrcD_o),
     .MemWriteD_o(MemWriteD_o),
@@ -157,14 +157,11 @@ D   D (
     .BranchD_o(BranchD_o),
     .ALUControlD_o(ALUControlD_o),
     .ALUSrcD_o(ALUSrcD_o),
-
     .RD1D_o(RD1D_o),
     .RD2D_o(RD2D_o),
     .RdD_o(RdD_o),
     .ImmExtD_o(ImmExtD_o),
-
     .a0(a0),
-
     //HAZARD
     .Rs1D_o(Rs1D_o),
     .Rs2D_o(Rs2D_o)
@@ -172,7 +169,7 @@ D   D (
 
 //Pipeline register between D and E
 Pipeline_Regfile_DE Pipeline_Regfile_DE (
-    //INPUT
+    //INPUTS
     .clk(clk),
     .RegWriteD_i(RegWriteD_o),
     .ResultSrcD_i(ResultSrcD_o),
@@ -194,7 +191,7 @@ Pipeline_Regfile_DE Pipeline_Regfile_DE (
     //STALL
     .EN(Stall_E),
 
-    //OUTPUT
+    //OUTPUTS
     .RegWriteE_o(RegWriteE_o),
     .ResultSrcE_o(ResultSrcE_o),
     .MemWriteE_o(MemWriteE_o),
@@ -215,7 +212,7 @@ Pipeline_Regfile_DE Pipeline_Regfile_DE (
 
 //Execution pipeline stage
 E   E (
-    //INPUT
+    //INPUTS
     .JumpE_i(JumpE_o),
     .BranchE_i(BranchE_o),
     .ALUControlE_i(ALUControlE_o),
@@ -230,7 +227,7 @@ E   E (
     .ForwardAE(ForwardAE_o),
     .ForwardBE(ForwardBE_o),
 
-    //OUTPUT
+    //OUTPUTS
     .PCSrcE_o(PCSrcE_o),
     .ALUResultE_o(ALUResultE_o),
     .WriteDataE_o(WriteDataE_o),
@@ -239,7 +236,7 @@ E   E (
 
 //Pipeline register between E and M
 Pipeline_Regfile_EM Pipeline_Regfile_EM (
-    //INPUT
+    //INPUTS
     .clk(clk),
     .RegWriteE_i(RegWriteE_o),
     .ResultSrcE_i(ResultSrcE_o),
@@ -250,7 +247,8 @@ Pipeline_Regfile_EM Pipeline_Regfile_EM (
     .PCPlus4E_i(PCPlus4E_o),
     //STALL
     .EN(Stall_M),
-    //OUTPUT
+
+    //OUTPUTS
     .RegWriteM_o(RegWriteM_o),
     .ResultSrcM_o(ResultSrcM_o),
     .MemWriteM_o(MemWriteM_o),
@@ -263,20 +261,21 @@ Pipeline_Regfile_EM Pipeline_Regfile_EM (
 
 //Memory pipeline stage
 M_cache M_cache(
-    //INPUT
+    //INPUTS
     .clk(clk),
     .MemWriteM_i(MemWriteM_o),
     .ALUResultM_i(ALUResultM_o_2_m),
     .WriteDataM_i(WriteDataM_o),
     .EN(ResultSrcM_o[0]),
-    //OUTPUT
+
+    //OUTPUTS
     .ReadDataM_o(ReadDataM_o),
     .StallAllM_o(StallAllM_o)
 );
 
 //Pipeline register between M and W
 Pipeline_Regfile_MW Pipeline_Regfile_MW (
-    //INPUT
+    //INPUTS
     .clk(clk),
     .RegWriteM_i(RegWriteM_o),
     .ResultSrcM_i(ResultSrcM_o),
@@ -287,7 +286,7 @@ Pipeline_Regfile_MW Pipeline_Regfile_MW (
     //STALL
     .EN(Stall_W),
     
-    //OUTPUT
+    //OUTPUTS
     .RegWriteW_o(RegWriteW_o),
     .ResultSrcW_o(ResultSrcW_o),
     .ALUResultW_o(ALUResultW_o),
@@ -298,12 +297,13 @@ Pipeline_Regfile_MW Pipeline_Regfile_MW (
 
 //Write pipeline stage
 W   W (
-    //INPUT
+    //INPUTS
     .ResultSrcW_i(ResultSrcW_o),
     .ALUResultW_i(ALUResultW_o),
     .ReadDataW_i(ReadDataW_o),
     .PCPlus4W_i(PCPlus4W_o),
-    //OUTPUT
+
+    //OUTPUTS
     .ResultW_o(ResultW_o)
 );
 
@@ -330,13 +330,15 @@ Hazard Hazard (
     .ForwardAE_o(ForwardAE_o),
     .ForwardBE_o(ForwardBE_o)
 );
-// Stall unit
+
+//Stall unit
 Stall Stall(
-    //INPUT
+    //INPUTS
     .StallAllM_i(StallAllM_o),
     .StallF_i(StallF_o),
     .StallD_i(StallD_o),
-    //OUTPUT
+
+    //OUTPUTS
     .Stall_F(Stall_F),
     .Stall_D(Stall_D),
     .Stall_E(Stall_E),

@@ -1,12 +1,12 @@
 module cache (
-    //INPUT
+    //INPUTS
     input clk,
     input logic [2: 0]  WE,
     input logic [31: 0] A,
     input logic [31: 0] WriteDataCache_i,
     input logic EN,
 
-    //OUTPUT
+    //OUTPUTS
     output logic cache_hit,
     output logic [31: 0] ReadDataCache_o
 

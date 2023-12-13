@@ -41,9 +41,9 @@ always_comb begin // 4 input MUX
 end
 
 always_ff @ (posedge clk) begin
-    // STALL
-    if (~EN) PCF <= PCNextF;    // if ~EN is high (StallF is low), update PCF
-    else     PCF <= PCF;        // if ~EN is low (StallF is high), STALL
+    //STALL
+    if (~EN) PCF <= PCNextF;    //if ~EN is high (Stall_F is low), update PCF
+    else     PCF <= PCF;        //if ~EN is low (Stall_F is high), STALL
 end
 
 Instr_mem Instr_mem (

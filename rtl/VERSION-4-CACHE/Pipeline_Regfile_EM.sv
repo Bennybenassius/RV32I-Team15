@@ -10,7 +10,7 @@ module Pipeline_Regfile_EM (
     input logic [4: 0]      RdE_i,
     input logic [31:0]      PCPlus4E_i,
 
-    //stall
+    //STALL
     input logic             EN,           //Active low enable signal 
 
     //OUTPUTS
@@ -26,7 +26,7 @@ module Pipeline_Regfile_EM (
 );
 
 always_ff @(posedge clk) begin
-    if (~EN) begin
+    if (~EN) begin                        //if ~EN is high (Stall_M is low), update signals
         RegWriteM_o <= RegWriteE_i;
         ResultSrcM_o <= ResultSrcE_i;
         MemWriteM_o <= MemWriteE_i;
@@ -36,7 +36,7 @@ always_ff @(posedge clk) begin
         RdM_o <= RdE_i;
         PCPlus4M_o <= PCPlus4E_i;
     end
-    else begin
+    else begin                            //if ~EN is low (Stall_M is high), STALL
         RegWriteM_o <= RegWriteM_o;
         ResultSrcM_o <= ResultSrcM_o;
         MemWriteM_o <= MemWriteM_o;
