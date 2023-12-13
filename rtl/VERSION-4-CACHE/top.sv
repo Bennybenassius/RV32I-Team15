@@ -124,7 +124,7 @@ F   F(
 
 //Pipeline register between F and D
 Pipeline_Regfile_FD Pipeline_Regfile_FD (
-    //INPUTSS
+    //INPUTS
     .clk(clk),
     .InstrF_i(InstrF_o),
     .PCF_i(PCF_o),
