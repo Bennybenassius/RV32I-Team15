@@ -4,7 +4,7 @@ import string
 
 args = sys.argv
 #=============================parse_argument===========================================
-versions = ['VERSION-1-SINGLECYCLE', 'VERSION-2-PIPELINING', 'VERSION-3-HAZARDDETECTION']
+versions = ['VERSION-1-SINGLECYCLE', 'VERSION-2-PIPELINING', 'VERSION-3-HAZARDDETECTION', 'VERSION-4-CACHE']
 
 version = 'VERSION-1-SINGLECYCLE'
 assembly = 'test.s'
