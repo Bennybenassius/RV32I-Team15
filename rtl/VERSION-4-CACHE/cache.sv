@@ -1,7 +1,7 @@
 module cache (
     //INPUT
     input clk,
-    input logic [2: 1]  WE,
+    input logic [2: 0]  WE,
     input logic [31: 0] A,
     input logic [31: 0] WriteDataCache_i,
     input logic EN,
@@ -18,6 +18,8 @@ logic [2: 0] setNmb_pluse1;
 logic [1: 0] byte_setNmb;
 logic [26: 0] tag;
 logic           v;
+
+logic [31:0] byte_debug;
 always_comb begin
     v = cache_array[setNmb][59];
     setNmb = A[4: 2];
@@ -76,19 +78,19 @@ always_comb begin
         end
         3'b10:   begin  //lb
             case (byte_setNmb)
-                2'b00:  ReadDataCache_o <= {24*{cache_array[setNmb][7]}, cache_array[setNmb][7: 0]};
-                2'b01:  ReadDataCache_o <= {24*{cache_array[setNmb][15]}, cache_array[setNmb][15: 8]};
-                2'b10:  ReadDataCache_o <= {24*{cache_array[setNmb][23]}, cache_array[setNmb][23: 16]};
-                2'b11:  ReadDataCache_o <= {24*{cache_array[setNmb][31]}, cache_array[setNmb][31: 24]};
+                2'b00:  ReadDataCache_o = {{24{cache_array[setNmb][7]}}, cache_array[setNmb][7: 0]};
+                2'b01:  ReadDataCache_o = {{24{cache_array[setNmb][15]}}, cache_array[setNmb][15: 8]};
+                2'b10:  ReadDataCache_o = {{24{cache_array[setNmb][23]}}, cache_array[setNmb][23: 16]};
+                2'b11:  ReadDataCache_o = {{24{cache_array[setNmb][31]}}, cache_array[setNmb][31: 24]};
                 default:;
             endcase
         end
         3'b110:   begin //lbu
             case (byte_setNmb)
-                2'b00:  ReadDataCache_o <= {24'b0, cache_array[setNmb][7: 0]};
-                2'b01:  ReadDataCache_o <= {24'b0, cache_array[setNmb][15: 8]};
-                2'b10:  ReadDataCache_o <= {24'b0, cache_array[setNmb][23: 16]};
-                2'b11:  ReadDataCache_o <= {24'b0, cache_array[setNmb][31: 24]};
+                2'b00:  ReadDataCache_o = {24'b0, cache_array[setNmb][7: 0]};
+                2'b01:  ReadDataCache_o = {24'b0, cache_array[setNmb][15: 8]};
+                2'b10:  ReadDataCache_o = {24'b0, cache_array[setNmb][23: 16]};
+                2'b11:  ReadDataCache_o = {24'b0, cache_array[setNmb][31: 24]};
                 default:;
             endcase
         end
