@@ -268,6 +268,7 @@ M_cache M_cache(
     .MemWriteM_i(MemWriteM_o),
     .ALUResultM_i(ALUResultM_o_2_m),
     .WriteDataM_i(WriteDataM_o),
+    .EN(ResultSrcM_o[0]),
     //OUTPUT
     .ReadDataM_o(ReadDataM_o),
     .StallAllM_o(StallAllM_o)

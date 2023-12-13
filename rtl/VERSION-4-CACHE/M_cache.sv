@@ -4,6 +4,7 @@ module M_cache(
     input logic [2: 0]    MemWriteM_i,
     input logic [31:0]    ALUResultM_i,
     input logic [31:0]    WriteDataM_i,
+    input logic           EN,
 
     //OUTPUTS
     output logic [31:0]   ReadDataM_o,
@@ -25,7 +26,7 @@ Data_mem Data_mem(
 
     //OUTPUTS
     .RD(ReadData2Cache),
-    .mem_ready(mem_array)
+    .mem_ready(mem_ready)
 );
 
 cache cache(
@@ -34,6 +35,7 @@ cache cache(
     .WE(MemWriteM_i),
     .A(ALUResultM_i),
     .WriteDataCache_i(ReadData2Cache),
+    .EN(EN),
 
     //OUTPUT
     .cache_hit(cache_hit),
@@ -41,7 +43,10 @@ cache cache(
 );
 
 always_comb begin
-    StallAllM_o = ~ (mem_ready & cache_hit);
+    if (EN) begin
+        StallAllM_o = ~ (mem_ready && cache_hit);
+    end
+    else StallAllM_o = 0;
 end
 
 endmodule

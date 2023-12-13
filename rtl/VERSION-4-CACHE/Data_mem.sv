@@ -1,6 +1,6 @@
 //new data memery for cache
 module Data_mem #(
-    parameter ADDRESS_WIDTH = 20,           // total 2**5 number of address locations
+    parameter ADDRESS_WIDTH = 5,           // total 2**5 number of address locations
               DATA_WIDTH = 8                // each location has 1 byte data
 )(
     //INPUTS

@@ -1,7 +1,6 @@
 #include "Vtop.h"
 #include "verilated.h"
 #include "verilated_vcd_c.h"
-#include "vbuddy.cpp"
 
 #define MAX_SIM_CYC 100000
 
@@ -17,11 +16,6 @@ int main(int argc, char **argv, char **env) {
     Verilated::traceEverOn(true);
     top->trace (tfp,99);
     tfp->open("top.vcd");
-
-    //init vbuddy
-    if (vbdOpen()!=1) return(-1);
-    vbdHeader("RV32I CPU");
-    vbdSetMode(1);
 
     //init simulation inputs
     top->clk = 1;
@@ -44,9 +38,7 @@ int main(int argc, char **argv, char **env) {
         // vbdHex(4, (top->a0 >> 12) & 0xF);
 
         // F1 program output
-        top->trigger = vbdFlag();
-        vbdBar(top->a0 & 0xff);
-        vbdCycle(i);
+        top->trigger = 1;
         
         /* // reference program output
         if (i > 790000) {
@@ -59,7 +51,6 @@ int main(int argc, char **argv, char **env) {
         if (Verilated::gotFinish()) exit(0);
     }
 
-    vbdClose();
     tfp->close();
     exit(0);
 }
