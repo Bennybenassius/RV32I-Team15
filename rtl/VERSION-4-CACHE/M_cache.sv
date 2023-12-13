@@ -24,7 +24,7 @@ Data_mem Data_mem(
     .cache_hit(cache_hit),
 
     //OUTPUTS
-    .RD(ReadData2Cache)
+    .RD(ReadData2Cache),
     .mem_ready(mem_array)
 );
 

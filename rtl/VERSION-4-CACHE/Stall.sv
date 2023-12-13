@@ -13,7 +13,7 @@ module Stall (
 
 always_comb begin
     Stall_F = StallAllM_i | StallF_i;
-    Stall_D = StallAllD_i | StallD_i;
+    Stall_D = StallAllM_i | StallD_i;
     Stall_E = StallAllM_i;
     Stall_M = StallAllM_i;
     Stall_W = StallAllM_i;

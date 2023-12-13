@@ -262,7 +262,7 @@ Pipeline_Regfile_EM Pipeline_Regfile_EM (
 );
 
 //Memory pipeline stage
-M_cache(
+M_cache M_cache(
     //INPUT
     .clk(clk),
     .MemWriteM_i(MemWriteM_o),

@@ -1,17 +1,19 @@
 module cache (
+    //INPUT
     input clk,
     input logic [2: 1]  WE,
     input logic [31: 0] A,
     input logic [31: 0] WriteDataCache_i,
 
+    //OUTPUT
     output logic cache_hit,
-    output logic [31: 0] ReadDataCache_o,
+    output logic [31: 0] ReadDataCache_o
 
 );
 
 logic [59: 0] cache_array [7: 0];
 logic [2: 0] setNmb;
-logic [2: 0] next_setNmb;
+logic [2: 0] setNmb_pluse1;
 logic [1: 0] byte_setNmb;
 logic [26: 0] tag;
 
@@ -28,12 +30,12 @@ end
 
 // we do data replacement at negedge
 always_ff @( negedge clk ) begin
-    case (hit)
+    case (cache_hit)
         1'b1:   begin   //if hit do: replacement for set + 1
-            cache_array[setNmb_pluse1] = {1'b1,tag,WriteDataCache_i}
+            cache_array[setNmb_pluse1] = {1'b1,tag,WriteDataCache_i};
         end
         1'b0: begin     //if not hit do: replacememnt for current set
-            cache_array[setNmb] = {1'b1,tag,WriteDataCache_i}
+            cache_array[setNmb] = {1'b1,tag,WriteDataCache_i};
         end
         default:;
     endcase
@@ -43,7 +45,7 @@ end
 always_ff @( posedge clk ) begin
     case (WE)
         3'b01:   begin   //sw, if write memory, also write cache
-            cache_array[setNmb] <= {1'b1,tag,WriteDataCache_i}
+            cache_array[setNmb] <= {1'b1,tag,WriteDataCache_i};
         end
         3'b11:   begin  //sb, if write memory, also write cache
             case (byte_setNmb)
