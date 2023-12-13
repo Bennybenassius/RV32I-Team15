@@ -92,6 +92,15 @@ logic            FlushE_o;
 logic [1:0]      ForwardAE_o;
 logic [1:0]      ForwardBE_o;
 
+//CACHE
+logic           StallAllM_o;
+
+//Stall
+logic Stall_F;
+logic Stall_D;
+logic Stall_E;
+logic Stall_M;
+logic Stall_W;
 //==========================================
 //                  MODULES
 
@@ -104,7 +113,7 @@ F   F(
     .PCTargetE_i(PCTargetE_o),
     .ALUResultE_i(ALUResultE_o),
     //HAZARD
-    .EN(StallF_o),
+    .EN(Stall_F),
 
     //OUTPUTS
     .PCF_o(PCF_o),
@@ -121,7 +130,7 @@ Pipeline_Regfile_FD Pipeline_Regfile_FD (
     .PCF_i(PCF_o),
     .PCPlus4F_i(PCPlus4F_o),
     //HAZARD
-    .EN(StallD_o),
+    .EN(Stall_D),
     .CLR(FlushD_o),
 
     //OUTPUT
@@ -182,6 +191,8 @@ Pipeline_Regfile_DE Pipeline_Regfile_DE (
     .Rs1D_i(Rs1D_o),
     .Rs2D_i(Rs2D_o),
     .CLR(FlushE_o),
+    //STALL
+    .EN(Stall_E),
 
     //OUTPUT
     .RegWriteE_o(RegWriteE_o),
@@ -237,6 +248,8 @@ Pipeline_Regfile_EM Pipeline_Regfile_EM (
     .WriteDataE_i(WriteDataE_o),
     .RdE_i(RdE_o),
     .PCPlus4E_i(PCPlus4E_o),
+    //STALL
+    .EN(Stall_M),
     //OUTPUT
     .RegWriteM_o(RegWriteM_o),
     .ResultSrcM_o(ResultSrcM_o),
@@ -249,14 +262,15 @@ Pipeline_Regfile_EM Pipeline_Regfile_EM (
 );
 
 //Memory pipeline stage
-M   M (
+M_cache(
     //INPUT
     .clk(clk),
     .MemWriteM_i(MemWriteM_o),
     .ALUResultM_i(ALUResultM_o_2_m),
     .WriteDataM_i(WriteDataM_o),
     //OUTPUT
-    .ReadDataM_o(ReadDataM_o)
+    .ReadDataM_o(ReadDataM_o),
+    .StallAllM_o(StallAllM_o)
 );
 
 //Pipeline register between M and W
@@ -269,6 +283,9 @@ Pipeline_Regfile_MW Pipeline_Regfile_MW (
     .ReadDataM_i(ReadDataM_o),
     .RdM_i(RdM_o),
     .PCPlus4M_i(PCPlus4M_o),
+    //STALL
+    .EN(Stall_W),
+    
     //OUTPUT
     .RegWriteW_o(RegWriteW_o),
     .ResultSrcW_o(ResultSrcW_o),
@@ -311,6 +328,19 @@ Hazard Hazard (
     .FlushE_o(FlushE_o),
     .ForwardAE_o(ForwardAE_o),
     .ForwardBE_o(ForwardBE_o)
+);
+// Stall unit
+Stall Stall(
+    //INPUT
+    .StallAllM_i(StallAllM_o),
+    .StallF_i(StallF_o),
+    .StallD_i(StallD_o),
+    //OUTPUT
+    .Stall_F(Stall_F),
+    .Stall_D(Stall_D),
+    .Stall_E(Stall_E),
+    .Stall_M(Stall_M),
+    .Stall_W(Stall_W)
 );
 
 //==========================================
