@@ -10,6 +10,9 @@ module Pipeline_Regfile_EM (
     input logic [4: 0]      RdE_i,
     input logic [31:0]      PCPlus4E_i,
 
+    //stall
+    input logic             EN,           //Active low enable signal 
+
     //OUTPUTS
     output logic            RegWriteM_o,
     output logic [1: 0]     ResultSrcM_o,
@@ -23,14 +26,26 @@ module Pipeline_Regfile_EM (
 );
 
 always_ff @(posedge clk) begin
-    RegWriteM_o <= RegWriteE_i;
-    ResultSrcM_o <= ResultSrcE_i;
-    MemWriteM_o <= MemWriteE_i;
-    ALUResultM_o_2_m <= ALUResultE_i;
-    ALUResultM_o_2_r <= ALUResultE_i;
-    WriteDataM_o <= WriteDataE_i;
-    RdM_o <= RdE_i;
-    PCPlus4M_o <= PCPlus4E_i;
+    if (~EN) begin
+        RegWriteM_o <= RegWriteE_i;
+        ResultSrcM_o <= ResultSrcE_i;
+        MemWriteM_o <= MemWriteE_i;
+        ALUResultM_o_2_m <= ALUResultE_i;
+        ALUResultM_o_2_r <= ALUResultE_i;
+        WriteDataM_o <= WriteDataE_i;
+        RdM_o <= RdE_i;
+        PCPlus4M_o <= PCPlus4E_i;
+    end
+    else begin
+        RegWriteM_o <= RegWriteM_o;
+        ResultSrcM_o <= ResultSrcM_o;
+        MemWriteM_o <= MemWriteM_o;
+        ALUResultM_o_2_m <= ALUResultM_o_2_m;
+        ALUResultM_o_2_r <= ALUResultM_o_2_r;
+        WriteDataM_o <= WriteDataM_o;
+        RdM_o <= RdM_o;
+        PCPlus4M_o <= PCPlus4M_o;
+    end
 end
 
 endmodule

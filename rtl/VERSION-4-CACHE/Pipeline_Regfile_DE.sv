@@ -23,6 +23,9 @@ module Pipeline_Regfile_DE(
     //FLUSH
     input logic             CLR,          // synchronous reset/clear signal
 
+    //stall
+    input logic             EN,           //Active low enable signal 
+
     //OUTPUTS
     output logic            RegWriteE_o,
     output logic [1: 0]     ResultSrcE_o,
@@ -45,44 +48,65 @@ module Pipeline_Regfile_DE(
 );
 
 always_ff @(posedge clk) begin 
-    //FLUSH
-    if (CLR) begin                     // if CLR is high, FLUSH
-        RegWriteE_o <= 1'b0;
-        ResultSrcE_o <= 2'b0;
-        MemWriteE_o <= 3'b0;
-        JumpE_o <= 2'b0;
-        BranchE_o <= 1'b0;
-        ALUControlE_o <= 3'b0;
-        ALUSrcE_o <= 1'b0;
-        RD1E_o <= 32'b0;
-        RD2E_o <= 32'b0;
-        PCE_o <= 32'b0;
-        RdE_o <= 5'b0;
-        ImmExtE_o <= 32'b0;
-        PCPlus4E_o <= 32'b0;
+    if (~ EN) begin
+        //FLUSH
+        if (CLR) begin                     // if CLR is high, FLUSH
+            RegWriteE_o <= 1'b0;
+            ResultSrcE_o <= 2'b0;
+            MemWriteE_o <= 3'b0;
+            JumpE_o <= 2'b0;
+            BranchE_o <= 1'b0;
+            ALUControlE_o <= 3'b0;
+            ALUSrcE_o <= 1'b0;
+            RD1E_o <= 32'b0;
+            RD2E_o <= 32'b0;
+            PCE_o <= 32'b0;
+            RdE_o <= 5'b0;
+            ImmExtE_o <= 32'b0;
+            PCPlus4E_o <= 32'b0;
 
-        //FORWARDING
-        Rs1E_o <= 5'b0;
-        Rs2E_o <= 5'b0;
+            //FORWARDING
+            Rs1E_o <= 5'b0;
+            Rs2E_o <= 5'b0;
+        end
+        else begin                         // if CLR is low, update signals
+            RegWriteE_o <= RegWriteD_i;
+            ResultSrcE_o <= ResultSrcD_i;
+            MemWriteE_o <= MemWriteD_i;
+            JumpE_o <= JumpD_i;
+            BranchE_o <= BranchD_i;
+            ALUControlE_o <= ALUControlD_i;
+            ALUSrcE_o <= ALUSrcD_i;
+            RD1E_o <= RD1D_i;
+            RD2E_o <= RD2D_i;
+            PCE_o <= PCD_i;
+            RdE_o <= RdD_i;
+            ImmExtE_o <= ImmExtD_i;
+            PCPlus4E_o <= PCPlus4D_i;
+
+            //FORWARDING
+            Rs1E_o <= Rs1D_i;
+            Rs2E_o <= Rs2D_i;        
+        end
     end
-    else begin                         // if CLR is low, update signals
-        RegWriteE_o <= RegWriteD_i;
-        ResultSrcE_o <= ResultSrcD_i;
-        MemWriteE_o <= MemWriteD_i;
-        JumpE_o <= JumpD_i;
-        BranchE_o <= BranchD_i;
-        ALUControlE_o <= ALUControlD_i;
-        ALUSrcE_o <= ALUSrcD_i;
-        RD1E_o <= RD1D_i;
-        RD2E_o <= RD2D_i;
-        PCE_o <= PCD_i;
-        RdE_o <= RdD_i;
-        ImmExtE_o <= ImmExtD_i;
-        PCPlus4E_o <= PCPlus4D_i;
+    else begin
+        RegWriteE_o <= RegWriteE_o;
+        ResultSrcE_o <= ResultSrcE_o;
+        MemWriteE_o <= MemWriteE_o;
+        JumpE_o <= JumpE_o;
+        BranchE_o <= BranchE_o;
+        ALUControlE_o <= ALUControlE_o;
+        ALUSrcE_o <= ALUSrcE_o;
+        RD1E_o <= RD1E_o;
+        RD2E_o <= RD2E_o;
+        PCE_o <= PCE_o;
+        RdE_o <= RdE_o;
+        ImmExtE_o <= ImmExtE_o;
+        PCPlus4E_o <= PCPlus4E_o;
 
         //FORWARDING
-        Rs1E_o <= Rs1D_i;
-        Rs2E_o <= Rs2D_i;        
+        Rs1E_o <= Rs1E_o;
+        Rs2E_o <= Rs2E_o; 
     end
 end
 
