@@ -159,7 +159,7 @@ What `testit.py` dose is perity straigh forward.
 ### Reflection
 This project is a challenging but rewarding experience. It has significantly contributed to my growth as a student and aspiring engineer. 
 
-#### What I Learned:
+#### _What I Learned:
 
 **System Verilog Proficiency:**
 At the begining of the project, our code hardly compile at first time. The code used to comes with many syntax errors and typos. As the project proceed, we are able to write system verilog with more care, and made less mistakes in syntax errors and typos. Beyond the syntax and typos, this project also deepen my understanding of writing hardware instead of coding programs.
@@ -168,7 +168,7 @@ At the begining of the project, our code hardly compile at first time. The code 
 Through out this project. I gained valuable insights into instruction set architectures, pipeline stages and cache memory based on riscv. 
 Building the cpu from scratch providing me more than learning it from lecture. During the coding and debugging process, I gain more sense of how the riscv instruction set were come up with. Maybe some of my thinking process also happened in the people who participate the designe the risc-v.
 
-#### What I did well:
+#### _What I did well:
 
 **Documentation**
 During the project, I made documentation of what problem I met and what solution I try. It is really helpful for me to write the personal statement. And also track the change I made can avoide lead myself in to a loop.
@@ -176,7 +176,7 @@ During the project, I made documentation of what problem I met and what solution
 **Build tools**
 The `control table` and the `test_toolkit` are really useful eventually. Build tools that meet your own need turns out save much more time than the time you spend to build it. I will keep this habit for all the time.
 
-#### What I can improve:
+#### _What I can improve:
 **more visualizing**
 If we add more visualization to description of the project. we can help the reader to understand our design more quickly. And with visualization, we can also speed up our debug process.
 
