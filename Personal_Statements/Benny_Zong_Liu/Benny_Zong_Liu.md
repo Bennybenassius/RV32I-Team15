@@ -24,9 +24,9 @@ Lastly, I realised that the main reason why my groupmates and I were having trou
 
 ### Version 2: Pipelining
 
-I was responsible for creating the F-stage of the pipelining CPU. The planning and work division was done by Yueming Wang (@rrroooyyywang). Making the stage was a rather straightforward process since the underlying code was already done, and I just needed to correctly name the input and output of the new module according to the naming convention established. I also modified my `F1.s` to contain appropriate `nop` intructions to prevent data hazards when testing the program on the CPU. 
+I was responsible for creating the F-stage of the pipelining CPU. The planning and work division was done by **Yueming Wang** (@rrroooyyywang). Making the stage was a rather straightforward process since the underlying code was already done, and I just needed to correctly name the input and output of the new module according to the naming convention established. I also modified my `F1.s` to contain appropriate `nop` intructions to prevent data hazards when testing the program on the CPU. 
 
-Working with Deniz (@DenizzG), we linked together the relevant pipeline registers with my F-stage. There were some inconsistencies with the naming which were fixed with our regular meetup sessions that consolidated all changes. Me and **Adrian** also created the new `top.sv` top level file to tie together all the new modules (F, D, E, M and W). This was a tedious process where all signals bit lengths and module i/o needed to be identified and debugged. 
+Working with **Deniz** (@DenizzG), we linked together the relevant pipeline registers with my F-stage. There were some inconsistencies with the naming which were fixed with our regular meetup sessions that consolidated all changes. Me and **Adrian** (@adrianyk) also created the new `top.sv` top level file to tie together all the new modules (F, D, E, M and W). This was a tedious process where all signals bit lengths and module i/o needed to be identified and debugged. 
 
 Lastly, I worked together with **Adrian** to implement the additional logic needed to implement `JALR` and `JAL`. Since there is now an alternate source of `PC` from the `ALUResult` line. We solved this by simply applying a MUX to the signals and choosing the appropriate input to `PC` accordingly. By doing this, we eliminate the need for a complex logic gate design that would otherwise do the same thing.
 
@@ -84,27 +84,35 @@ I also wished that I had more finely spread out my commits so that it would be e
 *Note: some co-authoring commits has my wrong email and are thus do not appear in the thumbnail*
 
 #### Github commit list
-| Link Label | Commit ID |
+| Commit ID | Title |
 | --- | --- |
-| 1 | 57d934c001c7dc2e352b4107524a48f96c0dfd0c - ALU_tb.cpp |
-| 2 | 5df411bf2577158a17063475d5ca581c1b75c140 |
-| 3 | 583b7194fc3a339f3d5d8ab2e8ee801a32ded487 |
-| 4 | ac947c6af1baca64fbffbaf8802fa3818d9b032c |
-| 5 | 374ef6e617c396ee9108c29b0837f8187235bccc |
-| 6 | 90142baea7e55ca33bc4fa09f20e8da781e482b6 |
-| 7 | b9fe63291a632db5b4879c04be311d1da0ac57d0 |
-| 8 | a83f6df37b37a67f2618dafdb002c7759cd09b65 - branch at this point in time |
-| 9 | a83f6df37b37a67f2618dafdb002c7759cd09b65 - extend.sv |
-| 10 | 8c28c049dcc600c6b9c44c4b03577ac5279d2c71 |
-| 11 | 6ae5fc18cee93446964ce3ad045b3ec334266605 - top.sv |
-| 12 | 3fdee793342eb58524334bf9b30df2768d3b8d2b - top.sv |
-| 13 | cac18fe623ec26e5eca4c6bccd3f4279f1045904 |
-| 14 | ec5f69b54184b0f475f56ded2c19071fb2627128 |
-| 15 | 1a23d21faf1c1aac70a5ed8facdb83c39aab47b3 |
-| 16 | Cache branch readme |
-| 17 | 750bde6b8d7c206d772e9cf135408d1172da3f3d - direct_mapped_cache.sv |
-| 18 | 750bde6b8d7c206d772e9cf135408d1172da3f3d - two_way_associative_cache.sv |
-| 19 | df081640c1d045bd836ade11acea0297a3761f54 - readme.md |
-| 20 | 57d934c001c7dc2e352b4107524a48f96c0dfd0c - ALU.sv |
-| 21 | df081640c1d045bd836ade11acea0297a3761f54 - two_way_associative_cache.sv |
+| [81d6cef8ef1ca87939dee1f62ae211429395a692](https://github.com/Bennybenassius/RV32I-Team15/commit/81d6cef8ef1ca87939dee1f62ae211429395a692) | Created F1.s |
+| [26ba64df51b2bac84e8b8a82ee658b2ae104f7d4](https://github.com/Bennybenassius/RV32I-Team15/commit/26ba64df51b2bac84e8b8a82ee658b2ae104f7d4) | Updated F1.s |
+| [1993d6b1abb1ff0519c3066db4572a8598f90ab7](https://github.com/Bennybenassius/RV32I-Team15/commit/1993d6b1abb1ff0519c3066db4572a8598f90ab7) | Updated F1.s |
+| [36ca37b6ec411781250c424d5eac940c7b69c07d](https://github.com/Bennybenassius/RV32I-Team15/commit/36ca37b6ec411781250c424d5eac940c7b69c07d) | Added AND, XOR and SLL |
+| [bbe2a8085892999d98cf2fe8fb559f8d2729415b](https://github.com/Bennybenassius/RV32I-Team15/commit/bbe2a8085892999d98cf2fe8fb559f8d2729415b) | Fixed errors, typos and debugging |
+| [f0f0992137ad8596d186f7a658ab426641fe5774](https://github.com/Bennybenassius/RV32I-Team15/commit/f0f0992137ad8596d186f7a658ab426641fe5774) | Fixed branch and main compatibility |
+| [4362ac543d50e4f9d32a926f60fcc302bc6e7909](https://github.com/Bennybenassius/RV32I-Team15/commit/4362ac543d50e4f9d32a926f60fcc302bc6e7909) | Removed redundant F1.s |
+| [2c56f8acad64152603ebb4497dd9882c6ff66a36](https://github.com/Bennybenassius/RV32I-Team15/commit/2c56f8acad64152603ebb4497dd9882c6ff66a36) | Implemented new Instruction and bugfixes |
+| [917c912bc76730595913c7687cc06155839b48ca](https://github.com/Bennybenassius/RV32I-Team15/commit/917c912bc76730595913c7687cc06155839b48ca) | Bugfixes |
+| [dd6a23407aaa482821837e1b11120ab0159d350c](https://github.com/Bennybenassius/RV32I-Team15/commit/dd6a23407aaa482821837e1b11120ab0159d350c) | Added trigger |
+| [ba8fa2c6b2edef90ee970cc5bb88a9471f792773](https://github.com/Bennybenassius/RV32I-Team15/commit/ba8fa2c6b2edef90ee970cc5bb88a9471f792773) | Fixed syntax error and bugfixes |
+| [ee257eec0450f709ce0d36578ee73b7d6129ccea](https://github.com/Bennybenassius/RV32I-Team15/commit/ee257eec0450f709ce0d36578ee73b7d6129ccea) | Bugfixes |
+| [653d6882d9afe9cdc2be0016d5435da4f9083150](https://github.com/Bennybenassius/RV32I-Team15/commit/653d6882d9afe9cdc2be0016d5435da4f9083150) | Created F1_Pipeline.s |
+| [db6347c54ec27021e5af818d1bdb95635ba0d5dc](https://github.com/Bennybenassius/RV32I-Team15/commit/db6347c54ec27021e5af818d1bdb95635ba0d5dc) | Added F.sv |
+| [9f3de7aba4b43e6c1146895e57cda6f57365e1b2](https://github.com/Bennybenassius/RV32I-Team15/commit/9f3de7aba4b43e6c1146895e57cda6f57365e1b2) | redefined ZeroE: LSB encodes =, MSB encodes >/< |
+| [eeecb78410f4333d8dbf75e9f6fafd84c1e3ecd8](https://github.com/Bennybenassius/RV32I-Team15/commit/eeecb78410f4333d8dbf75e9f6fafd84c1e3ecd8) | made JumpD a 2 bit signal to distinguish no jump, JALR and JAL|
+| [fa4e1f676906864ff4ac5e4c0bbb76d2ce7972c3](https://github.com/Bennybenassius/RV32I-Team15/commit/fa4e1f676906864ff4ac5e4c0bbb76d2ce7972c3) | Changed implementation of PCSrcE to use case statment|
+| [c74a3e6dabc3d9c1d637ca66df8ce1fa3afdbd3a](https://github.com/Bennybenassius/RV32I-Team15/commit/c74a3e6dabc3d9c1d637ca66df8ce1fa3afdbd3a) | Changed top.sv to match pipelining |
+| [8ca9636892b0df3b45ff980385d61ca19d8ea707](https://github.com/Bennybenassius/RV32I-Team15/commit/8ca9636892b0df3b45ff980385d61ca19d8ea707) | added nops after all jump instructions |
+| [daef61d99678b4ef73518e54b6ecec1907f84cf7](https://github.com/Bennybenassius/RV32I-Team15/commit/daef61d99678b4ef73518e54b6ecec1907f84cf7) | modified branch instr case statements to distinguish between 4 branch instr |
+| [501b6628be92eefd15bbda953a5ff1711e54005b](https://github.com/Bennybenassius/RV32I-Team15/commit/501b6628be92eefd15bbda953a5ff1711e54005b) | removed pass-by signals, added case statements for PCSrcE (branch/jump)|
+| [dadb707da5bdd56c1499884ed98f1c25952eda25](https://github.com/Bennybenassius/RV32I-Team15/commit/dadb707da5bdd56c1499884ed98f1c25952eda25) | housekeeping (please check comment) |
+| [c3bbf9c179c77d65377717da43d61cb30a260af2](https://github.com/Bennybenassius/RV32I-Team15/commit/c3bbf9c179c77d65377717da43d61cb30a260af2) | Bugfixes of wrong bit length on i/o |
+| [928570ceb0ca642799eb9c4906818b0f6b4faa89](https://github.com/Bennybenassius/RV32I-Team15/commit/928570ceb0ca642799eb9c4906818b0f6b4faa89) | Fixed bug of SrcBE not assigning |
+| [532f1ec59343c826b306ff262924e9b07ba0396e](https://github.com/Bennybenassius/RV32I-Team15/commit/532f1ec59343c826b306ff262924e9b07ba0396e) | Fixed pipelining timing issue and F1.s |
+| [284d20f710b63daa13e27ddb1f45fa3b80a03421](https://github.com/Bennybenassius/RV32I-Team15/commit/284d20f710b63daa13e27ddb1f45fa3b80a03421) | Fixed typos |
+| [7fb46f7dae1d08b22ad08b5c6ffa6bdd188a9711](https://github.com/Bennybenassius/RV32I-Team15/commit/7fb46f7dae1d08b22ad08b5c6ffa6bdd188a9711) | Added stall and flush to hazard unit |
+| [d6f2a3d58655650e58c6d6e43a38b14a8610799d](https://github.com/Bennybenassius/RV32I-Team15/commit/d6f2a3d58655650e58c6d6e43a38b14a8610799d) | added EN and CLR to pipeline reg for FLUSH and STALL, text formatting |
+| [91b1d303d3b922a6c2bd78d93601d8c8c3a76d83](https://github.com/Bennybenassius/RV32I-Team15/commit/91b1d303d3b922a6c2bd78d93601d8c8c3a76d83) | Fixed pipelining Stall malfunction |
 
