@@ -17,6 +17,9 @@ Warning: Long sections of code are pasted as a PNG to make the file easier to re
 1.  *What I would do differently* 
 ## My Contributions
 ### Program Counter
+Relevant commits:
+1. ([Finalised program Counter](https://github.com/Bennybenassius/Team15/commit/fc7eaafcdb8e9d6bac1d57233fa4fb353c10b331))
+
 I made the Program Counter Module for Lab 4, and later made changes to use in the project. The initial design for the program counter included a simple counter that would increment by 1 unless reset was high, at which point the program counter would reset to 0.
 
 ```
@@ -58,6 +61,8 @@ Figure 3: PC implementation for Project
 For the project, we used a case statement as no we have 3 different cases for PCsrc. 2’b00 normally increments PC by 4, but 2’b01 is reserved for a PC jal and branch instruction while 2’b10 is reserved specifically for jalr instructions. So because we needed a more bits to implement this logic than seen on the original schematic, we decided to specifically implement this change as a case statement. This made the code more efficient and easier to interpret 
 
 ### ALU
+Relevant Commits:
+1. ([Coded all ALU instructions](https://github.com/Bennybenassius/Team15/commit/c58610ed2528410bc3fce4b7fc696907810fbb48))
 
 The ALU is responsible for carrying out the R-type 3 register instructions for the CPU. Although we only use half of the instructions in the final F1 program, I coded all of them in the final design of our ALU for redundancy, causing less logic errors.
 
@@ -77,6 +82,8 @@ Figure 6: Logic to determine Zero.
 Figure 6 shows the logic for determining Zero, a used to determine whether a branch operation should be carried out or not. Zero holds whether A is bigger than, smaller than, or equal to B. This is then fed back into the Control Unit to determine whether a branching instruction, like BEQ should occur. The specific design choice here is: (10) means A=B, (11) means A>B, (10) means A<B. We also check whether A and B are of the same sign. 
 
 ### Control Unit + Sign Extension Unit
+Relevant Commits:
+1. ([Changed Sign_extend and Control unit modules](https://github.com/Bennybenassius/RV32I-Team15/commit/5895c43a893cd140369e28dbdb8491b1f59d6d9f))
 
 The control unit determines the type of instruction that will be carried out. I coded the LUI instruction into the control unit and sign extension units. 
 
@@ -122,6 +129,15 @@ The LI (Load immediate) Instruction is a higher-level instruction that checks wh
 
 
 ### Pipelining
+Relevant Commits:
+1. ([Made MW register](https://github.com/Bennybenassius/RV32I-Team15/commit/5d1c3ebb14a7d3a6b7ec64d1ccadce7e13d7775a))
+2. ([Made DE register](https://github.com/Bennybenassius/RV32I-Team15/commit/94c376a43a1534fb81844a90df22f681c7bed1f4))
+3. ([Made E block](https://github.com/Bennybenassius/RV32I-Team15/commit/f290a309d4cdd12d132eae61b7642854c2dcfc9f4.))
+4. ([Fixed errors for E block](https://github.com/Bennybenassius/RV32I-Team15/commit/a000bea2ada34c9edd54793c7dd2777bab66605d))
+5. ([Made M block](https://github.com/Bennybenassius/RV32I-Team15/commit/b298aa4bddbc4cddf782b6f568bf72ca4d334dfc))
+6. ([Fixed name conflicts for E block](https://github.com/Bennybenassius/RV32I-Team15/commit/96da9f304c8ea7de5617dc9ec012f8c185fb235c))
+6. ([Fixed name conflicts for all pipeline stages](https://github.com/Bennybenassius/RV32I-Team15/commit/1d6713487790f5adb7bacead464e6286a1902681))
+7. ([Changed PCSrcE to use case statement](https://github.com/Bennybenassius/RV32I-Team15/commit/fa4e1f676906864ff4ac5e4c0bbb76d2ce7972c3))
 
 ![Alt text](Images/Fig12.PNG)
 Figure 12: Pipelining Split for CPU. 
@@ -153,7 +169,9 @@ Figure 13: Snippets of inputs, outputs and assign statements for DE (not all i/o
 Above, In figure 13 is an example of a register file implementation for the pipeline architecture. each input has an \_i and each output has an \_o suffix. This was done to differentiate the input and output signals when it comes to coding the top-level architecture for the pipeline register file. Without the \_i and \_o suffix’s the top-level program could have not only many human errors but also logic errors as wires would share the same names. Similar code was written for the other registers. 
 
 ![Alt text](Images/Fig14.PNG)
-Figure 14: E block
+
+Figure 14: E block ([Relevant Commit](https://github.com/Bennybenassius/RV32I-Team15/commit/fa4e1f676906864ff4ac5e4c0bbb76d2ce7972c3))
+
 
 Some blocks, like the E have logic that occurs inside. Here SrcBE is controlled by ALUSrcE, and determines whether the B input to the ALU is going to be RD2E or ImmExtE. 
 
@@ -223,6 +241,12 @@ The initial split happens depending on the value of BranchE\_i and JumpE\_i, at 
 JumpE\_i determines the type of branching instruction that is occurring out of the ones I specified above.
 
 ### Hazard Detection
+Relevant Commits:
+1. ([Added nops for all jump isntructions](https://github.com/Bennybenassius/RV32I-Team15/commit/8ca9636892b0df3b45ff980385d61ca19d8ea707))
+2. ([Implementad changes to D block for Forwarding](https://github.com/Bennybenassius/RV32I-Team15/commit/e9a91184ed52f562a98877a890998198301cd60c))
+3. ([Created Hazard Block template - to avoid merge conflicts](https://github.com/Bennybenassius/RV32I-Team15/commit/c07f112280e150fd5e912ec8a3b04ec7f42aa41f))
+4. ([Finalised forwarding- working](https://github.com/Bennybenassius/RV32I-Team15/commit/c4b376666e2a2a78ce0fbff55d0e69bc78ce84a7))
+
 
 ![Alt text](Images/Fig19.PNG)
 Figure 19: Hazard unit addition
@@ -296,7 +320,53 @@ Figure 24 shows the implementation of the forwarding multiplexers that determine
 ## What I learnt:
 ### Using Git 
 This project taught me how to use git. To make using git easier for myself, I created a comprehensive obsidian document related to any questions I had and all the commands I learnt to use listed below. Now I feel comfortable with using git and GitHub and contribute easily to team projects.
+```
+Cloning:
+1. git clone https://github.com/YourRepo.git
+2. For password, copy in Personal access token using right click
+
+Pulling: pulling changes once cloned
+1. git pull 
+2. git pull --rebase     //pulls with the rebase flag enabled 
+3. For password, copy in Personal access token using right click 
+
+Renaming repo:
+1. mv -r Lab3/ PC   (renames Lab3 --> PC)
+
+Moving repo:
+1. mv Lab3/ PC  (moves file Lab3 into file PC)
+
+Pushing to Github:
+1. git add .     //adds whole file coz of dot
+2. git commit -m "Program Counter-Deniz"     //makes local commit on PC
+3. git push origin (main)     //main being your branch you are working in
+
+Branching: Branching makes a copy of the current branch as it is onto the new branch (new                               changes made to that branch only affect branch not main)
+1. gig status     //checks that there are no commits to pull
+2. git branch    //shows all branches (if not all branches visible, do step 3)
+3. git checkout Data_mem (ie: name of branch)    //makes branch, moves you to specific branch,     can be used to,                                                   //show branch if it isn't showing
+ 
+Stash:  Stash does a simplex commit which saves your current files, 
+1. git stash 
+2. git stash drop    //if  stash then do stash drop you drop all temporary changes can pull easier
+3. git stash pop     //pops the stash off and puts the changes back
+4. git stash apply  //applies the stash but doesn't actually remove it 
+
+Restore: Discards and restores original changes that were made during working session
+1. git restore (file_name)    ex. git restore instruction_mem
+
+Remote repo: specifies which remote repository you push or pull to 
+1. git remote -v      //shows names of all remotes
+
+Rebase: rebasing  
+1. git rebase origin main       //do this while working in branch you would like to rebase 
+```
+
 ### Testing the ALU
+Relevant Commits:
+1. ([Testing ALU- Assembly code](https://github.com/Bennybenassius/RV32I-Team15/commit/1da91fcae1a443fe283ff7d44183bc47954dbabd)) 
+
+
 I further tested the ALU. This required me to learn to write system Verilog assembly code, use GTKwave and further get better at using Vbuddy to test the program I was running. The code I wrote to test all ALU instructions was exhaustive and covered every possible combination and errors. 
 
 ```
