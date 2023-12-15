@@ -6,7 +6,8 @@
 
 - write or modified your assembly code in file [test.s](test.s) in your working folder.
 - run command `python testit.py --version=1` for singlecycle
-- run command `python testit.py --version=2` for singlecycle
+- run command `python testit.py --version=2` for pipeline
+- etc.
 - or if you rename your test assembly flle in your working folder, run `python testit.py --version=1 --assembly=<your_file_name>`(do not include '<' and '>)
 ### Different from last usage
 - we do not copy and past all file in [./test_toolkit](../test_toolkit/) into rtl, instead we copy rtl folder into the [./test_toolkit](../test_toolkit/) (you should rename it) 
