@@ -2,20 +2,20 @@
 #### CID: 02061452, Github username: rrroooyyywang
 
 ---
-REMARK: all commit links in this personal statment are not the finalized version. But is the first time of the corresponding commit.
-### Inctroduction
+REMARK: all commit links in this personal statement are not the finalized version. But is the first time of the corresponding commit.
+### Introduction
 In this section I would like to describe my statement structure.
 
-During this project, our team work with each other closely and deliver jobs for each version evenly. So the focus of each person veries with versions. I fully participated and made contributions in every version. 
+During this project, our team work with each other closely and deliver jobs for each version evenly. So the focus of each person varies with versions. I fully participated and made contributions in every version. 
 
-Therefore, in this personal statment, I will satate my work for each of 4 versions and also my little invention, test_toolkit, in five sections. In each section, I will go into describe what I have done and what special there are. 
+Therefore, in this personal statement, I will state my work for each of 4 versions and also my little invention, test_toolkit, in five sections. In each section, I will go into describe what I have done and what special there are. 
 
 After that I will reflect what I have learn, what I did well and what I can improve.
 
 Last but not least, I will state what I would like to carry on to do that is inspired by this project.
-### VERSION-1-SINGLECYCLEx
+### VERSION-1-SINGLECYCLE
 
-Our version 1 single cycle cpu is basicly migrate from Lab4. In Lab4, I was in charge of doing the top level design, testbench and debugging in Lab4 and I carry on to do this in our version 1 cpu. In additional to that, I design our whole memory module ([commit](https://github.com/Bennybenassius/RV32I-Team15/commit/fcdafe012e920198a7db647a6029b93534b1e0e7)) and add lb, lbu, sw and sb instruction to our cpu ([commit](https://github.com/Bennybenassius/RV32I-Team15/commit/2c42a6b6437dea211124f82572efc7eeca4b28db) and [commit](https://github.com/Bennybenassius/RV32I-Team15/commit/928766b461871dd04d06114918e0d6aa370f263e)) (lw is done in lab 4). Furthermore, a special design on adding two more branch instruction(BLT and BGE) were implemented ([commit](https://github.com/Bennybenassius/RV32I-Team15/commit/4a73eff8d09d251c12b59fb19b9463b6521389cf)). This work is cooperate with **Adrian** (I code, he test).
+Our version 1 single cycle cpu is basically migrate from Lab4. In Lab4, I was in charge of doing the top level design, testbench and debugging in Lab4 and I carry on to do this in our version 1 cpu. In addition to that, I design our whole memory module ([commit](https://github.com/Bennybenassius/RV32I-Team15/commit/fcdafe012e920198a7db647a6029b93534b1e0e7)) and add lb, lbu, sw and sb instruction to our cpu ([commit](https://github.com/Bennybenassius/RV32I-Team15/commit/2c42a6b6437dea211124f82572efc7eeca4b28db) and [commit](https://github.com/Bennybenassius/RV32I-Team15/commit/928766b461871dd04d06114918e0d6aa370f263e)) (lw is done in lab 4). Furthermore, a special design on adding two more branch instruction(BLT and BGE) were implemented ([commit](https://github.com/Bennybenassius/RV32I-Team15/commit/4a73eff8d09d251c12b59fb19b9463b6521389cf)). This work is cooperate with **Adrian** (I code, he test).
 
 I also made two more non technical contribution to our group design. I suggested that our group can use do there job in seperate branch. So that people will not affect each other's work. Additional to that, I also come up with the idea of the control table (described in next part). 
 
@@ -45,25 +45,25 @@ The implementation is just similar to other branch instruction. But with 4 branc
 This result in some problem in version 2 pipelined cpu. I will discuss it later.
 
 **The second special design: the 'Control table'.**
-As we add more and more insturction in our cpu, the conrtol table provide us more clear view of what control unit dose so that it also reduce our risk or making mistakes in writing `Control_unit.sv`.
+As we add more and more instruction in our cpu, the control table provide us more clear view of what control unit dose so that it also reduce our risk or making mistakes in writing `Control_unit.sv`.
 
 ![control table](./images/control_table2.png)
 - The light blue part are input signals and its description. 
 - The deep blue part are output siganls for signle cycle cpu. 
 - The green section provide the meaning of output signals.
 
-#### _Chellenge & mistakes
+#### _Challenge & Mistakes
 
-During the version 1, we had found difficuality in merging different branches using git, as we are not familia with git. But as we spend more time on using git, we gain more understanding of git and we are all 'git masters'.
+During the version 1, we had found difficulty in merging different branches using git, as we are not familia with git. But as we spend more time on using git, we gain more understanding of git and we are all 'git masters'.
 
 Not many mistakes token in this version cpu.
 
 
 ### VERSION-2-PIPELINING
 
-During the job disctrbution section of our version 2 cpu, I come up with the idea that seperate our cpu in to F, D, E, M, W and the corespondent pipeline registers,  DE, EM, FD and MW. This decision allow us to see the cpu in different pipeline stages. And it also facilitate our debug stage. ![Pipeline_cpu_stage](./images/Pipeline_CPU_stages.JPG)
+During the job distribution section of our version 2 cpu, I come up with the idea that separate our cpu in to F, D, E, M, W and the correspondent pipeline registers,  DE, EM, FD and MW. This decision allow us to see the cpu in different pipeline stages. And it also facilitate our debug stage. ![Pipeline_cpu_stage](./images/Pipeline_CPU_stages.JPG)
 
-Noticed that, in the version 2, we nolonger have `ALU_RegFile.sv`, but instead, we seperate it into `D.sv`, `Pipeline_Regfile_DE.sv` and `E.sv` blocks.
+Notice that, in the version 2, we nolonger have `ALU_RegFile.sv`, but instead, we separate it into `D.sv`, `Pipeline_Regfile_DE.sv` and `E.sv` blocks.
 
 My job in version is to do the `D.sv` block and `W.sv` block ([commit](https://github.com/Bennybenassius/RV32I-Team15/commit/60884f0c821eb01dee52d6e993d639d7755c4c80) and [commit](https://github.com/Bennybenassius/RV32I-Team15/commit/0e8f98d1f33aa8df6e3c18b88d0f4e507e2ce65c)). And I also help with the design for the branch condition in `E.sv` block ([commit](https://github.com/Bennybenassius/RV32I-Team15/commit/501b6628be92eefd15bbda953a5ff1711e54005b)). And finnally I test and make it compile for debugging ([commit](https://github.com/Bennybenassius/RV32I-Team15/commit/9f436a8b758165c679d7f1865be627a54a97bd7b)).
 
@@ -71,30 +71,30 @@ During a discuess with **Benny** and **Adrian**, I point out the hazard coming f
 
 
 #### _Special Design
-**We desicde to use JumpE to distinguish BEQ and BLT for PCSrcE**
+**We decide to use JumpE to distinguish BEQ and BLT for PCSrcE**
 In version 2 and later versions, the instruction will not be pass to next pipeline stage. In order to decide a branch in `E` stage only the `JumpD` and and `BranchD` will be pass into the stage. However, if we only use 1 bit for each signal, we could not distinguish 2 jump instruction and 4 branch instruction. So we decided to add one more bit to the `Jump` signal. 
 
-However, for 2 bit branch, this enough to distinguish 2 jump instruction. But the 4 branch instruction are still not be distinguished.
+However, for 2 bit branch, this enough to distinguish 2 jump instructions. But the 4 branch instructions are still not be distinguished.
 
 Just like the case in following picture.
 ![wrong_pipline_control_table](./images/wrong_pipeline_control_table.png)
 
-Therefore, we decided to also use `Jump` siganl to distinguish these `BEQ` and `BNE` base on the priciple of minimalism.
+Therefore, we decided to also use `Jump` signal to distinguish these `BEQ` and `BNE` base on the priciple of minimalism.
 ![pipeline_control_table](./images/pipeline_control_table.JPG)
 
 And these tables are made during our discuession. If we do not do it in control table. We hardly find this problem straight away. Therefore, you can see that, control table is very useful in design process. 
 
 ### VERSION-3-HAZARDDETECTION
 
-In version 3, I only participate in debugging process. I point out a bug that is coming from lw/lb/lbu followed by add/addi that use same register. The debug process for this super long runtime program is not easy. And I come up with a new way to debug the code: adding 'Flag' in assembly code and display the 'Flag' status in runtime (add code to `top_tb.cpp`).
+In version 3, I only participate in debugging process. I point out a bug that is coming from lw/lb/lbu followed by add/addi that use same register. The debug process for this super long runtime program is not easy. And I come up with a new way to debug the code: adding 'Flag' in assembly code and display the 'Flag' status in runtime (added code to `top_tb.cpp`).
 
 #### _Special Design
 **Debug using 'Flag'**
 This special design is not for the cpu, but for our debug process.
 
-As I describe earlier, the reference assembly code `pdf.s` has reletively long runtime than other code we test with. As it will read out a very large data file. Therefore, we can not use gtkwave to see what happen during the runtime.
+As I describe earlier, the reference assembly code `pdf.s` has relatively long runtime than other code we test with. As it will read out a very large data file. Therefore, we can not use gtkwave to see what happen during the runtime.
 
-My method to solve this difficualty is to use `a0` register as a 'flag' and use `top_tb.cpp` to monitor the runtime.
+My method to solve this difficulty is to use `a0` register as a 'flag' and use `top_tb.cpp` to monitor the runtime.
 
 Here is how I do it.
 ![flag_in_assembly](./images/flag_in_assembly.png)
@@ -119,7 +119,7 @@ The cache I implement is a write-through direct map cache. With 8 sets and byte 
 
 #### _Special Designs
 
-**The special designe I made for our `cache.sv` module is that we can output our cache memory wihtin on clock cycle theoretically. Here is how it works.**
+**The special design I made for our `cache.sv` module is that we can output our cache memory wihtin on clock cycle theoretically. Here is how it works.**
 
 `cache.sv` module will always check if there is cache hit or there is cache miss when the instruction is using M block(to see if the instruction is using M block, we check `ResultSrcM_o`). The cache will do data correction when cache miss or data replacement when cache hit in one cycle. When cache hit, the data will be able to output within that clock cycle at falling edge. If cache missed, the main memory will noticed by the signa cache_hit and the main memory will pass correct data to cache at falling edge, and therefore, the correct cache output will be ready to next stage at next rising edge. With my design, even we meet cache missed, the data will still going to be ready at next cycle theoretically. But in actual case the main memory will always need more cycle to read out the data depend on what technology it use. I will discuess it later.
 
@@ -133,10 +133,10 @@ I add a self check policy in `Data_mem.sv`, which output a mem_ready signal. Whe
 
 And a `Stall.sv` block is add to top level. Which will stall every individual pipelining register when mem_ready or cache_hit is low.
 
-With these freatures, the main memory and cache will be able to do its own job in multiple clock cycle. So that the main memory speed will not affect our cpu clock frequency. which means we allows our clock run much faster.
+With these features, the main memory and cache will be able to do its own job in multiple clock cycle. So that the main memory speed will not affect our cpu clock frequency. which means we allows our clock run much faster.
 
 #### _Challenge & Mistakes
-The biggiest chellenge I met, is the microarchitecture design. The recomend testbook did not point it out clearly. And base on my research, cache design is very flexible. Therefore, I decide to come up with my own design, instead of base on others.
+The biggest challenge I met, is the microarchitecture design. The recomend testbook did not point it out clearly. And base on my research, cache design is very flexible. Therefore, I decide to come up with my own design, instead of base on others.
 
 The main mistake I made in this section are just some typos problems. And I sort it out very quickly.
 
@@ -154,7 +154,7 @@ What `testit.py` dose is perity straigh forward.
 - And secondly, it will copy and paste the source assembly code to `./src/myprog`. 
 - After that,  `testit.py` will output a command in terminal that make hex code in `./src/myprog` by runing `Makefile` in `./src` folder.
 - And then, the `testit.py` will copy the `.hex` file to the `Instr_mem.sv` and do the formatting. The specific `Instr_mem.sv` is sorted out in first stage.
-- Finnally, the program will do the specific `doit.sh`. It is also sorted out in first stage.
+- Finally, the program will do the specific `doit.sh`. It is also sorted out in first stage.
 
 ### Reflection
 This project is a challenging but rewarding experience. It has significantly contributed to my growth as a student and aspiring engineer. 
@@ -162,7 +162,7 @@ This project is a challenging but rewarding experience. It has significantly con
 #### What I Learned:
 
 **System Verilog Proficiency:**
-At the begining of the project, our code hardly compile at first time. The code used to comes with many syntax errors and typos. As the project proceed, we are able to write system verilog with more care, and made less mistakes in syntax errors and typos. Beyon the syntax and typos, this project also deepen my understanding of writing hardware instead of coding programs.
+At the begining of the project, our code hardly compile at first time. The code used to comes with many syntax errors and typos. As the project proceed, we are able to write system verilog with more care, and made less mistakes in syntax errors and typos. Beyond the syntax and typos, this project also deepen my understanding of writing hardware instead of coding programs.
 
 **Risc-v 32I Architecture**
 Through out this project. I gained valuable insights into instruction set architectures, pipeline stages and cache memory based on riscv. 
@@ -171,20 +171,20 @@ Building the cpu from scratch providing me more than learning it from lecture. D
 #### What I did well:
 
 **Documentation**
-During the project, I made documentation of what problem I met and what solution I try. It is realy helpful for me to write the personal statement. And also track the change I made can avoide lead myself in to a loop.
+During the project, I made documentation of what problem I met and what solution I try. It is really helpful for me to write the personal statement. And also track the change I made can avoide lead myself in to a loop.
 
 **Build tools**
-The `control table` and the `test_toolkit` are realy useful eventually. Build tools that meet your own need turns out save much more time than the time you spend to build it. I will keep this habit for all the time.
+The `control table` and the `test_toolkit` are really useful eventually. Build tools that meet your own need turns out save much more time than the time you spend to build it. I will keep this habit for all the time.
 
 #### What I can improve:
-**more visualising**
-If we add more visualization to dircription of the project. we can help the reader to understand our design more quickly. And with visualization, we can also speed up our debug process.
+**more visualizing**
+If we add more visualization to description of the project. we can help the reader to understand our design more quickly. And with visualization, we can also speed up our debug process.
 
 ### Future work
-During the debug processes. We would like to see if there are any routing issues. Having a visualized schematic will faclitate us very much. This imspired me to have a visualization for a set of system verilog files.
+During the debug processes. We would like to see if there are any routing issues. Having a visualized schematic will faclitate us very much. This inspired me to have a visualization for a set of system verilog files.
 
-But base on my research, some of the tools are not opensource. And some of the opensource project with visualizing freature did not do a great job, like **yosys**. I also looked into **ISSIE**, done by our department. Which allow us to specificied modules by using verilog and wire the module manually. But this appilication not provide us feature convert a set of system verilog files and convert it into a schematic.
+But base on my research, some of the tools are not opensource. And some of the opensource project with visualizing freature did not do a great job, like **yosys**. I also looked into **ISSIE**, done by our department. Which allow us to specificied modules by using verilog and wire the module manually. But this application not provide us feature convert a set of system verilog files and convert it into a schematic.
 
 Therefore, convert a set of system verilog files into schematics(visualization) and make it illustrate the data flow, will be my future work. And want to apply for **UROP** in 2024, and aim to do this during summer 2024.
 
-Beyon that, I also want the visualization tool can allow user do formatting by themselves. I will plan todo it as well.
+Beyond that, I also want the visualization tool can allow user do formatting by themselves. I will plan todo it as well.
