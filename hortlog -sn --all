@@ -1,0 +1,12 @@
+error: unknown option `--all.'
+usage: git shortlog [<options>] [<revision-range>] [[--] <path>...]
+   or: git log --pretty=short | git shortlog [<options>]
+
+    -c, --committer       group by committer rather than author
+    -n, --numbered        sort output according to the number of commits per author
+    -s, --summary         suppress commit descriptions, only provides commit count
+    -e, --email           show the email address of each author
+    -w[<w>[,<i1>[,<i2>]]]
+                          linewrap output
+    --group <field>       group by field
+
