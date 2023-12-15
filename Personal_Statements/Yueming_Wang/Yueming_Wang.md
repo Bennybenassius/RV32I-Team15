@@ -10,7 +10,7 @@ During this project, our team work with each other closely and deliver jobs for 
 
 Therefore, in this personal statment, I will satate my work for each of 4 versions and also my little invention, test_toolkit, in five sections. In each section, I will go into describe what I have done and what special there are. 
 
-After that I will conclude what I have learn and the enlightmemts I recieved during this project.
+After that I will reflect what I have learn, what I did well and what I can improve.
 
 Last but not least, I will state what I would like to carry on to do that is inspired by this project.
 ### VERSION-1-SINGLECYCLE
@@ -159,15 +159,35 @@ What `testit.py` dose is perity straigh forward.
 - And then, the `testit.py` will copy the `.hex` file to the `Instr_mem.sv` and do the formatting. The specific `Instr_mem.sv` is sorted out in first stage.
 - Finnally, the program will do the specific `doit.sh`. It is also sorted out in first stage.
 
-### Conclusion
-learn: 
-fully understand RV32I cpu
-working with git branch
+### Reflection
+This project is a challenging but rewarding experience. It has significantly contributed to my growth as a student and aspiring engineer. 
+
+#### What I Learned:
+
+**System Verilog Proficiency:**
+At the begining of the project, our code hardly compile at first time. The code used to comes with many syntax errors and typos. As the project proceed, we are able to write system verilog with more care, and made less mistakes in syntax errors and typos. Beyon the syntax and typos, this project also deepen my understanding of writing hardware instead of coding programs.
+
+**Risc-v 32I Architecture**
+Through out this project. I gained valuable insights into instruction set architectures, pipeline stages and cache memory based on riscv. 
+Building the cpu from scratch providing me more than learning it from lecture. During the coding and debugging process, I gain more sense of how the riscv instruction set were come up with. Maybe some of my thinking process also happened in the people who participate the designe the risc-v.
+
+#### What I did well:
+
+**Documentation**
+During the project, I made documentation of what problem I met and what solution I try. It is realy helpful for me to write the personal statement. And also track the change I made can avoide lead myself in to a loop.
+
+**Build tools**
+The `control table` and the `test_toolkit` are realy useful eventually. Build tools that meet your own need turns out save much more time than the time you spend to build it. I will keep this habit for all the time.
+
+#### What I can improve:
+**more visualising**
+If we add more visualization to dircription of the project. we can help the reader to understand our design more quickly. And with visualization, we can also speed up our debug process.
+
 ### Future work
 During the debug processes. We would like to see if there are any routing issues. Having a visualized schematic will faclitate us very much. This imspired me to have a visualization for a set of system verilog files.
 
-But base on my research, some of the tools are not opensource. And some of the opensource project with visualizing freature did not do a great job, like **yosys**. I also looked into **ISSIE**, done by our department. Which allow us to specificied modules by verilog and do the module manually. But which not provide us feature convert a set of system verilog files and convert it into a schematic.
+But base on my research, some of the tools are not opensource. And some of the opensource project with visualizing freature did not do a great job, like **yosys**. I also looked into **ISSIE**, done by our department. Which allow us to specificied modules by using verilog and wire the module manually. But this appilication not provide us feature convert a set of system verilog files and convert it into a schematic.
 
-Therefore, convert a set of system verilog files into schematics(visualization), will be my future work. And want to apply for **UROP** in 2024, and aim to do this during summer 2024.
+Therefore, convert a set of system verilog files into schematics(visualization) and make it illustrate the data flow, will be my future work. And want to apply for **UROP** in 2024, and aim to do this during summer 2024.
 
 Beyon that, I also want the visualization tool can allow user do formatting by themselves. I will plan todo it as well.
