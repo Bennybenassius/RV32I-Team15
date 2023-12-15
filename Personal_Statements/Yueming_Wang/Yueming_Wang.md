@@ -13,8 +13,7 @@ Therefore, in this personal statment, I will satate my work for each of 4 versio
 After that I will reflect what I have learn, what I did well and what I can improve.
 
 Last but not least, I will state what I would like to carry on to do that is inspired by this project.
-### VERSION-1-SINGLECYCLE
-top level design, memory design, more branch instruction, control table, debug
+### VERSION-1-SINGLECYCLEx
 
 Our version 1 single cycle cpu is basicly migrate from Lab4. In Lab4, I was in charge of doing the top level design, testbench and debugging in Lab4 and I carry on to do this in our version 1 cpu. In additional to that, I design our whole memory module ([commit](https://github.com/Bennybenassius/RV32I-Team15/commit/fcdafe012e920198a7db647a6029b93534b1e0e7)) and add lb, lbu, sw and sb instruction to our cpu ([commit](https://github.com/Bennybenassius/RV32I-Team15/commit/2c42a6b6437dea211124f82572efc7eeca4b28db) and [commit](https://github.com/Bennybenassius/RV32I-Team15/commit/928766b461871dd04d06114918e0d6aa370f263e)) (lw is done in lab 4). Furthermore, a special design on adding two more branch instruction(BLT and BGE) were implemented ([commit](https://github.com/Bennybenassius/RV32I-Team15/commit/4a73eff8d09d251c12b59fb19b9463b6521389cf)). This work is cooperate with **Adrian** (I code, he test).
 
@@ -61,7 +60,6 @@ Not many mistakes token in this version cpu.
 
 
 ### VERSION-2-PIPELINING
-ideal of F, D, E, M, W block; implement D, and W block. point out hazard form jal; debug
 
 During the job disctrbution section of our version 2 cpu, I come up with the idea that seperate our cpu in to F, D, E, M, W and the corespondent pipeline registers,  DE, EM, FD and MW. This decision allow us to see the cpu in different pipeline stages. And it also facilitate our debug stage. ![Pipeline_cpu_stage](./images/Pipeline_CPU_stages.JPG)
 
@@ -87,7 +85,6 @@ Therefore, we decided to also use `Jump` siganl to distinguish these `BEQ` and `
 And these tables are made during our discuession. If we do not do it in control table. We hardly find this problem straight away. Therefore, you can see that, control table is very useful in design process. 
 
 ### VERSION-3-HAZARDDETECTION
-debuging, long program debug, point out bug lw/lb/lbu followed by add/addi that use same register
 
 In version 3, I only participate in debugging process. I point out a bug that is coming from lw/lb/lbu followed by add/addi that use same register. The debug process for this super long runtime program is not easy. And I come up with a new way to debug the code: adding 'Flag' in assembly code and display the 'Flag' status in runtime (add code to `top_tb.cpp`).
 
