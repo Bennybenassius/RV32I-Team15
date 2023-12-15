@@ -129,7 +129,7 @@ Cache replacement police designed to accelearte reference program pdf.s is done 
 
 **Here are some special designe for our cache memory, so that if the modules are made by difference technology like SRAM and RAM, our clock cycle can base on SRAM.**
 
-I add a self check policy in `Data_mem.sv`, which output a mem_ready signal. When the cpu is doing a store instruction, the self chack part will always compare the current data stored in main memory with the input data that need to be write into main memory. If they are not the same (not fully store yet), the self check will always turn mem_ready low, which indecade that memory need more time to finish the load. The the self check also add to load instruction and it will allows the main memory address and output data if it need more clock cycle.
+I add a self check policy in `Data_mem.sv`, which output a mem_ready signal. When the cpu is doing a store instruction, the self chack part will always compare the current data stored in main memory with the input data that need to be write into main memory. If they are not the same (not fully store yet), the self check will always turn mem_ready low, which indecade that memory need more time to finish the load. The the self check also add to load instruction and it will allows the main memory to address and output data if it need more clock cycle.
 
 And a `Stall.sv` block is add to top level. Which will stall every individual pipelining register when mem_ready or cache_hit is low.
 
