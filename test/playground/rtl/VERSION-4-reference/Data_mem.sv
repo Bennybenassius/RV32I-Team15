@@ -35,16 +35,16 @@ end
 
 initial begin 
         // uncomment this section to run F1
-        // $display("Lodaing Data_mem.");
-        // $readmemh("Data.mem", mem_array);
-        // $display("Load finished.");
-        // $display("memory ready.");
-
-        // uncomment this section to run reference program
         $display("Lodaing Data_mem.");
-        $readmemh("Data.mem", mem_array, 20'h10000, 20'h1FFFF);
+        $readmemh("Data.mem", mem_array);
         $display("Load finished.");
         $display("memory ready.");
+
+        // uncomment this section to run reference program
+        // $display("Lodaing Data_mem.");
+        // $readmemh("Data.mem", mem_array, 20'h10000, 20'h1FFFF);
+        // $display("Load finished.");
+        // $display("memory ready.");
 end;
 
 /*synced write*/
@@ -72,14 +72,16 @@ always_ff @( posedge clk ) begin
     endcase
 end
 
-/*async read*/
-always_comb begin
+/*sync read*/
+always_ff @(negedge clk) begin
     case (WE[0])
         1'b0: begin//load
+            mem_ready <= 0;
             case (cache_hit)
                 1'b0:   RD = {mem_array[addr_2_cache + 3], mem_array[addr_2_cache + 2], mem_array[addr_2_cache + 1], mem_array[addr_2_cache]};
                 1'b1:   RD = {mem_array[addr_2_cache + 7], mem_array[addr_2_cache + 6], mem_array[addr_2_cache + 5], mem_array[addr_2_cache + 4]};
             endcase
+            mem_ready <= 1;
         end
         1'b1: begin//store
             RD = WD;
