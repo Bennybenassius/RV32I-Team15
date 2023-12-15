@@ -1,15 +1,29 @@
 # RV32I-Team15
 
 ## Contents:
-1. [Overview](#overview)
-	1. [Team Details](#team-details)
-	2. [Repo Organisation](#repo-organisation)
-2. [How our CPU works](#how-our-cpu-works)
-	1. [Version 1: Single cycle CPU](#version-1-single-cycle-cpu)
-	2. [Version 2: Pipelined CPU](#version-2-pipelined-cpu)
-	3. [Version 3: Hazard Detection](#version-3-hazard-detection)
-	4. [Version 4: Cache](#version-4-cache)
-3. [How to test our CPU](#how-to-test-our-cpu)
+- [RV32I-Team15](#rv32i-team15)
+	- [Contents:](#contents)
+- [Overview](#overview)
+	- [Team Details](#team-details)
+	- [Repo Organisation](#repo-organisation)
+		- [Personal Statements](#personal-statements)
+		- [rtl](#rtl)
+		- [test](#test)
+		- [test\_toolkit](#test_toolkit)
+- [How our CPU works](#how-our-cpu-works)
+	- [Version 1: Single cycle CPU](#version-1-single-cycle-cpu)
+		- [Making the CPU capable of running F1.s](#making-the-cpu-capable-of-running-f1s)
+		- [Expanding on the CPU to run pdf.s](#expanding-on-the-cpu-to-run-pdfs)
+	- [Version 2: Pipelined CPU](#version-2-pipelined-cpu)
+		- [Schematic Explained:](#schematic-explained)
+		- [Running F1 on our Pipelined CPU](#running-f1-on-our-pipelined-cpu)
+		- [Running Reference Program on our Pipelined CPU](#running-reference-program-on-our-pipelined-cpu)
+	- [Version 3: Hazard Detection](#version-3-hazard-detection)
+		- [Data Hazards (part 1)](#data-hazards-part-1)
+		- [Data Hazards (part 2)](#data-hazards-part-2)
+		- [Control Hazards](#control-hazards)
+	- [Version 4: Cache](#version-4-cache)
+- [How to test our CPU](#how-to-test-our-cpu)
 
 ---
 # Overview
@@ -198,7 +212,7 @@ The general process of how cache will work is shown below.
 
 In order to have the benefit of using cache, we need our clock cycle to be based on cache instead of the main memory. This is done by letting main memory do its own thing in multiple clock cycles. A self-check function was added in `Data_mem.sv`, which outputs a mem_ready signal. When the CPU is doing a store instruction, the self-check function will always compare the current data stored in main memory with the input data that needs to be written into main memory. If they are not the same (not fully stored yet), the self-check will always turn mem_ready low, which indicates that the main memory needs more time to fetch data. The self-check function was also added to the load instruction which gives the main memory more time to fetch the correct data.
 
-In order to give the memory stage more time to fetch data without affecting the pipeline structure, `Stall.sv` and `M_cache.sv` were added. `M_cache.sv` not only wired up `cache.sv` and `data_mem.sv`, but also outputs a `StallAll` signal which depends on the signals `cache_hit` and `mem_ready`. If any one of them is low, `StallAll` will be high. `Stall.sv` will receive the `StallAll` signal as well as the stall signals from the hazard unit (`StallF` and `StallD`), and it will decide whether to stall all or stall some of the pipelining registers or not stall any. 
+In order to give the memory stage more time to store and fetch data without affecting other pipeline stages, `Stall.sv` and `M_cache.sv` were added. `M_cache.sv` not only wired up `cache.sv` and `data_mem.sv`, but also outputs a `StallAll` signal which depends on the signals `cache_hit` and `mem_ready`. If any one of them is low, `StallAll` will be high. `Stall.sv` will receive the `StallAll` signal as well as the stall signals from the hazard unit (`StallF` and `StallD`), and it will decide whether to stall all or stall some of the pipelining registers or not stall any. 
   
 
 # How to test our CPU
