@@ -8,7 +8,7 @@
 | Control_unit.sv               |      M     |   C    |   C   |    C     |
 | D.sv                          |            |   C    |   C   |    M     |
 | Data_mem.sv                   |      C     |   C    |       |    M     |
-| E.sv                          |      C     |   C    |   M   |          |
+| E.sv                          |      C     |   C    |   M   |    C     |
 | F.sv                          |      C     |   M    |       |    C     |
 | Hazard.sv                     |      C     |   C    |   M   |          |
 | Instr_mem.sv                  |      M     |        |       |    M     |
