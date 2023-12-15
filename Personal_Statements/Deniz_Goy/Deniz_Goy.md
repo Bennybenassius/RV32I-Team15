@@ -17,6 +17,7 @@ Warning: Long sections of code are pasted as a PNG to make the file easier to re
 1.  *What I would do differently* 
 ## My Contributions
 ### Program Counter
+
 I made the Program Counter Module for Lab 4, and later made changes to use in the project. The initial design for the program counter included a simple counter that would increment by 1 unless reset was high, at which point the program counter would reset to 0.
 
 ```
