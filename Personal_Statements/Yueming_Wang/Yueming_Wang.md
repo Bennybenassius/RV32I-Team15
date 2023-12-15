@@ -86,7 +86,7 @@ And these tables are made during our discuession. If we do not do it in control 
 
 ### VERSION-3-HAZARDDETECTION
 
-In version 3, I only participate in debugging process. I point out a bug that is coming from lw/lb/lbu followed by add/addi that use same register. The debug process for this super long runtime program is not easy. And I come up with a new way to debug the code: adding 'Flag' in assembly code and display the 'Flag' status in runtime (added code to `top_tb.cpp`).
+In version 3, I only participate in debugging process. I point out a bug that is coming from lw/lb/lbu followed by add/addi that use same register. The debug process for this super long runtime program is not easy. And I come up with a new way to debug the code: adding 'Flag' in assembly code and display the 'Flag' status in runtime (added code to `top_tb.cpp`). (evdience: [commit](https://github.com/Bennybenassius/RV32I-Team15/commit/b265715d7e4ba73f626e6a231dfdebc7cf29025a))
 
 #### _Special Design
 **Debug using 'Flag'**
